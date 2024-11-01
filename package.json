@@ -64,7 +64,7 @@
     "@types/sortablejs": "^1.15.8",
     "all-contributors-cli": "^6.26.1",
     "babel-loader": "^9.2.1",
-    "commitizen": "^4.3.0",
+    "commitizen": "^4.3.1",
     "commitlint": "^19.5.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
