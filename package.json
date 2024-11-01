@@ -34,7 +34,7 @@
     "@fontsource/gantari": "^5.1.0",
     "@hookform/resolvers": "^3.9.0",
     "@sentry/nextjs": "^8.32.0",
-    "firebase": "^10.13.2",
+    "firebase": "^11.0.1",
     "framer-motion": "^11.9.0",
     "lodash-es": "^4.17.21",
     "nanoid": "^5.0.7",
