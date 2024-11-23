@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.16.19](https://github.com/agustinusnathaniel/spoker/compare/v1.16.18...v1.16.19) (2024-11-23)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#260](https://github.com/agustinusnathaniel/spoker/issues/260)) ([e0e4470](https://github.com/agustinusnathaniel/spoker/commit/e0e44706d1ff5a03ce6f7a53ef072d0fdc9d1c9b))
 
 ### [1.16.18](https://github.com/agustinusnathaniel/spoker/compare/v1.16.17...v1.16.18) (2024-10-01)
 
