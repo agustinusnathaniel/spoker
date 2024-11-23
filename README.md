@@ -45,7 +45,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://sznm.dev/"><img src="https://avatars.githubusercontent.com/u/17046154?v=4?s=72" width="72px;" alt=""/><br /><sub><b>Agustinus Nathaniel</b></sub></a><br /><a href="https://github.com/sozonome/spoker/commits?author=sozonome" title="Code">💻</a> <a href="https://github.com/sozonome/spoker/issues?q=author%3Asozonome" title="Bug reports">🐛</a> <a href="#design-sozonome" title="Design">🎨</a> <a href="#ideas-sozonome" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-sozonome" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-sozonome" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://agustinusnathaniel.com/"><img src="https://avatars.githubusercontent.com/u/17046154?v=4?s=72" width="72px;" alt="Agustinus Nathaniel"/><br /><sub><b>Agustinus Nathaniel</b></sub></a><br /><a href="https://github.com/agustinusnathaniel/spoker/commits?author=agustinusnathaniel" title="Code">💻</a> <a href="https://github.com/agustinusnathaniel/spoker/issues?q=author%3Aagustinusnathaniel" title="Bug reports">🐛</a> <a href="#design-agustinusnathaniel" title="Design">🎨</a> <a href="#ideas-agustinusnathaniel" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-agustinusnathaniel" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-agustinusnathaniel" title="Maintenance">🚧</a></td>
     </tr>
   </tbody>
 </table>
