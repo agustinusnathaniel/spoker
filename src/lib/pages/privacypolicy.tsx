@@ -5,13 +5,12 @@ import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 export const PrivacyPolicy = () => {
   return (
     <SpokerWrapperGrid gap={4}>
-      <Heading>Privacy Policy for spoker//sznm</Heading>
+      <Heading>Privacy Policy for spoker</Heading>
 
       <Text>
-        At spoker//sznm, accessible from spoker.sznm.dev, one of our main
-        priorities is the privacy of our visitors. This Privacy Policy document
-        contains types of information that is collected and recorded by
-        spoker//sznm and how we use it.
+        At spoker, accessible from spoker.dev, one of our main priorities is the
+        privacy of our visitors. This Privacy Policy document contains types of
+        information that is collected and recorded by spoker and how we use it.
       </Text>
 
       <Text>
@@ -22,9 +21,9 @@ export const PrivacyPolicy = () => {
       <Text>
         This Privacy Policy applies only to our online activities and is valid
         for visitors to our website with regards to the information that they
-        shared and/or collect in spoker//sznm. This policy is not applicable to
-        any information collected offline or via channels other than this
-        website. Our Privacy Policy was created with the help of the{' '}
+        shared and/or collect in spoker. This policy is not applicable to any
+        information collected offline or via channels other than this website.
+        Our Privacy Policy was created with the help of the{' '}
         <Link
           href="https://www.privacypolicyonline.com/privacy-policy-generator/"
           isExternal
@@ -86,7 +85,7 @@ export const PrivacyPolicy = () => {
       <Heading size="lg">Log Files</Heading>
 
       <Text>
-        {`spoker//sznm follows a standard procedure of using log files. These
+        {`spoker follows a standard procedure of using log files. These
         files log visitors when they visit websites. All hosting companies do
         this and a part of hosting services' analytics. The information
         collected by log files include internet protocol (IP) addresses, browser
@@ -102,13 +101,13 @@ export const PrivacyPolicy = () => {
 
       <Text>
         You may consult this list to find the Privacy Policy for each of the
-        advertising partners of spoker//sznm.
+        advertising partners of spoker.
       </Text>
 
       <Text>
         {`Third-party ad servers or ad networks uses technologies like cookies,
         JavaScript, or Web Beacons that are used in their respective
-        advertisements and links that appear on spoker//sznm, which are sent
+        advertisements and links that appear on spoker, which are sent
         directly to users' browser. They automatically receive your IP address
         when this occurs. These technologies are used to measure the
         effectiveness of their advertising campaigns and/or to personalize the
@@ -116,14 +115,14 @@ export const PrivacyPolicy = () => {
       </Text>
 
       <Text>
-        Note that spoker//sznm has no access to or control over these cookies
-        that are used by third-party advertisers.
+        Note that spoker has no access to or control over these cookies that are
+        used by third-party advertisers.
       </Text>
 
       <Heading size="lg">Third Party Privacy Policies</Heading>
 
       <Text>
-        {`spoker//sznm's Privacy Policy does not apply to other advertisers or
+        {`spoker's Privacy Policy does not apply to other advertisers or
         websites. Thus, we are advising you to consult the respective Privacy
         Policies of these third-party ad servers for more detailed information.
         It may include their practices and instructions about how to opt-out of
@@ -210,11 +209,11 @@ export const PrivacyPolicy = () => {
       </Text>
 
       <Text>
-        spoker//sznm does not knowingly collect any Personal Identifiable
-        Information from children under the age of 13. If you think that your
-        child provided this kind of information on our website, we strongly
-        encourage you to contact us immediately and we will do our best efforts
-        to promptly remove such information from our records.
+        spoker does not knowingly collect any Personal Identifiable Information
+        from children under the age of 13. If you think that your child provided
+        this kind of information on our website, we strongly encourage you to
+        contact us immediately and we will do our best efforts to promptly
+        remove such information from our records.
       </Text>
     </SpokerWrapperGrid>
   );

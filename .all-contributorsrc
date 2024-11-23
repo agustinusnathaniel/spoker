@@ -1,6 +1,6 @@
 {
   "projectName": "spoker",
-  "projectOwner": "sozonome",
+  "projectOwner": "agustinusnathaniel",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -11,10 +11,10 @@
   "commitConvention": "none",
   "contributors": [
     {
-      "login": "sozonome",
+      "login": "agustinusnathaniel",
       "name": "Agustinus Nathaniel",
       "avatar_url": "https://avatars.githubusercontent.com/u/17046154?v=4",
-      "profile": "https://sznm.dev/",
+      "profile": "https://agustinusnathaniel.com/",
       "contributions": [
         "code",
         "bug",

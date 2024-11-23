@@ -2,7 +2,7 @@
   "name": "spoker",
   "version": "1.16.18",
   "private": true,
-  "author": "sozonome",
+  "author": "agustinusnathaniel",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
@@ -80,7 +80,7 @@
     "typescript": "^5.6.3"
   },
   "repository": {
-    "url": "https://github.com/sozonome/spoker"
+    "url": "https://github.com/agustinusnathaniel/spoker"
   },
   "nextBundleAnalysis": {
     "budget": null,

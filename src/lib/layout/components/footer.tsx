@@ -6,8 +6,6 @@ import { packageInfo } from '~/lib/constants/package-info';
 import { EVENT_TYPE_LINK } from '~/lib/constants/tracking';
 import { trackEvent } from '~/lib/utils/trackEvent';
 
-import { SupportCTA } from './support/support-cta';
-
 export const Footer = () => {
   const handleClick = (eventName: string) => () => {
     trackEvent({
@@ -39,35 +37,37 @@ export const Footer = () => {
           2021 - {new Date().getFullYear()}
           {' | '}
           <Link
-            href="https://sznm.dev"
+            href="https://agustinusnathaniel.com"
             isExternal
-            onClick={handleClick('open sznm.dev')}
+            onClick={handleClick('open agustinusnathaniel.com')}
           >
-            sznm.dev
+            agustinusnathaniel.com
           </Link>
         </Text>
       </Flex>
 
-      <Flex marginLeft={{ md: 'auto' }} alignItems="center" gridGap={6}>
-        <SupportCTA />
-        <Flex justifyContent="center" alignItems="center" gap={2}>
-          <Link
-            href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
-            isExternal
-            onClick={handleClick('open repo changelog')}
-            fontSize="sm"
-            fontWeight="bold"
-          >
-            v{packageInfo.version}
-          </Link>
-          <Link
-            href={packageInfo.repository.url}
-            onClick={handleClick('open repository')}
-            isExternal
-          >
-            <RiGithubFill fontSize="2rem" />
-          </Link>
-        </Flex>
+      <Flex
+        marginLeft={{ md: 'auto' }}
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
+        <Link
+          href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
+          isExternal
+          onClick={handleClick('open repo changelog')}
+          fontSize="sm"
+          fontWeight="bold"
+        >
+          v{packageInfo.version}
+        </Link>
+        <Link
+          href={packageInfo.repository.url}
+          onClick={handleClick('open repository')}
+          isExternal
+        >
+          <RiGithubFill fontSize="2rem" />
+        </Link>
       </Flex>
     </Box>
   );

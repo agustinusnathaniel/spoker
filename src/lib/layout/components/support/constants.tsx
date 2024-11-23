@@ -11,7 +11,7 @@ type SponsorLink = {
 export const sponsorLinks: Array<SponsorLink> = [
   {
     label: 'Github Sponsor',
-    url: 'https://github.com/sponsors/sozonome',
+    url: 'https://github.com/sponsors/agustinusnathaniel',
     icon: <FaGithub />,
   },
   {
