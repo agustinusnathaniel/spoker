@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
-    "@emotion/react": "^11.13.3",
+    "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.0",
     "@fontsource/gabarito": "^5.1.0",
     "@fontsource/gantari": "^5.1.0",
