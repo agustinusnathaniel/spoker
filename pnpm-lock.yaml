@@ -18,8 +18,8 @@ importers:
         specifier: ^11.14.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
       '@fontsource/gabarito':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource/gantari':
         specifier: ^5.1.1
         version: 5.1.1
@@ -1107,8 +1107,8 @@ packages:
   '@firebase/webchannel-wrapper@1.0.3':
     resolution: {integrity: sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ==}
 
-  '@fontsource/gabarito@5.1.0':
-    resolution: {integrity: sha512-iz0anLrBxYyOjK3gq6pZ1VePhljhtgMALF77J5GjdvhEoNZSEnbExsR43tlLl3ph8ssG/XHsTLvOgftwFboJ5g==}
+  '@fontsource/gabarito@5.1.1':
+    resolution: {integrity: sha512-AI/oP06vNM60PJXH+A9eFSj7b5zolLU4zat8CVmwwjSRQv+ar34tNmUOZhE+DWdxoCKpzU1wG5BypBcavEiiLw==}
 
   '@fontsource/gantari@5.1.1':
     resolution: {integrity: sha512-WA7r5dSAHj1sEb38jddtg+4LVZvZ8eT0yn/4q/48QQ4LiuA5bBJe8T8n6K6VUJRFCQ0numoENxGNQSwN+I3XmQ==}
@@ -6664,7 +6664,7 @@ snapshots:
 
   '@firebase/webchannel-wrapper@1.0.3': {}
 
-  '@fontsource/gabarito@5.1.0': {}
+  '@fontsource/gabarito@5.1.1': {}
 
   '@fontsource/gantari@5.1.1': {}
 
