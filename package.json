@@ -30,7 +30,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@fontsource/gabarito": "^5.1.0",
+    "@fontsource/gabarito": "^5.1.1",
     "@fontsource/gantari": "^5.1.1",
     "@hookform/resolvers": "^3.9.1",
     "@sentry/nextjs": "^8.47.0",
