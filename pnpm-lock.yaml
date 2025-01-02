@@ -21,8 +21,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/gantari':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.54.2(react@18.3.1))
@@ -1110,8 +1110,8 @@ packages:
   '@fontsource/gabarito@5.1.0':
     resolution: {integrity: sha512-iz0anLrBxYyOjK3gq6pZ1VePhljhtgMALF77J5GjdvhEoNZSEnbExsR43tlLl3ph8ssG/XHsTLvOgftwFboJ5g==}
 
-  '@fontsource/gantari@5.1.0':
-    resolution: {integrity: sha512-zYcRivXfHTn25l1x5ie7RKQ8qSpebJxhwAldRXxPPTCE4V6/fyaQtTwmLrE2lFtTeoWvKEVo6yBGrwAHd6vAWQ==}
+  '@fontsource/gantari@5.1.1':
+    resolution: {integrity: sha512-WA7r5dSAHj1sEb38jddtg+4LVZvZ8eT0yn/4q/48QQ4LiuA5bBJe8T8n6K6VUJRFCQ0numoENxGNQSwN+I3XmQ==}
 
   '@grpc/grpc-js@1.9.15':
     resolution: {integrity: sha512-nqE7Hc0AzI+euzUwDAy0aY5hCp10r734gMGRdU+qOPX0XSceI2ULrcXB5U2xSc5VkWwalCj4M7GzCAygZl2KoQ==}
@@ -6666,7 +6666,7 @@ snapshots:
 
   '@fontsource/gabarito@5.1.0': {}
 
-  '@fontsource/gantari@5.1.0': {}
+  '@fontsource/gantari@5.1.1': {}
 
   '@grpc/grpc-js@1.9.15':
     dependencies:

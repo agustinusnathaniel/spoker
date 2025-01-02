@@ -31,7 +31,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/gabarito": "^5.1.0",
-    "@fontsource/gantari": "^5.1.0",
+    "@fontsource/gantari": "^5.1.1",
     "@hookform/resolvers": "^3.9.1",
     "@sentry/nextjs": "^8.47.0",
     "firebase": "^11.1.0",
