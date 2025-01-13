@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.16.21](https://github.com/agustinusnathaniel/spoker/compare/v1.16.20...v1.16.21) (2025-01-13)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#274](https://github.com/agustinusnathaniel/spoker/issues/274)) ([1c2ac74](https://github.com/agustinusnathaniel/spoker/commit/1c2ac7433265087f9fa60730d4dc65c27780b4f2))
+* **deps:** update all dependencies ([#281](https://github.com/agustinusnathaniel/spoker/issues/281)) ([43cb857](https://github.com/agustinusnathaniel/spoker/commit/43cb8575e004b1331f46ef90a0fbfc4b14b1eb6f))
+* **deps:** update dependency nanoid to v5.0.9 [security] ([#271](https://github.com/agustinusnathaniel/spoker/issues/271)) ([1514d18](https://github.com/agustinusnathaniel/spoker/commit/1514d18bcd2f7cca44d3b5f717da639cc868a73a))
+* **deps:** update dependency next to v14.2.15 [security] ([#272](https://github.com/agustinusnathaniel/spoker/issues/272)) ([5f02717](https://github.com/agustinusnathaniel/spoker/commit/5f02717378ca2f1393de13c5f5c4dc83ea0fe022))
+* **hall:** adjust join room button disabled condition ([be1fff5](https://github.com/agustinusnathaniel/spoker/commit/be1fff59ca0331f6aa43170d530bc9e63e8ceace))
+
 ## [1.16.20](https://github.com/agustinusnathaniel/spoker/compare/v1.16.19...v1.16.20) (2024-12-02)
 
 ## [1.16.19](https://github.com/agustinusnathaniel/spoker/compare/v1.16.18...v1.16.19) (2024-11-23)
