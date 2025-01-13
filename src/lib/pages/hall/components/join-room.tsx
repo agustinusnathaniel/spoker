@@ -40,9 +40,12 @@ export const JoinRoom = () => {
 
       <Button
         as={Link}
-        href={`/join/${roomId}`}
+        href={!isDisabled ? `/join/${roomId}` : '#'}
         isDisabled={isDisabled}
         alignSelf="flex-end"
+        style={{
+          pointerEvents: isDisabled ? 'none' : 'auto',
+        }}
       >
         Let Me in!
       </Button>
