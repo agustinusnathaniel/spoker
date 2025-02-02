@@ -59,7 +59,7 @@
     "@commitlint/types": "^19.5.0",
     "@jahed/firebase-rules": "^1.1.0",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.13.0",
     "@types/react": "^18.3.12",
     "@types/sortablejs": "^1.15.8",
     "all-contributors-cli": "^6.26.1",
