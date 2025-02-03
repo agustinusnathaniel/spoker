@@ -139,7 +139,7 @@ importers:
         specifier: ^5.43.6
         version: 5.43.6(@types/node@22.13.0)(typescript@5.7.3)
       lint-staged:
-        specifier: ^15.4.2
+        specifier: ^15.4.3
         version: 15.4.3
       next-sitemap:
         specifier: ^4.2.3
