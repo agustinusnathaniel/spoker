@@ -71,7 +71,7 @@
     "eslint-config-next": "^14.2.13",
     "eslint-config-sznm": "^2.0.4",
     "husky": "^9.1.7",
-    "knip": "^5.44.4",
+    "knip": "^5.45.0",
     "lint-staged": "^15.4.3",
     "next-sitemap": "^4.2.3",
     "prettier": "^3.5.1",
