@@ -33,7 +33,7 @@
     "@fontsource/gabarito": "^5.1.1",
     "@fontsource/gantari": "^5.1.1",
     "@hookform/resolvers": "^3.10.0",
-    "@sentry/nextjs": "^8.54.0",
+    "@sentry/nextjs": "^9.3.0",
     "firebase": "^11.3.1",
     "framer-motion": "^12.4.7",
     "lodash-es": "^4.17.21",
