@@ -2,17 +2,14 @@ import { useRouter } from 'next/router';
 
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { submitVote } from '~/lib/services/firebase/room/update/submit-vote';
-import { useAuth } from '~/lib/stores/auth';
-import { useRoomStore } from '~/lib/stores/room';
+import { useAuthStoreState } from '~/lib/stores/auth';
+import { useRoomStoreState } from '~/lib/stores/room';
 import type { PointEntry } from '~/lib/types/raw-db';
 
 export const useVote = () => {
   const router = useRouter();
-  const currentUser = useAuth((state) => state.currentUser);
-  const { roomData, users } = useRoomStore((state) => ({
-    roomData: state.roomData,
-    users: state.users,
-  }));
+  const { currentUser } = useAuthStoreState();
+  const { roomData, users } = useRoomStoreState();
   const { isOwner } = useUserRole();
 
   const {

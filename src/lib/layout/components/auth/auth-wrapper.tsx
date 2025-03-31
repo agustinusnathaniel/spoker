@@ -6,7 +6,7 @@ import * as React from 'react';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreState } from '~/lib/stores/auth';
 import { trackEvent } from '~/lib/utils/trackEvent';
 
 import { Login } from './login';
@@ -19,7 +19,7 @@ type AuthWrapperProps = {
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isRegistered, setIsRegistered] = React.useState<boolean>(true);
-  const currentUser = useAuth((state) => state.currentUser);
+  const { currentUser } = useAuthStoreState();
 
   const router = useRouter();
   const { pathname } = router;

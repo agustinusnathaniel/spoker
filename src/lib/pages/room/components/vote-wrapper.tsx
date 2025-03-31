@@ -5,16 +5,13 @@ import { SpokerRadioBox } from '~/lib/components/spoker-radio-box';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { updatePoint } from '~/lib/services/firebase/room/update/point';
-import { useAuth } from '~/lib/stores/auth';
-import { useRoomStore } from '~/lib/stores/room';
+import { useAuthStoreState } from '~/lib/stores/auth';
+import { useRoomStoreState } from '~/lib/stores/room';
 import { pointOptions } from '~/lib/types/room';
 
 export const VoteWrapper = () => {
-  const currentUser = useAuth((state) => state.currentUser);
-  const { roomData, showVote } = useRoomStore((state) => ({
-    roomData: state.roomData,
-    showVote: state.showVote,
-  }));
+  const { currentUser } = useAuthStoreState();
+  const { roomData, showVote } = useRoomStoreState();
   const { isOwner, isParticipant } = useUserRole();
   const router = useRouter();
   const {

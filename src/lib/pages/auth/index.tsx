@@ -4,14 +4,14 @@ import * as React from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { handleVerifyEmail } from '~/lib/services/firebase/auth/verify-email';
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreState } from '~/lib/stores/auth';
 import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
 
 export const Auth = () => {
   const router = useRouter();
   const { mode, oobCode } = router.query;
 
-  const currentUser = useAuth((state) => state.currentUser);
+  const { currentUser } = useAuthStoreState();
   const [isProcessed, setIsProcessed] = React.useState<boolean>(false);
   const toast = useToast();
 
