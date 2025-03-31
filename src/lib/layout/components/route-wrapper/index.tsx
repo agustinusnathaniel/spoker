@@ -5,7 +5,7 @@ import * as React from 'react';
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreState } from '~/lib/stores/auth';
 
 import { useAuthObserver } from './hooks';
 
@@ -18,7 +18,7 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const { pathname } = router;
   const { isLoadingAuth } = useAuthObserver();
 
-  const currentUser = useAuth((state) => state.currentUser);
+  const { currentUser } = useAuthStoreState();
   const [busy, setBusy] = React.useState<boolean>(false);
 
   const toast = useToast();

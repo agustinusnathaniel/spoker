@@ -53,12 +53,14 @@ export const UsersSection = () => {
       <Flex alignItems="center" justifyContent="center" wrap="wrap" gap={6}>
         {users.map((user) => (
           <Link
+            key={user.url}
             href={user.url}
             isExternal
             rel="noopener noreferrer"
             title={user.name}
           >
             <Image
+              alt={user.name}
               height="2.5rem"
               maxWidth={{ base: 32, md: 40 }}
               filter="grayscale(1)"

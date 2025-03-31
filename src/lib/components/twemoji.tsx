@@ -19,3 +19,5 @@ export const Twemoji = memo(({ emoji }: TwemojiProps) => {
     />
   );
 });
+
+Twemoji.displayName = 'Twemoji';

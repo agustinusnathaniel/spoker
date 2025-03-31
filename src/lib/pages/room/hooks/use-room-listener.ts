@@ -7,8 +7,8 @@ import { useUserRole } from '~/lib/hooks/use-user-role';
 import { roomsData } from '~/lib/services/firebase/room/common';
 import { rejoinRoom } from '~/lib/services/firebase/room/rejoin';
 import { disconnectUser } from '~/lib/services/firebase/room/update/disconnect-user';
-import { useAuth } from '~/lib/stores/auth';
-import { useRoomStore } from '~/lib/stores/room';
+import { useAuthStoreState } from '~/lib/stores/auth';
+import { useRoomStoreAction, useRoomStoreState } from '~/lib/stores/room';
 import type { RoomUser } from '~/lib/types/room';
 import {
   checkAllParticipantVoted,
@@ -19,20 +19,11 @@ export const useRoomListener = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const currentUser = useAuth((state) => state.currentUser);
-  const { roomData, inRoom } = useRoomStore((state) => ({
-    roomData: state.roomData,
-    inRoom: state.inRoom,
-  }));
+  const { currentUser } = useAuthStoreState();
+  const { roomData, inRoom } = useRoomStoreState();
   const { userRole } = useUserRole();
   const { setIsBusy, setShowVote, setRoomData, setUsers, setInRoom } =
-    useRoomStore((state) => ({
-      setIsBusy: state.setIsBusy,
-      setShowVote: state.setShowVote,
-      setRoomData: state.setRoomData,
-      setUsers: state.setUsers,
-      setInRoom: state.setInRoom,
-    }));
+    useRoomStoreAction();
 
   const {
     query: { id },

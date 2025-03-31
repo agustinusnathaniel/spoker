@@ -3,12 +3,11 @@ import * as React from 'react';
 import { useReward } from 'react-rewards';
 
 import { CURRENT_VOTE_WRAPPER_ID } from '~/lib/constants/wrapperkeys';
-import { useRoomStore } from '~/lib/stores/room';
+import { useRoomStoreState } from '~/lib/stores/room';
 
 export const useVoteListener = () => {
   const toast = useToast();
-  const roomData = useRoomStore((state) => state.roomData);
-  const showVote = useRoomStore((state) => state.showVote);
+  const { roomData, showVote } = useRoomStoreState();
   const { reward } = useReward(CURRENT_VOTE_WRAPPER_ID, 'confetti');
 
   React.useEffect(() => {
