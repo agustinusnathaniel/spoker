@@ -79,7 +79,6 @@ export const useRoomListener = () => {
   }, [getRoomData, toast]);
 
   React.useEffect(() => {
-    console.info({ roomData, currentUser, inRoom });
     if (roomData && currentUser && inRoom) {
       if (roomData.users?.[currentUser.uid]) {
         setIsBusy(false);
