@@ -2,8 +2,8 @@ import { Box, Grid } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 
 import { SpokerLoading } from '~/lib/components/spoker-loading';
-import { useAuth } from '~/lib/stores/auth';
-import { useRoomStore } from '~/lib/stores/room';
+import { useAuthStoreState } from '~/lib/stores/auth';
+import { useRoomStoreState } from '~/lib/stores/room';
 
 import { ControllerWrapper } from './components/controller-wrapper';
 import { CurrentVotesWrapper } from './components/current-votes-wrapper';
@@ -14,11 +14,8 @@ import { useRoomListener } from './hooks/use-room-listener';
 import { useVoteListener } from './hooks/use-vote-listener';
 
 export const RoomPage = () => {
-  const currentUser = useAuth((state) => state.currentUser);
-  const { isBusy, roomData } = useRoomStore((state) => ({
-    isBusy: state.isBusy,
-    roomData: state.roomData,
-  }));
+  const { currentUser } = useAuthStoreState();
+  const { isBusy, roomData } = useRoomStoreState();
 
   useRoomListener();
   useVoteListener();

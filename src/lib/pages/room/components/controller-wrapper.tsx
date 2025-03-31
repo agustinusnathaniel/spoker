@@ -14,10 +14,10 @@ import { BiLink, BiShareAlt } from 'react-icons/bi';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { clearPoints } from '~/lib/services/firebase/room/update/point/clear';
-import { useRoomStore } from '~/lib/stores/room';
+import { useRoomStoreState } from '~/lib/stores/room';
 
 export const ControllerWrapper = () => {
-  const users = useRoomStore((state) => state.users);
+  const { users } = useRoomStoreState();
   const { isOwner } = useUserRole();
   const router = useRouter();
   const {

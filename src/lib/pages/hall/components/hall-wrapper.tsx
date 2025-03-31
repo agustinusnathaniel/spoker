@@ -1,12 +1,12 @@
 import { Grid, Heading } from '@chakra-ui/react';
 
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreState } from '~/lib/stores/auth';
 
 import { CreateRoom } from './create-room';
 import { JoinRoom } from './join-room';
 
 export const HallWrapper = () => {
-  const displayName = useAuth((state) => state.displayName);
+  const { displayName } = useAuthStoreState();
 
   return (
     <Grid gap={12}>

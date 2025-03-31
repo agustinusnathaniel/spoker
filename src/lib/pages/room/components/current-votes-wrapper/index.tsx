@@ -21,8 +21,8 @@ import { hideLabelOptions } from '~/lib/constants/hide-label';
 import { CURRENT_VOTE_WRAPPER_ID } from '~/lib/constants/wrapperkeys';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { updateConfig } from '~/lib/services/firebase/room/update/room-config';
-import { useAuth } from '~/lib/stores/auth';
-import { useRoomStore } from '~/lib/stores/room';
+import { useAuthStoreState } from '~/lib/stores/auth';
+import { useRoomStoreState } from '~/lib/stores/room';
 import type { RoomConfig } from '~/lib/types/raw-db';
 import { pointOptions } from '~/lib/types/room';
 import { RoleType } from '~/lib/types/user';
@@ -36,12 +36,9 @@ export const CurrentVotesWrapper = () => {
     query: { id },
   } = router;
   const toast = useToast();
-  const currentUser = useAuth((state) => state.currentUser);
-  const { config, showVote, users } = useRoomStore((state) => ({
-    config: state.roomData?.config,
-    showVote: state.showVote,
-    users: state.users,
-  }));
+  const { currentUser } = useAuthStoreState();
+  const { roomData, showVote, users } = useRoomStoreState();
+  const config = roomData?.config;
   const { isOwner, isObservant } = useUserRole();
   const { averagePoint, highestPoint } = useRoomPoint();
   const { handleFinishVote } = useVote();

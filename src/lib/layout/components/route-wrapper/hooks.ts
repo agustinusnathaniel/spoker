@@ -5,13 +5,10 @@ import * as React from 'react';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { auth } from '~/lib/services/firebase/auth/common';
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreAction } from '~/lib/stores/auth';
 
 export const useAuthObserver = () => {
-  const [setCurrentUser, setDisplayName] = useAuth((state) => [
-    state.setCurrentUser,
-    state.setDisplayName,
-  ]);
+  const { setCurrentUser, setDisplayName } = useAuthStoreAction();
   const { pathname } = useRouter();
   const [busy, setBusy] = React.useState<boolean>(true);
   const isPublicRoute = React.useMemo(

@@ -13,12 +13,12 @@ import * as React from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { requestVerificationMail } from '~/lib/services/firebase/auth/request-verification-mail';
-import { useAuth } from '~/lib/stores/auth';
+import { useAuthStoreState } from '~/lib/stores/auth';
 
 import { HallWrapper } from './components/hall-wrapper';
 
 export const HallPage = () => {
-  const currentUser = useAuth((state) => state.currentUser);
+  const { currentUser } = useAuthStoreState();
   const [busy, setBusy] = React.useState<boolean>(true);
   const [isEmailVerified, setIsEmailVerified] = React.useState<boolean>(false);
   const toast = useToast();
