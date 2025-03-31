@@ -4,16 +4,16 @@ import { Box, useRadio } from '@chakra-ui/react';
 type SpokerRadioBoxProps = RadioProps;
 
 export const SpokerRadioBox = ({ children, ...props }: SpokerRadioBoxProps) => {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
+  const { getInputProps, getRadioProps } = useRadio(props);
 
   const input = getInputProps();
-  const checkbox = getCheckboxProps();
+  const radio = getRadioProps();
 
   return (
     <Box as="label">
       <input {...input} />
       <Box
-        {...checkbox}
+        {...radio}
         cursor="pointer"
         borderWidth="1px"
         borderRadius="xl"
