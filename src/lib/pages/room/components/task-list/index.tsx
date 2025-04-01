@@ -131,7 +131,7 @@ export const TaskList = () => {
       isValid: isEditStoryValid,
       isDirty: isEditStoryDirty,
     },
-  } = useForm<UpsertStoryForm>({
+  } = useForm({
     resolver: zodResolver(submitStoryFormValidationSchema),
     mode: 'onChange',
   });
