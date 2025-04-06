@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.16.23](https://github.com/agustinusnathaniel/spoker/compare/v1.16.22...v1.16.23) (2025-04-06)
+
+
+### Improvements
+
+* update hookform resolvers to v5 ([a041380](https://github.com/agustinusnathaniel/spoker/commit/a0413809d579e77486d2b29c71e2ab46a97513ab))
+
 ## [1.16.22](https://github.com/agustinusnathaniel/spoker/compare/v1.16.21...v1.16.22) (2025-03-31)
 
 
