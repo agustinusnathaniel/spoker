@@ -74,7 +74,7 @@
     "commitizen": "^4.3.1",
     "commitlint": "^19.8.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.1",
+    "eslint": "^9.24.0",
     "eslint-config-next": "^15.2.4",
     "husky": "^9.1.7",
     "knip": "^5.47.0",

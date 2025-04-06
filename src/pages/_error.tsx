@@ -25,7 +25,6 @@ const CustomErrorComponent = (props: any) => {
   // compensate for https://github.com/vercel/next.js/issues/8592
   // Sentry.captureUnderscoreErrorException(props);
 
-  // eslint-disable-next-line react/destructuring-assignment
   return <NextErrorComponent statusCode={props.statusCode} />;
 };
 
