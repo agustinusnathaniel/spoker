@@ -1,10 +1,8 @@
 import * as Sentry from '@sentry/nextjs';
 
 const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
-// eslint-disable-next-line prefer-destructuring
 const APP_ENV = process.env.APP_ENV;
 
-// eslint-disable-next-line import/prefer-default-export
 export function register() {
   if (process.env.NODE_ENV === 'development') {
     return;

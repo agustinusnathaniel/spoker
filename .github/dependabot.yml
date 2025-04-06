@@ -7,3 +7,6 @@ updates:
     target-branch: "dev"
     labels:
       - "dependencies"
+    ignore:
+      - dependency-name: "@chakra-ui/react"
+        versions: [">=3.0.0"]

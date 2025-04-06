@@ -1,13 +1,21 @@
 {
   "name": "spoker",
-  "version": "1.16.22",
+  "version": "1.16.23",
   "private": true,
   "author": "agustinusnathaniel",
+  "engines": {
+    "node": ">=22.11.x",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.7.1",
+  "pnpm": {
+    "neverBuiltDependencies": []
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
-    "turbo": "pnpm dlx turbo@2.0.9",
+    "turbo": "pnpm dlx turbo@2.5.0",
     "build:turbo": "pnpm turbo build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
@@ -32,10 +40,10 @@
     "@emotion/styled": "^11.14.0",
     "@fontsource/gabarito": "^5.2.5",
     "@fontsource/gantari": "^5.2.5",
-    "@hookform/resolvers": "^3.10.0",
-    "@sentry/nextjs": "^9.10.1",
-    "firebase": "^11.5.0",
-    "framer-motion": "^12.6.2",
+    "@hookform/resolvers": "^5.0.1",
+    "@sentry/nextjs": "^9.11.0",
+    "firebase": "^11.6.0",
+    "framer-motion": "^12.6.3",
     "lodash-es": "^4.17.21",
     "nanoid": "^5.1.5",
     "next": "^15.2.0",
@@ -59,23 +67,23 @@
     "@commitlint/types": "^19.8.0",
     "@jahed/firebase-rules": "^1.1.0",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.13.14",
-    "@types/react": "^19.0.12",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
     "@types/sortablejs": "^1.15.8",
     "all-contributors-cli": "^6.26.1",
     "commitizen": "^4.3.1",
     "commitlint": "^19.8.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.1",
+    "eslint": "^9.24.0",
     "eslint-config-next": "^15.2.4",
     "husky": "^9.1.7",
-    "knip": "^5.46.4",
+    "knip": "^5.47.0",
     "lint-staged": "^15.5.0",
     "next-sitemap": "^4.2.3",
     "prettier": "^3.5.3",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "repository": {
     "url": "https://github.com/agustinusnathaniel/spoker"
@@ -84,10 +92,5 @@
     "budget": null,
     "budgetPercentIncreaseRed": 20,
     "showDetails": true
-  },
-  "engines": {
-    "node": ">=20.x",
-    "pnpm": ">=9"
-  },
-  "packageManager": "pnpm@9.1.2"
+  }
 }
