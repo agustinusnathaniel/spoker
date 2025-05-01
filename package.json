@@ -51,7 +51,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-fast-compare": "^3.2.2",
-    "react-hook-form": "^7.55.0",
+    "react-hook-form": "^7.56.1",
     "react-icons": "^5.5.0",
     "react-rewards": "^2.1.0",
     "react-sortablejs": "^6.1.4",
