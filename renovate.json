@@ -13,7 +13,6 @@
   "schedule": [
     "before 1am on Monday"
   ],
-  "platform": "github",
   "baseBranches": [
     "dev"
   ],
