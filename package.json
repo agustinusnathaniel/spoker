@@ -64,7 +64,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.0",
     "@commitlint/cz-commitlint": "^19.8.0",
-    "@commitlint/types": "^19.8.0",
+    "@commitlint/types": "^19.8.1",
     "@jahed/firebase-rules": "^1.1.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.15.3",
