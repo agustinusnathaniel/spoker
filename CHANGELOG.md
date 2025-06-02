@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.16.25](https://github.com/agustinusnathaniel/spoker/compare/v1.16.24...v1.16.25) (2025-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#322](https://github.com/agustinusnathaniel/spoker/issues/322)) ([2dad272](https://github.com/agustinusnathaniel/spoker/commit/2dad272ce9f74dbd8eaa4049baedf9bcb857c45b))
+
 ## [1.16.24](https://github.com/agustinusnathaniel/spoker/compare/v1.16.23...v1.16.24) (2025-05-13)
 
 
