@@ -93,6 +93,9 @@ importers:
       '@commitlint/types':
         specifier: ^19.8.1
         version: 19.8.1
+      '@eslint/eslintrc':
+        specifier: ^3.3.1
+        version: 3.3.1
       '@jahed/firebase-rules':
         specifier: ^1.1.0
         version: 1.1.0
