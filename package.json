@@ -59,7 +59,7 @@
     "sortablejs": "^1.15.6",
     "twemoji": "14.0.2",
     "zod": "^3.25.74",
-    "zustand": "^5.0.6"
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
