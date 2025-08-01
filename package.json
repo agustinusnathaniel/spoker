@@ -58,7 +58,7 @@
     "react-textarea-autosize": "^8.5.9",
     "sortablejs": "^1.15.6",
     "twemoji": "14.0.2",
-    "zod": "^3.25.74",
+    "zod": "^4.0.14",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
