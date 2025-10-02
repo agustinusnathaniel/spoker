@@ -40,7 +40,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/gabarito": "^5.2.6",
     "@fontsource/gantari": "^5.2.6",
-    "@hookform/resolvers": "^5.2.1",
+    "@hookform/resolvers": "^5.2.2",
     "@sentry/nextjs": "^9.42.0",
     "firebase": "^12.2.1",
     "framer-motion": "^12.23.12",
