@@ -79,7 +79,7 @@
     "eslint-config-next": "^15.5.2",
     "husky": "^9.1.7",
     "knip": "^5.63.1",
-    "lint-staged": "^16.1.6",
+    "lint-staged": "^16.2.3",
     "next-sitemap": "^4.2.3",
     "prettier": "^3.6.2",
     "standard-version": "^9.5.0",
