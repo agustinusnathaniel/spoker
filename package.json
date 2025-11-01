@@ -76,7 +76,7 @@
     "commitlint": "^19.8.1",
     "cross-env": "^10.1.0",
     "eslint": "^9.37.0",
-    "eslint-config-next": "^15.5.4",
+    "eslint-config-next": "^16.0.1",
     "husky": "^9.1.7",
     "knip": "^5.64.3",
     "lint-staged": "^16.2.3",
