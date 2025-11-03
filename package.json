@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
-    "@commitlint/cz-commitlint": "^19.8.1",
+    "@commitlint/cz-commitlint": "^20.1.0",
     "@commitlint/types": "^19.8.1",
     "@eslint/eslintrc": "^3.3.1",
     "@jahed/firebase-rules": "^1.1.0",
