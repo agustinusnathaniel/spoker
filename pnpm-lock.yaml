@@ -97,8 +97,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       '@jahed/firebase-rules':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^2.1.1
+        version: 2.1.1
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -903,8 +903,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@jahed/firebase-rules@1.1.0':
-    resolution: {integrity: sha512-wAu+aDzlHuwdrpPKnjUFWuh2n6MV5A7fboCL8lqDtjPeYqFeJWeyjEGohrAXDLtLQH5r8HWx7aSkRIa1SoRCRg==}
+  '@jahed/firebase-rules@2.1.1':
+    resolution: {integrity: sha512-AyngSQBWC/2jmKwKJJtyAA/o0lzaafJBZjF9blxhcjV6EIcT0lwyZPoy6/v8yvVsg6VfN7EskaumICktx/Q+WQ==}
+    engines: {node: '>=22.11.0'}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -5966,7 +5967,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.4':
     optional: true
 
-  '@jahed/firebase-rules@1.1.0': {}
+  '@jahed/firebase-rules@2.1.1': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -6755,6 +6756,10 @@ snapshots:
   '@types/mysql@2.15.27':
     dependencies:
       '@types/node': 24.10.0
+
+  '@types/node@24.10.0':
+    dependencies:
+      undici-types: 7.16.0
 
   '@types/node@24.10.0':
     dependencies:
