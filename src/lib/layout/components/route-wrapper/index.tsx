@@ -25,11 +25,11 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
 
   const isPublicRoute = React.useMemo(
     () => PUBLIC_ROUTES.includes(pathname),
-    [pathname]
+    [pathname],
   );
   const isRestrictedRoute = React.useMemo(
     () => RESTRICTED_ROUTES.includes(pathname),
-    [pathname]
+    [pathname],
   );
 
   const isNotVerified = React.useMemo(
@@ -39,7 +39,7 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
       pathname !== '/' &&
       !isPublicRoute &&
       !isRestrictedRoute,
-    [currentUser, isPublicRoute, isRestrictedRoute, pathname]
+    [currentUser, isPublicRoute, isRestrictedRoute, pathname],
   );
 
   const routeCheck = React.useCallback(() => {
@@ -70,9 +70,9 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
     setBusy(false);
   }, [currentUser, isNotVerified, isRestrictedRoute, router, toast]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: -
   React.useEffect(() => {
     routeCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, currentUser]);
 
   if (busy || isLoadingAuth) {

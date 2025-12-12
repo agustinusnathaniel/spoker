@@ -11,11 +11,11 @@ export const SignInProviders = () => {
     await loginWithGoogle();
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: -
   useEffect(() => {
     return () => {
       toast.closeAll();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

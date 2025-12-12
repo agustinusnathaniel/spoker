@@ -10,7 +10,7 @@ export const useUserRole = () => {
 
   const userRole = React.useMemo(
     () => currentUser && roomData?.users?.[currentUser.uid]?.role,
-    [currentUser, roomData?.users]
+    [currentUser, roomData?.users],
   );
 
   const isParticipant = userRole === RoleType.participant;

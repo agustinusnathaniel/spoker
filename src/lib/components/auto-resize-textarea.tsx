@@ -5,11 +5,11 @@ import type {
   TextareaProps,
 } from '@chakra-ui/react';
 import {
+  FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   forwardRef,
-  FormControl,
   Textarea,
 } from '@chakra-ui/react';
 import ResizeTextarea from 'react-textarea-autosize';
@@ -36,7 +36,7 @@ export const AutoResizeTextarea = forwardRef(
       helperText,
       ...props
     }: AutoResizeTextareaProps,
-    ref
+    ref,
   ) => {
     return (
       <FormControl isInvalid={isInvalid}>
@@ -60,5 +60,5 @@ export const AutoResizeTextarea = forwardRef(
         )}
       </FormControl>
     );
-  }
+  },
 );

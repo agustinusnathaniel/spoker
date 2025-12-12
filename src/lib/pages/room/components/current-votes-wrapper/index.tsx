@@ -13,8 +13,6 @@ import {
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
-import { PointWrapper } from '../point-wrapper';
-import { pointTextColor, pointTextSize } from '../utils';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import type { HideLabelOptionsType } from '~/lib/constants/hide-label';
 import { hideLabelOptions } from '~/lib/constants/hide-label';
@@ -27,6 +25,8 @@ import type { RoomConfig } from '~/lib/types/raw-db';
 import { pointOptions } from '~/lib/types/room';
 import { RoleType } from '~/lib/types/user';
 
+import { PointWrapper } from '../point-wrapper';
+import { pointTextColor, pointTextSize } from '../utils';
 import { useRoomPoint } from './hooks/use-room-point';
 import { useVote } from './hooks/use-vote';
 
@@ -54,14 +54,14 @@ export const CurrentVotesWrapper = () => {
 
   const showAveragePoint = React.useMemo(
     () => showVote && !Number.isNaN(averagePoint),
-    [averagePoint, showVote]
+    [averagePoint, showVote],
   );
 
   const sortedParticipants = React.useMemo(
     () =>
       users
         .filter((user) =>
-          [RoleType.participant, RoleType.owner].includes(user.role)
+          [RoleType.participant, RoleType.owner].includes(user.role),
         )
         .sort((a, b) => (showVote ? (b.point ?? 0) - (a.point ?? 0) : 0))
         .map((participant, participantIndex, participants) => (
@@ -87,11 +87,11 @@ export const CurrentVotesWrapper = () => {
             {participantIndex !== participants.length - 1 && <Divider />}
           </React.Fragment>
         )),
-    [currentUser?.uid, config?.hideLabel, showVote, users]
+    [currentUser?.uid, config?.hideLabel, showVote, users],
   );
 
   const handleUpdateFreezeAfterVote = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (isOwner) {
       const updatedConfig: Partial<RoomConfig> = {
@@ -109,7 +109,7 @@ export const CurrentVotesWrapper = () => {
   };
 
   const handleUpdateHideLabel = async (
-    selectedHideLabel: HideLabelOptionsType
+    selectedHideLabel: HideLabelOptionsType,
   ) => {
     if (isOwner || isObservant) {
       const updatedConfig: Partial<RoomConfig> = {

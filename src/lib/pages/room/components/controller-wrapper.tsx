@@ -48,7 +48,7 @@ export const ControllerWrapper = () => {
           {user.name} - {user.role}
         </ListItem>
       )),
-    [users]
+    [users],
   );
 
   return (

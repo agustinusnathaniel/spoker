@@ -17,7 +17,7 @@ export const useVoteListener = () => {
   }, [showVote, reward]);
 
   React.useEffect(() => {
-    if (roomData?.task.lastVoted?.name) {
+    if (roomData?.task.lastVoted?.name && roomData?.task.lastVoted?.time) {
       toast({
         description: `${roomData.task.lastVoted.name} just voted`,
         status: 'info',

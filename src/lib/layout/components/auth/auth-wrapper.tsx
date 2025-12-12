@@ -29,13 +29,13 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const isUnauthorized =
     currentUser === null && !isPublicRoute && !isRestrictedRoute;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: -
   React.useEffect(() => {
     if (isUnauthorized) {
       onOpen();
     } else {
       onClose();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, pathname]);
 
   React.useEffect(() => {

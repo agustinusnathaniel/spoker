@@ -14,10 +14,10 @@ type UseRoomHeaderArgs = RoomHeaderProps & {
 
 export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
   const [name, setName] = React.useState<string | undefined>(
-    roomData?.task.name
+    roomData?.task.name,
   );
   const [description, setDescription] = React.useState<string | undefined>(
-    roomData?.task.description
+    roomData?.task.description,
   );
   const router = useRouter();
   const {
@@ -47,7 +47,7 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
           await updateRoomTask(id as string, updatedTask);
         }
       }, 500),
-    [id, isOwner, roomData]
+    [id, isOwner, roomData],
   );
 
   const handleUpdateTask = React.useCallback(
@@ -60,7 +60,7 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
       }
       handleUpdateRemoteTask(field)(event);
     },
-    [handleUpdateRemoteTask]
+    [handleUpdateRemoteTask],
   );
 
   return {

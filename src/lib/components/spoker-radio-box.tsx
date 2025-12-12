@@ -1,6 +1,6 @@
 import type { UseRadioProps } from '@chakra-ui/react';
 import { Box, useRadio } from '@chakra-ui/react';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 type SpokerRadioBoxProps = PropsWithChildren<UseRadioProps>;
 

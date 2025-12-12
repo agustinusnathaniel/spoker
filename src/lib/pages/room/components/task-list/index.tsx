@@ -30,6 +30,7 @@ import { ReactSortable } from 'react-sortablejs';
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
 import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
+import { emptyRoom } from '~/lib/constants/empty-room';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { submitStoryFormValidationSchema } from '~/lib/models/task-list';
 import { editQueueItem } from '~/lib/services/firebase/room/update/queue/edit';
@@ -41,7 +42,6 @@ import type { Task } from '~/lib/types/raw-db';
 
 import { TaskItem } from './task-item';
 import type { SortableTaskItem, UpsertStoryForm } from './types';
-import { emptyRoom } from '~/lib/constants/empty-room';
 
 const initialFormValue: UpsertStoryForm = {
   name: '',
@@ -95,7 +95,7 @@ export const TaskList = () => {
 
   const all = React.useMemo(
     () => [task, ...(queue ?? []), ...(completed ?? [])],
-    [completed, queue, task]
+    [completed, queue, task],
   );
 
   const activeStoriesLengthText = queue?.length
@@ -402,7 +402,7 @@ export const TaskList = () => {
             <Button
               type="submit"
               colorScheme="blue"
-              isDisabled={!isEditStoryValid || !isEditStoryDirty || isBusy}
+              isDisabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
               isLoading={isBusy}
             >
               Save

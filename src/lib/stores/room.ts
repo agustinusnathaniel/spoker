@@ -42,7 +42,7 @@ export const useRoomStoreState = (): RoomState =>
       showVote,
       users,
       inRoom,
-    }))
+    })),
   );
 
 export const useRoomStoreAction = (): RoomSetStateAction =>
@@ -54,6 +54,6 @@ export const useRoomStoreAction = (): RoomSetStateAction =>
         setRoomData,
         setUsers,
         setInRoom,
-      })
-    )
+      }),
+    ),
   );
