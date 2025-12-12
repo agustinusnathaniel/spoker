@@ -44,7 +44,7 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
     setIsLoading(true);
     const values = getValues();
     await loginUserWithEmailAndPassword(values.email, values.password).finally(
-      () => setIsLoading(false)
+      () => setIsLoading(false),
     );
   };
 
@@ -96,7 +96,7 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
         </Button>
         <Button
           type="submit"
-          disabled={!isDirty || !isValid}
+          disabled={!(isDirty && isValid)}
           isLoading={isLoading}
           colorScheme="blue"
         >

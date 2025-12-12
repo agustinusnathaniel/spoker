@@ -1,7 +1,7 @@
 import type { ModalContentProps } from '@chakra-ui/react';
 
 export const contraBoxStyle = (
-  borderColor: string
+  borderColor: string,
 ): Partial<ModalContentProps> => ({
   paddingY: 2,
   borderRadius: 16,

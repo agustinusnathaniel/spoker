@@ -29,6 +29,6 @@ export const joinRoom = async (roomId: string, role: RoleType) => {
           isConnected: true,
         });
       }
-    }
+    },
   );
 };

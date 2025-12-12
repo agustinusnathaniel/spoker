@@ -5,5 +5,5 @@ import type { RoomConfig } from '~/lib/types/raw-db';
 
 export const updateConfig = async (
   roomId: string,
-  config: Partial<RoomConfig>
+  config: Partial<RoomConfig>,
 ) => update(child(roomsData, `${roomId}/config`), config);

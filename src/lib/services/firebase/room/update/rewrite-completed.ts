@@ -5,5 +5,5 @@ import type { Task } from '~/lib/types/raw-db';
 
 export const rewriteCompleted = async (
   roomId: string,
-  completed: Array<Task>
+  completed: Array<Task>,
 ) => set(child(roomsData, `${roomId}/completed`), completed);

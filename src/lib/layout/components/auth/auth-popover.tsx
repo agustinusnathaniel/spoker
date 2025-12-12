@@ -26,7 +26,7 @@ import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
 import { logoutUser } from '~/lib/services/firebase/auth/logout';
 import { updateDisplayName } from '~/lib/services/firebase/auth/update-display-name';
 import { disconnectUser } from '~/lib/services/firebase/room/update/disconnect-user';
-import { useAuthStoreState, useAuthStoreAction } from '~/lib/stores/auth';
+import { useAuthStoreAction, useAuthStoreState } from '~/lib/stores/auth';
 import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
 import { trackEvent } from '~/lib/utils/trackEvent';
 
@@ -52,7 +52,7 @@ export const AuthPopover = () => {
     if (isEditingDisplayName) {
       if (displayNameInput !== displayName) {
         updateDisplayName(displayNameInput)
-          .then(async () => {
+          .then(() => {
             toast({
               title: 'Update name successful',
               status: 'success',
@@ -61,7 +61,7 @@ export const AuthPopover = () => {
             });
             setDisplayName(displayNameInput);
           })
-          .catch(async (e) => {
+          .catch((e) => {
             toast({
               description: removeFirebasePrefix(e.message),
               status: 'error',

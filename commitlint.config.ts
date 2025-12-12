@@ -22,6 +22,8 @@ const commitLintConfiguration: UserConfig = {
         'types',
         'ui',
         'utils',
+        'security',
+        'deps',
       ],
     ],
   },

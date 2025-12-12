@@ -21,7 +21,7 @@ export const createRoomFormSchema = z.object({
   name: requiredString('Name must be filled'),
   id: requiredString('room id is required').regex(
     ALLOWED_CHAR_CHECK,
-    'room id contain unallowed character'
+    'room id contain unallowed character',
   ),
   isPrivate: z.boolean(),
   password: z.string().optional(),

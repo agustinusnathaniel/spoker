@@ -1,6 +1,6 @@
 import { ColorModeScript } from '@chakra-ui/react';
 import type { DocumentContext } from 'next/document';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 import {
   UMAMI_DATA_DOMAIN,

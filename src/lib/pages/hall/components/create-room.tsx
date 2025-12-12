@@ -74,7 +74,7 @@ export const CreateRoom = () => {
 
       <Button
         isLoading={isLoading}
-        disabled={!isDirty || !isValid || isLoading}
+        disabled={!(isDirty && isValid) || isLoading}
         colorScheme="green"
         type="submit"
       >

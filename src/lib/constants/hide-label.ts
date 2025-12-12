@@ -12,7 +12,7 @@ enum HideLabelOptions {
 export type HideLabelOptionsType = keyof typeof HideLabelOptions;
 
 export const hideLabelOptions: Array<HideLabelOptionsType> = Object.keys(
-  HideLabelOptions
+  HideLabelOptions,
 )
   .filter((label) => Number.isNaN(Number(label)))
   .map((labelOption) => labelOption as HideLabelOptionsType);

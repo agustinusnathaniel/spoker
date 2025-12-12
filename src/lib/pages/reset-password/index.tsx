@@ -78,7 +78,7 @@ export const ResetPasswordPage = () => {
 
         <Button
           type="submit"
-          disabled={!isDirty || !isValid}
+          disabled={!(isDirty && isValid)}
           isLoading={isLoading}
         >
           Reset Password

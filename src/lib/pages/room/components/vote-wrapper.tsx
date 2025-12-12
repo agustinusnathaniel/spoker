@@ -35,7 +35,7 @@ export const VoteWrapper = () => {
   });
   const voteOptionGroup = getRootProps();
 
-  if (!isOwner && !isParticipant) {
+  if (!(isOwner || isParticipant)) {
     return null;
   }
 

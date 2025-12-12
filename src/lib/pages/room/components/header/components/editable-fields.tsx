@@ -7,7 +7,7 @@ type EditableFieldsProps = {
   name?: string;
   description?: string;
   handleUpdateTask: (
-    field: keyof Task
+    field: keyof Task,
   ) => (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 

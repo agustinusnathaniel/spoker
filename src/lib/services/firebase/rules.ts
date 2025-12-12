@@ -7,8 +7,8 @@ import {
   node,
   param,
   props,
-  validate,
   read,
+  validate,
   write,
 } from '@jahed/firebase-rules';
 
@@ -21,7 +21,7 @@ const taskNode = node(
       props({
         name: node(validate(newData.isString())),
         time: node(validate(newData.isString())),
-      })
+      }),
     ),
     estimation: node(validate(newData.isNumber())),
     pointEntries: node(
@@ -30,17 +30,17 @@ const taskNode = node(
           props({
             name: node(validate(newData.isString())),
             point: node(validate(newData.isNumber())),
-          })
-        )
-      )
+          }),
+        ),
+      ),
     ),
   }),
-  write(allowAll)
+  write(allowAll),
 );
 
 const taskArrayNode = node(
   param('$index', () => taskNode),
-  write(allowAll)
+  write(allowAll),
 );
 
 export const rules = {
@@ -55,19 +55,20 @@ export const rules = {
                   hideLabel: node(
                     validate(
                       newData.isString((newVal) =>
-                        newVal.matches(/monkey|chicken|cow|fish|money/)
-                      )
-                    )
+                        // biome-ignore lint/performance/useTopLevelRegex: -
+                        newVal.matches(/monkey|chicken|cow|fish|money/),
+                      ),
+                    ),
                   ),
                   isFreezeAfterVote: node(validate(newData.isBoolean())),
-                })
+                }),
               ),
               room: node(
                 props({
                   isPrivate: node(validate(newData.isBoolean())),
                   name: node(validate(newData.isString())),
                   password: node(validate(newData.isString())),
-                })
+                }),
               ),
               task: taskNode,
               queue: taskArrayNode,
@@ -81,22 +82,24 @@ export const rules = {
                       role: node(validate(newData.isString())),
                       point: node(
                         validate(
-                          newData.isNumber((newVal) => between(newVal, -1, 101))
-                        )
+                          newData.isNumber((newVal) =>
+                            between(newVal, -1, 101),
+                          ),
+                        ),
                       ),
                       isConnected: node(validate(newData.isBoolean())),
                     }),
                     write(equal($userID, auth.uid)),
-                    validate(newData.hasChildren(['name', 'role']))
-                  )
-                )
+                    validate(newData.hasChildren(['name', 'role'])),
+                  ),
+                ),
               ),
             }),
-            write(allowAll)
-          )
+            write(allowAll),
+          ),
         ),
-        read(allowAll)
+        read(allowAll),
       ),
-    })
+    }),
   ),
 };

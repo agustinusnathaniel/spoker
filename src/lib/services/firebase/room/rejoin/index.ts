@@ -20,6 +20,6 @@ export const rejoinRoom = async (roomId: string, role?: RoleType | null) => {
           isConnected: true,
         });
       }
-    }
+    },
   );
 };

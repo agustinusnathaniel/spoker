@@ -19,7 +19,7 @@ export const useRoomPoint = () => {
   }, [participantPoints]);
   const highestPoint = React.useMemo(
     () => participantPoints.sort((a, b) => b - a)[0] ?? 0,
-    [participantPoints]
+    [participantPoints],
   );
 
   return {

@@ -22,7 +22,10 @@ const useAuth = create<AuthStore>()((set) => ({
 
 export const useAuthStoreState = (): AuthStoreState =>
   useAuth(
-    useShallow(({ currentUser, displayName }) => ({ currentUser, displayName }))
+    useShallow(({ currentUser, displayName }) => ({
+      currentUser,
+      displayName,
+    })),
   );
 
 export const useAuthStoreAction = (): AuthStoreAction =>
@@ -30,5 +33,5 @@ export const useAuthStoreAction = (): AuthStoreAction =>
     useShallow(({ setCurrentUser, setDisplayName }) => ({
       setCurrentUser,
       setDisplayName,
-    }))
+    })),
   );

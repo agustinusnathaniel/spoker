@@ -1,0 +1,118 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "src/**/*",
+      "*.config.ts",
+      "*.{js,ts,json,md}",
+      "!turbo",
+      "!src/components/ui/**/*",
+      "!src/**/*/utils.ts",
+      "!src/**/*.css",
+      "!*.d.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "next": "recommended"
+    },
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "useSemanticElements": "error"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "noUselessStringConcat": "error",
+        "noUselessUndefinedInitialization": "error",
+        "useSimplifiedLogicExpression": "error",
+        "noVoid": "warn"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "useHookAtTopLevel": "error"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "useTopLevelRegex": "error"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useDefaultSwitchClause": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "generic"
+          }
+        }
+      },
+      "suspicious": {
+        "noDuplicateElseIf": "error",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["error", "info"]
+          }
+        },
+        "noEmptyBlockStatements": "error",
+        "useAwait": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "src/lib/pages/**/index.tsx",
+        "src/*.ts",
+        "src/app/**/*",
+        "*.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [":URL:", ":NODE:", ":PACKAGE:"],
+              ":BLANK_LINE:",
+              [":ALIAS:"],
+              ":BLANK_LINE:",
+              [":PATH:"]
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -33,14 +33,14 @@ export const useRoomListener = () => {
   const handleOnDisconnect = React.useCallback(() => {
     if (currentUser?.uid) {
       onDisconnect(
-        child(roomsData, `${id as string}/users/${currentUser.uid}`)
+        child(roomsData, `${id as string}/users/${currentUser.uid}`),
       ).update({
         isConnected: false,
       });
     }
   }, [currentUser?.uid, id]);
 
-  const getRoomData = React.useCallback(async () => {
+  const getRoomData = React.useCallback(() => {
     setInRoom(true);
     onValue(child(roomsData, id as string), (snap) => {
       if (snap.exists()) {

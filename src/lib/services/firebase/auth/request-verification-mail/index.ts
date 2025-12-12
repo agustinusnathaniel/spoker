@@ -22,7 +22,7 @@ export const requestVerificationMail = async () => {
     return;
   }
 
-  if (user && user.emailVerified) {
+  if (user?.emailVerified) {
     showErrorToast(Error('Your email is already verified.'));
     return;
   }
