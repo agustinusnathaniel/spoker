@@ -45,7 +45,7 @@
     "lodash-es": "^4.17.22",
     "nanoid": "^5.1.6",
     "next": "^16.1.1",
-    "next-seo": "^6.8.0",
+    "next-seo": "^7.0.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-fast-compare": "^3.2.2",
