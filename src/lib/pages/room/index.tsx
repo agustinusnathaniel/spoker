@@ -1,5 +1,6 @@
 import { Box, Grid } from '@chakra-ui/react';
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/pages';
 
 import { SpokerLoading } from '~/lib/components/spoker-loading';
 import { useAuthStoreState } from '~/lib/stores/auth';
@@ -27,7 +28,7 @@ export const RoomPage = () => {
   if (currentUser && roomData) {
     return (
       <Grid gap={8}>
-        <NextSeo title={roomData.room.name} />
+        <Head>{generateNextSeo({ title: roomData.room.name })}</Head>
         <Grid
           templateColumns={{ base: '1fr', md: '3fr 2fr' }}
           gap={6}
