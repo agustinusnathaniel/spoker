@@ -1,6 +1,7 @@
 import { Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
+import { generateNextSeo } from 'next-seo/pages';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { EVENT_TYPE_NAVIGATE } from '~/lib/constants/tracking';
@@ -21,7 +22,12 @@ export const Home = () => {
 
   return (
     <Grid paddingX={0} gap={16} minHeight={{ base: '50vh', sm: '60vh' }}>
-      <NextSeo title="Estimate with your Team | spoker - real-time multiplayer scrum poker app" />
+      <Head>
+        {generateNextSeo({
+          title:
+            'Estimate with your Team | spoker - real-time multiplayer scrum poker app',
+        })}
+      </Head>
       <Flex
         direction="column"
         gap={12}
