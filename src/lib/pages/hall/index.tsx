@@ -8,7 +8,8 @@ import {
   Grid,
   useToast,
 } from '@chakra-ui/react';
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/dist/pages';
 import * as React from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
@@ -57,7 +58,7 @@ export const HallPage = () => {
 
   return (
     <Box mb={8} w="full">
-      <NextSeo title="Hall" />
+      <Head>{generateNextSeo({ title: 'Hall' })}</Head>
       {currentUser && !isEmailVerified ? (
         <Alert borderRadius={24} status="warning">
           <AlertIcon />
