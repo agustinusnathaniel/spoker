@@ -1,7 +1,7 @@
 import { Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { generateNextSeo } from 'next-seo/dist/pages';
+import { generateNextSeo } from 'next-seo/pages';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { EVENT_TYPE_NAVIGATE } from '~/lib/constants/tracking';

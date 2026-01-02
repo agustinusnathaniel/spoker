@@ -1,7 +1,7 @@
 import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { type DefaultSeoProps, generateDefaultSeo } from 'next-seo/dist/pages';
+import { type DefaultSeoProps, generateDefaultSeo } from 'next-seo/pages';
 
 import '@fontsource/gabarito/latin.css';
 import '@fontsource/gantari/latin.css';

@@ -9,7 +9,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import { generateNextSeo } from 'next-seo/dist/pages';
+import { generateNextSeo } from 'next-seo/pages';
 import * as React from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
