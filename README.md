@@ -8,6 +8,8 @@ A real-time planning poker (scrum poker) application for agile teams to estimate
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/agustinusnathaniel/spoker)
+
 ## Overview
 
 Spoker enables distributed teams to conduct planning poker sessions in real-time. Team members join rooms, vote on story points, and see results synchronized across all participants. The application uses Firebase Realtime Database for instant updates and supports multiple user roles with different permissions.
