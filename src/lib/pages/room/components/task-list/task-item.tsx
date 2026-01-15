@@ -6,6 +6,8 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import { memo } from 'react';
+import isEqual from 'react-fast-compare';
 import { HiPencil, HiSwitchVertical, HiTrash } from 'react-icons/hi';
 import { RiDraggable } from 'react-icons/ri';
 
@@ -22,7 +24,7 @@ type TaskItemProps = {
   };
 };
 
-export const TaskItem = ({ task, queueProps }: TaskItemProps) => {
+export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
   const swapButtonContent = useBreakpointValue({
     base: null,
     md: 'Swap with Current',
@@ -101,4 +103,6 @@ export const TaskItem = ({ task, queueProps }: TaskItemProps) => {
       )}
     </Flex>
   );
-};
+}, isEqual);
+
+TaskItem.displayName = 'TaskItem';

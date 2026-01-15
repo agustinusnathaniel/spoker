@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useShallow } from 'zustand/shallow';
 
-import { useRoomStoreState } from '~/lib/stores/room';
+import { useRoomStore } from '~/lib/stores/room';
 import { countAveragePoint, filterUserWithPoints } from '~/lib/utils/roomUtils';
 
 export const useRoomPoint = () => {
-  const { showVote, users } = useRoomStoreState();
+  const showVote = useRoomStore(useShallow((state) => state.showVote));
+  const users = useRoomStore(useShallow((state) => state.users));
 
   const participantPoints = React.useMemo(() => {
     if (!showVote) {

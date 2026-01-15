@@ -32,8 +32,10 @@ export const submitVote = async ({
   const updatedQueue = queue?.slice(1) ?? [];
   const updatedCompleted = [votedTask, ...(completed ?? [])];
 
-  await updateRoomTask(roomId, nextTask);
-  await rewriteQueue(roomId, updatedQueue);
-  await rewriteCompleted(roomId, updatedCompleted);
-  await clearPoints(roomId);
+  await Promise.all([
+    updateRoomTask(roomId, nextTask),
+    rewriteQueue(roomId, updatedQueue),
+    rewriteCompleted(roomId, updatedCompleted),
+    clearPoints(roomId),
+  ]);
 };
