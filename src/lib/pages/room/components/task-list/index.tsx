@@ -26,6 +26,7 @@ import { useForm } from 'react-hook-form';
 import { GoPlus } from 'react-icons/go';
 import { RiInformationLine } from 'react-icons/ri';
 import { ReactSortable } from 'react-sortablejs';
+import { useShallow } from 'zustand/shallow';
 
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
 import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
@@ -37,7 +38,7 @@ import { editQueueItem } from '~/lib/services/firebase/room/update/queue/edit';
 import { removeQueueItem } from '~/lib/services/firebase/room/update/queue/remove';
 import { swapSelectedQueueWithCurrent } from '~/lib/services/firebase/room/update/queue/swap';
 import { rewriteQueue } from '~/lib/services/firebase/room/update/rewrite-queue';
-import { useRoomStoreState } from '~/lib/stores/room';
+import { useRoomStore } from '~/lib/stores/room';
 import type { Task } from '~/lib/types/raw-db';
 
 import { TaskItem } from './task-item';
@@ -60,7 +61,29 @@ export const TaskList = () => {
   const {
     query: { id },
   } = router;
-  const { roomData = emptyRoom, showVote } = useRoomStoreState();
+
+  const queue = useRoomStore(
+    useShallow((state) => state.roomData?.queue ?? emptyRoom.queue),
+  );
+  const completed = useRoomStore(
+    useShallow((state) => state.roomData?.completed ?? emptyRoom.completed),
+  );
+  const task = useRoomStore(
+    useShallow((state) => state.roomData?.task ?? emptyRoom.task),
+  );
+  const showVote = useRoomStore(useShallow((state) => state.showVote));
+
+  const queueRef = React.useRef(queue);
+  const taskRef = React.useRef(task);
+
+  React.useEffect(() => {
+    queueRef.current = queue;
+  }, [queue]);
+
+  React.useEffect(() => {
+    taskRef.current = task;
+  }, [task]);
+
   const { isOwner } = useUserRole();
   const tabTextColor = useColorModeValue('', 'gray.300');
   const {
@@ -87,7 +110,6 @@ export const TaskList = () => {
   const [isBusy, setIsBusy] = React.useState<boolean>();
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
     React.useState<number>();
-  const { queue, completed, task } = roomData;
 
   const sortableQueue: Array<SortableTaskItem> = React.useMemo(() => {
     return (queue ?? []) as Array<SortableTaskItem>;
@@ -136,13 +158,13 @@ export const TaskList = () => {
     mode: 'onChange',
   });
 
-  const handleAddStory = async () => {
+  const handleAddStory = React.useCallback(async () => {
     if (isValid && isOwner) {
       const values = getValues();
       const randomId = nanoid(21);
       setIsBusy(true);
       await rewriteQueue(id as string, [
-        ...(queue ?? []),
+        ...(queueRef.current ?? []),
         { ...values, id: randomId } as Task,
       ]);
       onCloseAddStory();
@@ -150,25 +172,28 @@ export const TaskList = () => {
       setSelectedTabIndex(0);
       reset();
     }
-  };
+  }, [id, isOwner, isValid, onCloseAddStory, reset, getValues]);
 
-  const handleOpenEditStory = (selectedIndex: number) => {
-    setSelectedEditStoryIndex(selectedIndex);
-    const selectedQueueItem = queue?.[selectedIndex];
-    resetEditStoryForm({
-      name: selectedQueueItem?.name,
-      description: selectedQueueItem?.description,
-    });
-    onOpenEditStory();
-  };
+  const handleOpenEditStory = React.useCallback(
+    (selectedIndex: number) => {
+      setSelectedEditStoryIndex(selectedIndex);
+      const selectedQueueItem = queueRef.current?.[selectedIndex];
+      resetEditStoryForm({
+        name: selectedQueueItem?.name,
+        description: selectedQueueItem?.description,
+      });
+      onOpenEditStory();
+    },
+    [onOpenEditStory, resetEditStoryForm],
+  );
 
-  const closeEditStory = () => {
+  const closeEditStory = React.useCallback(() => {
     setSelectedEditStoryIndex(undefined);
     onCloseEditStory();
     resetEditStoryForm();
-  };
+  }, [onCloseEditStory, resetEditStoryForm]);
 
-  const processEditStory = async () => {
+  const processEditStory = React.useCallback(async () => {
     if (isOwner && selectedEditStoryIndex !== undefined && isEditStoryValid) {
       const values = getEditStoryValues();
       setIsBusy(true);
@@ -176,70 +201,86 @@ export const TaskList = () => {
         roomId: id as string,
         updatedItem: values as Task,
         selectedQueueIndex: selectedEditStoryIndex,
-        queue,
+        queue: queueRef.current,
       });
       closeEditStory();
       setIsBusy(false);
     }
-  };
+  }, [
+    closeEditStory,
+    getEditStoryValues,
+    id,
+    isEditStoryValid,
+    isOwner,
+    selectedEditStoryIndex,
+  ]);
 
-  const handleOpenRemoveStory = (selectedIndex: number) => {
-    setSelectedEditStoryIndex(selectedIndex);
-    onOpenRemoveStory();
-  };
+  const handleOpenRemoveStory = React.useCallback(
+    (selectedIndex: number) => {
+      setSelectedEditStoryIndex(selectedIndex);
+      onOpenRemoveStory();
+    },
+    [onOpenRemoveStory],
+  );
 
-  const closeRemoveStory = () => {
+  const closeRemoveStory = React.useCallback(() => {
     setSelectedEditStoryIndex(undefined);
     onCloseRemoveStory();
-  };
+  }, [onCloseRemoveStory]);
 
-  const processRemoveStory = async () => {
+  const processRemoveStory = React.useCallback(async () => {
     if (isOwner && selectedEditStoryIndex !== undefined) {
       setIsBusy(true);
       await removeQueueItem({
         roomId: id as string,
         selectedQueueIndex: selectedEditStoryIndex,
-        queue,
+        queue: queueRef.current,
       });
       closeRemoveStory();
       setIsBusy(false);
     }
-  };
+  }, [closeRemoveStory, id, isOwner, selectedEditStoryIndex]);
 
-  const handleRewriteQueue = async (updatedQueue: Array<SortableTaskItem>) => {
-    if (isOwner) {
-      const updated: Array<Task> = updatedQueue.map((queueItem) => {
-        const temp = queueItem;
-        delete temp.chosen;
-        delete temp.selected;
-        delete temp.filtered;
-        return temp;
-      });
-      if (!isEqual(queue, updated)) {
-        await rewriteQueue(id as string, updated);
-      }
-    }
-  };
-
-  const handleClickSwap = async (selectedQueueIndex: number) => {
-    if (isOwner) {
-      if (showVote) {
-        toast({
-          description:
-            'Cannot swap now as current story is already voted by all participants. Either finish or reset vote of current story to be able to swap.',
-          status: 'warning',
-          position: 'top',
+  const handleRewriteQueue = React.useCallback(
+    async (updatedQueue: Array<SortableTaskItem>) => {
+      if (isOwner) {
+        const updated: Array<Task> = updatedQueue.map((queueItem) => {
+          const temp = queueItem;
+          delete temp.chosen;
+          delete temp.selected;
+          delete temp.filtered;
+          return temp;
         });
-        return;
+        if (!isEqual(queueRef.current, updated)) {
+          await rewriteQueue(id as string, updated);
+        }
       }
-      await swapSelectedQueueWithCurrent({
-        roomId: id as string,
-        task,
-        selectedQueueIndex,
-        queue,
-      });
-    }
-  };
+    },
+    [id, isOwner],
+  );
+
+  const handleClickSwap = React.useCallback(
+    async (selectedQueueIndex: number) => {
+      if (isOwner) {
+        if (showVote) {
+          toast({
+            description:
+              'Cannot swap now as current story is already voted by all participants. Either finish or reset vote of current story to be able to swap.',
+            status: 'warning',
+            position: 'top',
+          });
+          return;
+        }
+        await swapSelectedQueueWithCurrent({
+          roomId: id as string,
+          task: taskRef.current,
+          selectedQueueIndex,
+          queue: queueRef.current,
+        });
+      }
+    },
+    [id, isOwner, showVote, toast],
+  );
 
   const handleChangeTab = (index: number) => setSelectedTabIndex(index);
 
@@ -268,7 +309,7 @@ export const TaskList = () => {
               <Button
                 marginLeft="auto"
                 size="md"
-                colorScheme="facebook"
+                colorScheme="blue"
                 onClick={onOpenAddStory}
               >
                 {buttonContent}

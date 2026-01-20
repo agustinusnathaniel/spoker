@@ -18,15 +18,15 @@ const defaultSEOConfig: DefaultSeoProps = {
   titleTemplate: '%s | spoker - real-time multiplayer scrum poker with teams',
   defaultTitle: 'spoker',
   description: 'Real-time multiplayer scrum poker with teams',
-  canonical: 'https://spoker.dev',
+  canonical: 'https://spoker.sznm.dev',
   openGraph: {
-    url: 'https://spoker.dev',
+    url: 'https://spoker.sznm.dev',
     title: 'spoker',
     description: 'Real-time multiplayer scrum poker with teams',
     images: [
       {
         url: 'https://og.sznm.dev/api/generate?heading=Spoker&text=Scrum%20Poker%20with%20teams',
-        alt: 'spoker.dev og-image',
+        alt: 'spoker og-image',
       },
     ],
     site_name: 'spoker',

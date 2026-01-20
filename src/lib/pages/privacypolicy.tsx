@@ -8,9 +8,10 @@ export const PrivacyPolicy = () => {
       <Heading>Privacy Policy for spoker</Heading>
 
       <Text>
-        At spoker, accessible from spoker.dev, one of our main priorities is the
-        privacy of our visitors. This Privacy Policy document contains types of
-        information that is collected and recorded by spoker and how we use it.
+        At spoker, accessible from spoker.sznm.dev, one of our main priorities
+        is the privacy of our visitors. This Privacy Policy document contains
+        types of information that is collected and recorded by spoker and how we
+        use it.
       </Text>
 
       <Text>

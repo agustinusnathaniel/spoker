@@ -22,7 +22,7 @@ type RoomSetStateAction = {
 
 type RoomStore = RoomState & RoomSetStateAction;
 
-const useRoomStore = create<RoomStore>()((set) => ({
+export const useRoomStore = create<RoomStore>()((set) => ({
   isBusy: true,
   showVote: false,
   users: [],
