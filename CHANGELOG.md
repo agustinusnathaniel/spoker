@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.16.36](https://github.com/agustinusnathaniel/spoker/compare/v1.16.35...v1.16.36) (2026-02-21)
+
 ## [1.16.35](https://github.com/agustinusnathaniel/spoker/compare/v1.16.34...v1.16.35) (2026-02-20)
 
 
