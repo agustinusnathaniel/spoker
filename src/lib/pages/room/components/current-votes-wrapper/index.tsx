@@ -1,17 +1,16 @@
+'use client';
+
 import {
   Button,
   Checkbox,
-  Divider,
-  FormControl,
-  FormLabel,
+  Field,
   Grid,
   Heading,
-  Select,
+  NativeSelect,
+  Separator,
   Text,
-  useToast,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import type { ChangeEvent } from 'react';
+import { useParams } from 'next/navigation';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
@@ -33,11 +32,8 @@ import { useRoomPoint } from './hooks/use-room-point';
 import { useVote } from './hooks/use-vote';
 
 export const CurrentVotesWrapper = () => {
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-  const toast = useToast();
+  const params = useParams();
+  const id = params?.id as string;
   const { currentUser } = useAuthStoreState();
   const config = useRoomStore(useShallow((state) => state.roomData?.config));
   const showVote = useRoomStore(useShallow((state) => state.showVote));
@@ -74,11 +70,11 @@ export const CurrentVotesWrapper = () => {
             <Grid alignItems="center" templateColumns="2fr 1fr">
               <Heading size="sm">{participant.name}</Heading>
               <Text
+                color={
+                  showVote ? pointTextColor(participant.point ?? 0) : undefined
+                }
                 fontSize={
                   showVote ? pointTextSize(participant.point ?? 0) : undefined
-                }
-                textColor={
-                  showVote ? pointTextColor(participant.point ?? 0) : undefined
                 }
               >
                 <PointWrapper
@@ -89,29 +85,11 @@ export const CurrentVotesWrapper = () => {
                 />
               </Text>
             </Grid>
-            {participantIndex !== participants.length - 1 && <Divider />}
+            {participantIndex !== participants.length - 1 && <Separator />}
           </Fragment>
         )),
     [currentUser?.uid, config?.hideLabel, showVote, users]
   );
-
-  const handleUpdateFreezeAfterVote = async (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    if (isOwner) {
-      const updatedConfig: Partial<RoomConfig> = {
-        isFreezeAfterVote: e.currentTarget.checked,
-      };
-      await updateConfig(id as string, updatedConfig);
-    } else {
-      toast({
-        title: 'Participant/observant cannot change configurations',
-        status: 'warning',
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
-  };
 
   const handleUpdateHideLabel = async (
     selectedHideLabel: HideLabelOptionsType
@@ -120,11 +98,11 @@ export const CurrentVotesWrapper = () => {
       const updatedConfig: Partial<RoomConfig> = {
         hideLabel: selectedHideLabel,
       };
-      await updateConfig(id as string, updatedConfig);
+      await updateConfig(id, updatedConfig);
     }
   };
 
-  const handleSetEstimate = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSetEstimate = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setEstimate(Number(e.target.value));
   };
 
@@ -142,35 +120,48 @@ export const CurrentVotesWrapper = () => {
     >
       <Heading size="lg">Current Votes</Heading>
 
-      <Checkbox
-        colorScheme="teal"
+      <Checkbox.Root
+        checked={config?.isFreezeAfterVote}
+        colorPalette="teal"
         disabled={!isOwner}
-        isChecked={config?.isFreezeAfterVote}
         marginY={4}
-        onChange={handleUpdateFreezeAfterVote}
+        onCheckedChange={(e) => {
+          if (isOwner) {
+            const updatedConfig: Partial<RoomConfig> = {
+              isFreezeAfterVote: !!e.checked,
+            };
+            updateConfig(id, updatedConfig);
+          }
+        }}
       >
-        freeze after vote
-      </Checkbox>
+        <Checkbox.HiddenInput />
+        <Checkbox.Control />
+        <Checkbox.Label>freeze after vote</Checkbox.Label>
+      </Checkbox.Root>
 
       {(isOwner || isObservant) && (
-        <FormControl alignItems="center" display="flex">
-          <FormLabel fontSize="sm" width="30%">
+        <Field.Root alignItems="center">
+          <Field.Label fontSize="sm" width="30%">
             Hide Label
-          </FormLabel>
-          <Select
-            marginBottom={4}
-            onChange={(e) =>
-              handleUpdateHideLabel(e.target.value as HideLabelOptionsType)
-            }
-            value={config?.hideLabel ?? 'monkey'}
-          >
-            {hideLabelOptions.map((hideLabelOption) => (
-              <Text as="option" key={hideLabelOption} value={hideLabelOption}>
-                {hideLabelOption}
-              </Text>
-            ))}
-          </Select>
-        </FormControl>
+          </Field.Label>
+          <NativeSelect.Root marginBottom={4}>
+            <NativeSelect.Field
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                handleUpdateHideLabel(
+                  e.currentTarget.value as HideLabelOptionsType
+                )
+              }
+              value={config?.hideLabel ?? 'monkey'}
+            >
+              {hideLabelOptions.map((hideLabelOption) => (
+                <option key={hideLabelOption} value={hideLabelOption}>
+                  {hideLabelOption}
+                </option>
+              ))}
+            </NativeSelect.Field>
+            <NativeSelect.Indicator />
+          </NativeSelect.Root>
+        </Field.Root>
       )}
 
       <Grid gap={2}>
@@ -198,23 +189,24 @@ export const CurrentVotesWrapper = () => {
           </Grid>
 
           <Grid gap={2} templateColumns="2fr 3fr">
-            <Select
+            <NativeSelect.Root
               borderRadius={12}
               borderWidth={2}
               fontWeight="bold"
-              onChange={handleSetEstimate}
-              value={estimate}
             >
-              {pointOptions.map((point) => (
-                <option key={point} value={point}>
-                  {point}
-                </option>
-              ))}
-            </Select>
+              <NativeSelect.Field onChange={handleSetEstimate} value={estimate}>
+                {pointOptions.map((point) => (
+                  <option key={point} value={point}>
+                    {point}
+                  </option>
+                ))}
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
             <Button
-              colorScheme="teal"
+              colorPalette="teal"
               disabled={isLoadingSubmitVote}
-              isLoading={isLoadingSubmitVote}
+              loading={isLoadingSubmitVote}
               marginY={-1}
               onClick={handleFinishVoting}
               size="md"

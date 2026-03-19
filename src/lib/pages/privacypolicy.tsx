@@ -1,4 +1,7 @@
-import { Heading, Link, List, ListItem, Text } from '@chakra-ui/react';
+'use client';
+
+import { Heading, List, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 
@@ -27,7 +30,8 @@ export const PrivacyPolicy = () => {
         Our Privacy Policy was created with the help of the{' '}
         <Link
           href="https://www.privacypolicyonline.com/privacy-policy-generator/"
-          isExternal
+          rel="noopener noreferrer"
+          target="_blank"
         >
           Free Privacy Policy Generator
         </Link>
@@ -66,22 +70,22 @@ export const PrivacyPolicy = () => {
         We use the information we collect in various ways, including to:
       </Text>
 
-      <List>
-        <ListItem>Provide, operate, and maintain our webste</ListItem>
-        <ListItem>Improve, personalize, and expand our webste</ListItem>
-        <ListItem>Understand and analyze how you use our webste</ListItem>
-        <ListItem>
+      <List.Root>
+        <List.Item>Provide, operate, and maintain our webste</List.Item>
+        <List.Item>Improve, personalize, and expand our webste</List.Item>
+        <List.Item>Understand and analyze how you use our webste</List.Item>
+        <List.Item>
           Develop new products, services, features, and functionality
-        </ListItem>
-        <ListItem>
+        </List.Item>
+        <List.Item>
           Communicate with you, either directly or through one of our partners,
           including for customer service, to provide you with updates and other
           information relating to the webste, and for marketing and promotional
           purposes
-        </ListItem>
-        <ListItem>Send you emails</ListItem>
-        <ListItem>Find and prevent fraud</ListItem>
-      </List>
+        </List.Item>
+        <List.Item>Send you emails</List.Item>
+        <List.Item>Find and prevent fraud</List.Item>
+      </List.Root>
 
       <Heading size="lg">Log Files</Heading>
 

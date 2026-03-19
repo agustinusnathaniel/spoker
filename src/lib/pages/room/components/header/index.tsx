@@ -1,4 +1,6 @@
-import { Box, Divider, Flex, Grid, Heading, Text } from '@chakra-ui/react';
+'use client';
+
+import { Box, Flex, Grid, Heading, Separator, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -47,10 +49,10 @@ export const RoomHeader = () => {
     <SpokerWrapperGrid gap={4}>
       <Box>
         <Heading size="lg">{roomData?.room.name}</Heading>
-        <Divider borderColor="black" marginTop={2} />
+        <Separator borderColor="black" marginTop={2} />
       </Box>
 
-      <Flex gridGap={4}>
+      <Flex gap={4}>
         <Heading size="md">Story</Heading>
 
         <Grid gap={2} width="full">

@@ -1,9 +1,11 @@
-import { useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
 import type { ReactElement, ReactNode } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
+import { toaster } from '~/lib/components/ui/toaster';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { useAuthStoreState } from '~/lib/stores/auth';
@@ -16,13 +18,11 @@ interface RouteWrapperProps {
 
 export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   const { isLoadingAuth } = useAuthObserver();
 
   const { currentUser } = useAuthStoreState();
   const [busy, setBusy] = useState<boolean>(false);
-
-  const toast = useToast();
 
   const isPublicRoute = useMemo(
     () => PUBLIC_ROUTES.includes(pathname),
@@ -45,8 +45,7 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
 
   const routeCheck = useCallback(() => {
     if (currentUser && isRestrictedRoute) {
-      // setBusy(true);
-      router.replace('/').then(() => setBusy(false));
+      router.replace('/');
       return;
     }
 
@@ -55,21 +54,18 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
 
       currentUser?.reload().then(() => {
         if (!currentUser.emailVerified) {
-          router.push('/').then(() => {
-            toast({
-              title: 'Your email is not verified yet.',
-              description: `Check your email (${currentUser.email}) for verification link.`,
-              position: 'top',
-              status: 'warning',
-              isClosable: true,
-            });
+          router.push('/');
+          toaster.create({
+            title: 'Your email is not verified yet.',
+            description: `Check your email (${currentUser.email}) for verification link.`,
+            type: 'warning',
           });
         }
       });
     }
 
     setBusy(false);
-  }, [currentUser, isNotVerified, isRestrictedRoute, router, toast]);
+  }, [currentUser, isNotVerified, isRestrictedRoute, router]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: -
   useEffect(() => {

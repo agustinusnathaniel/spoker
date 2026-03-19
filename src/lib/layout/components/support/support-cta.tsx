@@ -1,10 +1,7 @@
-import {
-  Button,
-  HStack,
-  Text,
-  useBreakpointValue,
-  useDisclosure,
-} from '@chakra-ui/react';
+'use client';
+
+import { Button, HStack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { BiDonateHeart } from 'react-icons/bi';
 
 import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
@@ -16,22 +13,15 @@ interface SupportCTAProps {
 }
 
 export const SupportCTA = ({ isCompact = false }: SupportCTAProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const buttonSize = useBreakpointValue({
-    base: 'md',
-    sm: 'lg',
-  });
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
 
   return (
     <>
-      <Button
-        colorScheme="gray"
-        onClick={onOpen}
-        paddingX={2}
-        size={buttonSize}
-      >
-        <HStack fontSize="2xl" spacing={2}>
+      <Button colorPalette="gray" onClick={onOpen} paddingX={2} size="md">
+        <HStack gap={2}>
           <BiDonateHeart />
           {!isCompact && <Text fontSize="sm">Support</Text>}
         </HStack>
@@ -39,10 +29,13 @@ export const SupportCTA = ({ isCompact = false }: SupportCTAProps) => {
 
       <SpokerModalWrapper
         body={<SupportContent />}
-        closeOnOverlayClick
         header="Support spoker"
-        isOpen={isOpen}
-        onClose={onClose}
+        onOpenChange={({ open }) => {
+          if (!open) {
+            onClose();
+          }
+        }}
+        open={isOpen}
         size="lg"
       />
     </>

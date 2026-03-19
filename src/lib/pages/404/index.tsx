@@ -1,23 +1,22 @@
-import {
-  Box,
-  Button,
-  Link as ChakraLink,
-  Heading,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+'use client';
+
+import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
-export const Page404 = () => {
+export const NotFoundPage = () => {
   return (
     <>
       <Box margin="0 auto" width={{ base: '100%', sm: '70%', md: '50%' }}>
         <Image alt="error-404" src="/404 Error-pana.svg" />
       </Box>
       <Text fontSize="xs" textAlign="center">
-        <ChakraLink href="https://stories.freepik.com/web" isExternal>
+        <Link
+          href="https://stories.freepik.com/web"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Illustration by Freepik Stories
-        </ChakraLink>
+        </Link>
       </Text>
 
       <Box marginY={4}>
@@ -26,8 +25,8 @@ export const Page404 = () => {
         <Box marginTop={4} textAlign="center">
           <Text>It&apos;s Okay!</Text>
 
-          <Button as={Link} href="/">
-            Let&apos;s Head Back
+          <Button asChild>
+            <Link href="/">Let&apos;s Head Back</Link>
           </Button>
         </Box>
       </Box>

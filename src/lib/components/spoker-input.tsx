@@ -1,24 +1,16 @@
-import type {
-  FormControlProps,
-  FormErrorMessageProps,
-  FormHelperTextProps,
-  InputProps,
-} from '@chakra-ui/react';
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  forwardRef,
-  Input,
-} from '@chakra-ui/react';
+'use client';
+
+import type { InputProps } from '@chakra-ui/react';
+import { Field, Input } from '@chakra-ui/react';
+import type { Ref } from 'react';
 
 type SpokerInputProps = {
-  errorText?: FormErrorMessageProps['children'];
-  helperText?: FormHelperTextProps['children'];
-  formControlWidth?: FormControlProps['width'];
-} & Pick<FormControlProps, 'label' | 'isInvalid'> &
-  InputProps;
+  errorText?: string;
+  helperText?: string;
+  label?: string;
+  invalid?: boolean;
+  ref?: Ref<HTMLInputElement>;
+} & InputProps;
 
 const contraInputStyle: Partial<InputProps> = {
   borderColor: 'black',
@@ -27,29 +19,22 @@ const contraInputStyle: Partial<InputProps> = {
   size: 'lg',
 };
 
-export const SpokerInput = forwardRef(
-  (
-    {
-      label,
-      formControlWidth,
-      isInvalid,
-      errorText,
-      helperText,
-      ...inputProps
-    }: SpokerInputProps,
-    ref
-  ) => {
-    return (
-      <FormControl isInvalid={isInvalid} width={formControlWidth}>
-        {label && <FormLabel>{label}</FormLabel>}
-
-        <Input ref={ref} {...contraInputStyle} {...inputProps} />
-
-        {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
-        {helperText && (
-          <FormHelperText color="red.400">{helperText}</FormHelperText>
-        )}
-      </FormControl>
-    );
-  }
-);
+export const SpokerInput = ({
+  label,
+  invalid,
+  errorText,
+  helperText,
+  ref,
+  ...inputProps
+}: SpokerInputProps) => {
+  return (
+    <Field.Root invalid={invalid}>
+      {label && <Field.Label>{label}</Field.Label>}
+      <Input ref={ref} {...contraInputStyle} {...inputProps} />
+      {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
+      {helperText && (
+        <Field.HelperText color="red.400">{helperText}</Field.HelperText>
+      )}
+    </Field.Root>
+  );
+};

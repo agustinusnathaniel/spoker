@@ -1,3 +1,5 @@
+'use client';
+
 import { Grid, Heading } from '@chakra-ui/react';
 
 import { useAuthStoreState } from '~/lib/stores/auth';
@@ -11,7 +13,10 @@ export const HallWrapper = () => {
   return (
     <Grid gap={12}>
       <Heading>Hello, {displayName}</Heading>
-      <Grid gap={12} templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']}>
+      <Grid
+        gap={12}
+        templateColumns={{ base: '1fr', md: '1fr', lg: 'repeat(2, 1fr)' }}
+      >
         <CreateRoom />
         <JoinRoom />
       </Grid>

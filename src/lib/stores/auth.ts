@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { useShallow } from 'zustand/shallow';
 
 interface AuthStoreState {
-  currentUser?: User | null;
+  currentUser: User | null | undefined;
   displayName: string;
 }
 
@@ -15,6 +15,7 @@ interface AuthStoreAction {
 type AuthStore = AuthStoreState & AuthStoreAction;
 
 const useAuth = create<AuthStore>()((set) => ({
+  currentUser: undefined,
   displayName: '',
   setCurrentUser: (user) => set({ currentUser: user }),
   setDisplayName: (displayName) => set({ displayName }),

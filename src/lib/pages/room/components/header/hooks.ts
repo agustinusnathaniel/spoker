@@ -1,6 +1,8 @@
+'use client';
+
 import debounce from 'lodash-es/debounce';
 import isNil from 'lodash-es/isNil';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -18,10 +20,8 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
   const [description, setDescription] = useState<string | undefined>(
     roomData?.task.description
   );
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const params = useParams();
+  const id = params?.id as string;
 
   useEffect(() => {
     if (!isNil(roomData?.task.name)) {
@@ -43,7 +43,7 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
             ...roomData.task,
             [field]: event.target.value,
           };
-          await updateRoomTask(id as string, updatedTask);
+          await updateRoomTask(id, updatedTask);
         }
       }, 500),
     [id, isOwner, roomData]

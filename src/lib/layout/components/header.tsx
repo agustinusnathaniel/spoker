@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex } from '@chakra-ui/react';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
@@ -10,7 +12,7 @@ export const Header = () => {
     <Flex align="center" as="header" width="full">
       <SpokerLogo />
 
-      <Flex alignItems="center" gridGap={[2, 4]} marginLeft="auto">
+      <Flex alignItems="center" gap={{ base: 2, md: 4 }} marginLeft="auto">
         <AuthPopover />
         <ThemeToggle />
       </Flex>

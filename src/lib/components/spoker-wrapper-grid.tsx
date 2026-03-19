@@ -1,5 +1,9 @@
+'use client';
+
 import type { GridProps } from '@chakra-ui/react';
-import { Grid, useColorModeValue } from '@chakra-ui/react';
+import { Grid } from '@chakra-ui/react';
+
+import { useColorModeValue } from '~/lib/components/ui/color-mode';
 
 import { contraGridStyle } from './style';
 
