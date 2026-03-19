@@ -20,7 +20,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import { useForm } from 'react-hook-form';
 import { GoPlus } from 'react-icons/go';
@@ -63,24 +63,24 @@ export const TaskList = () => {
   } = router;
 
   const queue = useRoomStore(
-    useShallow((state) => state.roomData?.queue ?? emptyRoom.queue),
+    useShallow((state) => state.roomData?.queue ?? emptyRoom.queue)
   );
   const completed = useRoomStore(
-    useShallow((state) => state.roomData?.completed ?? emptyRoom.completed),
+    useShallow((state) => state.roomData?.completed ?? emptyRoom.completed)
   );
   const task = useRoomStore(
-    useShallow((state) => state.roomData?.task ?? emptyRoom.task),
+    useShallow((state) => state.roomData?.task ?? emptyRoom.task)
   );
   const showVote = useRoomStore(useShallow((state) => state.showVote));
 
-  const queueRef = React.useRef(queue);
-  const taskRef = React.useRef(task);
+  const queueRef = useRef(queue);
+  const taskRef = useRef(task);
 
-  React.useEffect(() => {
+  useEffect(() => {
     queueRef.current = queue;
   }, [queue]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     taskRef.current = task;
   }, [task]);
 
@@ -106,18 +106,18 @@ export const TaskList = () => {
     base: <GoPlus />,
     md: 'Add Story',
   });
-  const [selectedTabIndex, setSelectedTabIndex] = React.useState<number>(0);
-  const [isBusy, setIsBusy] = React.useState<boolean>();
+  const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
+  const [isBusy, setIsBusy] = useState<boolean>();
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
-    React.useState<number>();
+    useState<number>();
 
-  const sortableQueue: Array<SortableTaskItem> = React.useMemo(() => {
+  const sortableQueue: Array<SortableTaskItem> = useMemo(() => {
     return (queue ?? []) as Array<SortableTaskItem>;
   }, [queue]);
 
-  const all = React.useMemo(
+  const all = useMemo(
     () => [task, ...(queue ?? []), ...(completed ?? [])],
-    [completed, queue, task],
+    [completed, queue, task]
   );
 
   const activeStoriesLengthText = queue?.length
@@ -158,7 +158,7 @@ export const TaskList = () => {
     mode: 'onChange',
   });
 
-  const handleAddStory = React.useCallback(async () => {
+  const handleAddStory = useCallback(async () => {
     if (isValid && isOwner) {
       const values = getValues();
       const randomId = nanoid(21);
@@ -174,7 +174,7 @@ export const TaskList = () => {
     }
   }, [id, isOwner, isValid, onCloseAddStory, reset, getValues]);
 
-  const handleOpenEditStory = React.useCallback(
+  const handleOpenEditStory = useCallback(
     (selectedIndex: number) => {
       setSelectedEditStoryIndex(selectedIndex);
       const selectedQueueItem = queueRef.current?.[selectedIndex];
@@ -184,16 +184,16 @@ export const TaskList = () => {
       });
       onOpenEditStory();
     },
-    [onOpenEditStory, resetEditStoryForm],
+    [onOpenEditStory, resetEditStoryForm]
   );
 
-  const closeEditStory = React.useCallback(() => {
+  const closeEditStory = useCallback(() => {
     setSelectedEditStoryIndex(undefined);
     onCloseEditStory();
     resetEditStoryForm();
   }, [onCloseEditStory, resetEditStoryForm]);
 
-  const processEditStory = React.useCallback(async () => {
+  const processEditStory = useCallback(async () => {
     if (isOwner && selectedEditStoryIndex !== undefined && isEditStoryValid) {
       const values = getEditStoryValues();
       setIsBusy(true);
@@ -215,20 +215,20 @@ export const TaskList = () => {
     selectedEditStoryIndex,
   ]);
 
-  const handleOpenRemoveStory = React.useCallback(
+  const handleOpenRemoveStory = useCallback(
     (selectedIndex: number) => {
       setSelectedEditStoryIndex(selectedIndex);
       onOpenRemoveStory();
     },
-    [onOpenRemoveStory],
+    [onOpenRemoveStory]
   );
 
-  const closeRemoveStory = React.useCallback(() => {
+  const closeRemoveStory = useCallback(() => {
     setSelectedEditStoryIndex(undefined);
     onCloseRemoveStory();
   }, [onCloseRemoveStory]);
 
-  const processRemoveStory = React.useCallback(async () => {
+  const processRemoveStory = useCallback(async () => {
     if (isOwner && selectedEditStoryIndex !== undefined) {
       setIsBusy(true);
       await removeQueueItem({
@@ -241,14 +241,14 @@ export const TaskList = () => {
     }
   }, [closeRemoveStory, id, isOwner, selectedEditStoryIndex]);
 
-  const handleRewriteQueue = React.useCallback(
+  const handleRewriteQueue = useCallback(
     async (updatedQueue: Array<SortableTaskItem>) => {
       if (isOwner) {
         const updated: Array<Task> = updatedQueue.map((queueItem) => {
           const temp = queueItem;
-          delete temp.chosen;
-          delete temp.selected;
-          delete temp.filtered;
+          temp.chosen = undefined;
+          temp.selected = undefined;
+          temp.filtered = undefined;
           return temp;
         });
         if (!isEqual(queueRef.current, updated)) {
@@ -256,10 +256,10 @@ export const TaskList = () => {
         }
       }
     },
-    [id, isOwner],
+    [id, isOwner]
   );
 
-  const handleClickSwap = React.useCallback(
+  const handleClickSwap = useCallback(
     async (selectedQueueIndex: number) => {
       if (isOwner) {
         if (showVote) {
@@ -279,7 +279,7 @@ export const TaskList = () => {
         });
       }
     },
-    [id, isOwner, showVote, toast],
+    [id, isOwner, showVote, toast]
   );
 
   const handleChangeTab = (index: number) => setSelectedTabIndex(index);
@@ -288,10 +288,10 @@ export const TaskList = () => {
     <>
       <SpokerWrapperGrid>
         <Tabs
+          colorScheme="gray"
           index={selectedTabIndex}
           onChange={handleChangeTab}
           variant="soft-rounded"
-          colorScheme="gray"
         >
           <TabList alignItems="center">
             {isOwner && (
@@ -307,10 +307,10 @@ export const TaskList = () => {
             </Tab>
             {isOwner && (
               <Button
-                marginLeft="auto"
-                size="md"
                 colorScheme="blue"
+                marginLeft="auto"
                 onClick={onOpenAddStory}
+                size="md"
               >
                 {buttonContent}
               </Button>
@@ -326,24 +326,23 @@ export const TaskList = () => {
                 <Box>
                   <Tooltip label="Queue can be re-arranged using drag and drop, the first item will be the next story to be voted.">
                     <Text
-                      as="span"
                       _hover={{ cursor: 'help' }}
-                      textDecoration="underline"
-                      fontWeight="semibold"
                       alignItems="center"
+                      as="span"
+                      fontWeight="semibold"
+                      textDecoration="underline"
                     >
                       {queueTabText}: <Icon as={RiInformationLine} />
                     </Text>
                   </Tooltip>
                 </Box>
                 <ReactSortable
+                  animation={200}
                   list={sortableQueue}
                   setList={handleRewriteQueue}
-                  animation={200}
                 >
                   {sortableQueue?.map((queueItem, index) => (
                     <TaskItem
-                      task={queueItem}
                       key={queueItem.id}
                       queueProps={{
                         isQueue: true,
@@ -352,6 +351,7 @@ export const TaskList = () => {
                         onClickEdit: handleOpenEditStory,
                         onClickRemove: handleOpenRemoveStory,
                       }}
+                      task={queueItem}
                     />
                   ))}
                 </ReactSortable>
@@ -359,12 +359,12 @@ export const TaskList = () => {
             )}
             <TabPanel>
               {completed?.map((completedItem) => (
-                <TaskItem task={completedItem} key={completedItem.id} />
+                <TaskItem key={completedItem.id} task={completedItem} />
               ))}
             </TabPanel>
             <TabPanel>
               {all.map((completedItem) => (
-                <TaskItem task={completedItem} key={completedItem.id} />
+                <TaskItem key={completedItem.id} task={completedItem} />
               ))}
             </TabPanel>
           </TabPanels>
@@ -372,22 +372,15 @@ export const TaskList = () => {
       </SpokerWrapperGrid>
 
       <SpokerModalWrapper
-        isOpen={isOpenAddStory}
-        onClose={onCloseAddStory}
-        header="Add Story"
-        contentWrapperProps={{
-          as: 'form',
-          onSubmit: handleSubmit(handleAddStory),
-        }}
         body={
           <Grid gap={4}>
             <Text>Add story to queue</Text>
             <AutoResizeTextarea
               {...register('name')}
+              errorText={errors.name?.message}
+              isInvalid={!!errors.name?.message}
               isRequired
               label="Name"
-              isInvalid={!!errors.name?.message}
-              errorText={errors.name?.message}
             />
             <AutoResizeTextarea
               {...register('description')}
@@ -395,39 +388,39 @@ export const TaskList = () => {
             />
           </Grid>
         }
+        contentWrapperProps={{
+          as: 'form',
+          onSubmit: handleSubmit(handleAddStory),
+        }}
         footer={
           <Flex gridGap={2}>
-            <Button onClick={onCloseAddStory} disabled={isBusy}>
+            <Button disabled={isBusy} onClick={onCloseAddStory}>
               Cancel
             </Button>
             <Button
               colorScheme="teal"
-              type="submit"
               isDisabled={!isValid || isBusy}
               isLoading={isBusy}
+              type="submit"
             >
               Add
             </Button>
           </Flex>
         }
+        header="Add Story"
+        isOpen={isOpenAddStory}
+        onClose={onCloseAddStory}
       />
 
       <SpokerModalWrapper
-        isOpen={isOpenEditStory}
-        onClose={closeEditStory}
-        header="Edit Story"
-        contentWrapperProps={{
-          as: 'form',
-          onSubmit: handleSubmitEditStory(processEditStory),
-        }}
         body={
           <Grid gap={4}>
             <AutoResizeTextarea
               {...registerEditStoryField('name')}
+              errorText={editStoryErrors.name?.message}
+              isInvalid={!!editStoryErrors.name?.message}
               isRequired
               label="Name"
-              isInvalid={!!editStoryErrors.name?.message}
-              errorText={editStoryErrors.name?.message}
             />
             <AutoResizeTextarea
               {...registerEditStoryField('description')}
@@ -435,27 +428,31 @@ export const TaskList = () => {
             />
           </Grid>
         }
+        contentWrapperProps={{
+          as: 'form',
+          onSubmit: handleSubmitEditStory(processEditStory),
+        }}
         footer={
           <Flex gridGap={2}>
-            <Button onClick={closeEditStory} disabled={isBusy}>
+            <Button disabled={isBusy} onClick={closeEditStory}>
               Cancel
             </Button>
             <Button
-              type="submit"
               colorScheme="blue"
               isDisabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
               isLoading={isBusy}
+              type="submit"
             >
               Save
             </Button>
           </Flex>
         }
+        header="Edit Story"
+        isOpen={isOpenEditStory}
+        onClose={closeEditStory}
       />
 
       <SpokerModalWrapper
-        isOpen={isOpenRemoveStory}
-        onClose={closeRemoveStory}
-        header="Confirm Remove Story"
         body={
           <Box>
             <Text>
@@ -469,14 +466,17 @@ export const TaskList = () => {
             <Button onClick={closeRemoveStory}>Cancel</Button>
             <Button
               colorScheme="red"
-              onClick={processRemoveStory}
-              isLoading={isBusy}
               isDisabled={isBusy}
+              isLoading={isBusy}
+              onClick={processRemoveStory}
             >
               Yes, Remove
             </Button>
           </Flex>
         }
+        header="Confirm Remove Story"
+        isOpen={isOpenRemoveStory}
+        onClose={closeRemoveStory}
       />
     </>
   );

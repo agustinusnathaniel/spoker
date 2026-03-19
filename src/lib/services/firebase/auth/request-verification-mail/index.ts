@@ -23,9 +23,9 @@ export const requestVerificationMail = async () => {
   }
 
   if (user?.emailVerified) {
-    showErrorToast(Error('Your email is already verified.'));
+    showErrorToast(new Error('Your email is already verified.'));
     return;
   }
 
-  showErrorToast(Error('Invalid Request'));
+  showErrorToast(new Error('Invalid Request'));
 };

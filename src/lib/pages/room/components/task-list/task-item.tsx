@@ -13,8 +13,7 @@ import { RiDraggable } from 'react-icons/ri';
 
 import type { Task } from '~/lib/types/raw-db';
 
-type TaskItemProps = {
-  task: Task;
+interface TaskItemProps {
   queueProps?: {
     isQueue: boolean;
     taskIndex: number;
@@ -22,7 +21,8 @@ type TaskItemProps = {
     onClickEdit: (selectedIndex: number) => void;
     onClickRemove: (selectedIndex: number) => void;
   };
-};
+  task: Task;
+}
 
 export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
   const swapButtonContent = useBreakpointValue({
@@ -49,15 +49,15 @@ export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
 
   return (
     <Flex
+      _active={{ cursor: queueProps?.isQueue ? 'grab' : undefined }}
+      _hover={{ cursor: queueProps?.isQueue ? 'move' : undefined }}
+      alignItems="center"
+      borderColor="gray.400"
       borderRadius={12}
       borderWidth={2}
-      borderColor="gray.400"
-      padding={4}
-      marginBottom={2}
-      alignItems="center"
       gap={4}
-      _hover={{ cursor: queueProps?.isQueue ? 'move' : undefined }}
-      _active={{ cursor: queueProps?.isQueue ? 'grab' : undefined }}
+      marginBottom={2}
+      padding={4}
     >
       {queueProps?.isQueue ? <RiDraggable /> : null}
       <Box>
@@ -65,30 +65,30 @@ export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
         {task.description && <Text>{task.description}</Text>}
 
         {queueProps?.isQueue && (
-          <Flex marginTop={2} gridGap={2}>
+          <Flex gridGap={2} marginTop={2}>
             <Button
               colorScheme="orange"
-              size="sm"
-              onClick={handleClickSwap}
               leftIcon={<HiSwitchVertical />}
+              onClick={handleClickSwap}
+              size="sm"
             >
               {swapButtonContent}
             </Button>
 
             <Button
               colorScheme="teal"
-              size="sm"
-              onClick={handleClickEdit}
               leftIcon={<HiPencil />}
+              onClick={handleClickEdit}
+              size="sm"
             >
               Edit
             </Button>
 
             <Button
               colorScheme="red"
-              size="sm"
-              onClick={handleClickRemove}
               leftIcon={<HiTrash />}
+              onClick={handleClickRemove}
+              size="sm"
             >
               {removeButtonContent}
             </Button>

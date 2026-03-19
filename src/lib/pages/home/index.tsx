@@ -5,9 +5,9 @@ import { generateNextSeo } from 'next-seo/pages';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { EVENT_TYPE_NAVIGATE } from '~/lib/constants/tracking';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { trackEvent } from '~/lib/utils/track-event';
 
-import { UsersSection } from './components/UsersSection';
+import { UsersSection } from './components/users-section';
 
 export const Home = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ export const Home = () => {
   };
 
   return (
-    <Grid paddingX={0} gap={16} minHeight={{ base: '50vh', sm: '60vh' }}>
+    <Grid gap={16} minHeight={{ base: '50vh', sm: '60vh' }} paddingX={0}>
       <Head>
         {generateNextSeo({
           title:
@@ -29,20 +29,20 @@ export const Home = () => {
         })}
       </Head>
       <Flex
+        alignItems="center"
         direction="column"
         gap={12}
-        textAlign="center"
-        alignItems="center"
+        justifyContent="center"
         marginY={12}
         minHeight={400}
-        justifyContent="center"
+        textAlign="center"
       >
         <Flex direction="column" gap={4}>
-          <Heading size="3xl" fontWeight="extrabold">
+          <Heading fontWeight="extrabold" size="3xl">
             <Text
               as="span"
-              bgGradient="linear(to-br, purple.300, purple.700)"
               bgClip="text"
+              bgGradient="linear(to-br, purple.300, purple.700)"
             >
               Estimate
             </Text>{' '}
@@ -51,8 +51,8 @@ export const Home = () => {
             your{' '}
             <Text
               as="span"
-              bgGradient="linear(to-br, teal.400, teal.700)"
               bgClip="text"
+              bgGradient="linear(to-br, teal.400, teal.700)"
             >
               team
             </Text>
@@ -71,13 +71,13 @@ export const Home = () => {
       </Flex>
 
       <Grid
+        color="white"
         gap={6}
         templateColumns={{ base: '1fr', md: 'repeat(3,1fr)' }}
-        color="white"
       >
         <SpokerWrapperGrid
-          gap={4}
           bgGradient="linear(to-br, teal.400, teal.800)"
+          gap={4}
           gridColumn={{ md: 'span 2' }}
         >
           <Heading>Real-time multiplayer scrum poker voting</Heading>
@@ -89,8 +89,8 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          gap={4}
           bgGradient="linear(to-br, pink.300, pink.800)"
+          gap={4}
         >
           <Grid gap={1}>
             <Heading>Open Sourced, self-hostable</Heading>
@@ -104,8 +104,8 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          gap={4}
           bgGradient="linear(to-br, purple.300, purple.800)"
+          gap={4}
         >
           <Heading>Multi Story Queue</Heading>
           <Text>
@@ -117,8 +117,8 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          gap={4}
           bgGradient="linear(to-br, cyan.300, cyan.800)"
+          gap={4}
         >
           <Heading>Responsive Design</Heading>
           <Text>
@@ -129,8 +129,8 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          gap={4}
           bgGradient="linear(to-br, green.300, green.800)"
+          gap={4}
         >
           <Heading>Performant</Heading>
           <Text>

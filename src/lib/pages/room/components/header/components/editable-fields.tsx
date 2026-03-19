@@ -3,13 +3,13 @@ import type React from 'react';
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
 import type { Task } from '~/lib/types/raw-db';
 
-type EditableFieldsProps = {
-  name?: string;
+interface EditableFieldsProps {
   description?: string;
   handleUpdateTask: (
-    field: keyof Task,
+    field: keyof Task
   ) => (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-};
+  name?: string;
+}
 
 export const EditableFields = ({
   name,
@@ -20,15 +20,15 @@ export const EditableFields = ({
     <>
       <AutoResizeTextarea
         label="Name"
-        value={name}
         onChange={handleUpdateTask('name')}
         placeholder="Going to Mars"
+        value={name}
       />
       <AutoResizeTextarea
         label="Description"
-        value={description}
         onChange={handleUpdateTask('description')}
         placeholder="Land to Moon first"
+        value={description}
       />
     </>
   );

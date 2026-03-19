@@ -17,7 +17,7 @@
  *  - https://reactjs.org/docs/error-boundaries.html
  */
 
-import * as Sentry from '@sentry/nextjs';
+import { captureUnderscoreErrorException } from '@sentry/nextjs';
 import NextErrorComponent from 'next/error';
 
 // biome-ignore lint/suspicious/noExplicitAny: -
@@ -33,7 +33,7 @@ const CustomErrorComponent = (props: any) => {
 CustomErrorComponent.getInitialProps = async (contextData: any) => {
   // In case this is running in a serverless function, await this in order to give Sentry
   // time to send the error before the lambda exits
-  await Sentry.captureUnderscoreErrorException(contextData);
+  await captureUnderscoreErrorException(contextData);
 
   // This will contain the status code of the response
   return NextErrorComponent.getInitialProps(contextData);

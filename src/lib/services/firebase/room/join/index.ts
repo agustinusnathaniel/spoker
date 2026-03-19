@@ -14,7 +14,9 @@ export const joinRoom = async (roomId: string, role: RoleType) => {
         const user: User = snap.val();
         const mustRemovePoint =
           role !== user.role &&
-          [RoleType.observant, RoleType.owner].includes(role);
+          ([RoleType.observant, RoleType.owner] as Array<RoleType>).includes(
+            role
+          );
 
         await update(snap.ref, {
           name: currentUser?.displayName,
@@ -29,6 +31,6 @@ export const joinRoom = async (roomId: string, role: RoleType) => {
           isConnected: true,
         });
       }
-    },
+    }
   );
 };

@@ -1,12 +1,12 @@
 import { FaGithub } from 'react-icons/fa';
 
-type SponsorLink = {
-  label: string;
-  description?: string;
-  url: string;
-  icon?: React.ReactElement;
+interface SponsorLink {
   colorScheme?: string;
-};
+  description?: string;
+  icon?: React.ReactElement;
+  label: string;
+  url: string;
+}
 
 export const sponsorLinks: Array<SponsorLink> = [
   {

@@ -1,24 +1,24 @@
 import { Modal, ModalOverlay, useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import type { ReactNode } from 'react';
-import * as React from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
 import { useAuthStoreState } from '~/lib/stores/auth';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { trackEvent } from '~/lib/utils/track-event';
 
 import { Login } from './login';
 import { Register } from './register';
 
-type AuthWrapperProps = {
+interface AuthWrapperProps {
   children: ReactNode;
-};
+}
 
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isRegistered, setIsRegistered] = React.useState<boolean>(true);
+  const [isRegistered, setIsRegistered] = useState<boolean>(true);
   const { currentUser } = useAuthStoreState();
 
   const router = useRouter();
@@ -30,7 +30,7 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
     currentUser === null && !isPublicRoute && !isRestrictedRoute;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: -
-  React.useEffect(() => {
+  useEffect(() => {
     if (isUnauthorized) {
       onOpen();
     } else {
@@ -38,7 +38,7 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
     }
   }, [currentUser, pathname]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isUnauthorized) {
       setIsRegistered(true);
     }
@@ -56,15 +56,15 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   };
 
   if (!isUnauthorized) {
-    return children as React.ReactElement;
+    return children as ReactElement;
   }
 
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={handleCloseAuthModal}
-      motionPreset="slideInBottom"
       isCentered
+      isOpen={isOpen}
+      motionPreset="slideInBottom"
+      onClose={handleCloseAuthModal}
       size="md"
     >
       <ModalOverlay />

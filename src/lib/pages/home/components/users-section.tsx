@@ -1,10 +1,10 @@
 import { Flex, Image, Link, Text } from '@chakra-ui/react';
 
-type UserMeta = {
-  name: string;
+interface UserMeta {
   imagePath: string;
+  name: string;
   url: string;
-};
+}
 
 const users: Array<UserMeta> = [
   {
@@ -46,29 +46,29 @@ const users: Array<UserMeta> = [
 
 export const UsersSection = () => {
   return (
-    <Flex direction="column" alignItems="center" gap={2}>
-      <Text fontSize="small" color="gray">
+    <Flex alignItems="center" direction="column" gap={2}>
+      <Text color="gray" fontSize="small">
         used by various companies and teams
       </Text>
-      <Flex alignItems="center" justifyContent="center" wrap="wrap" gap={6}>
+      <Flex alignItems="center" gap={6} justifyContent="center" wrap="wrap">
         {users.map((user) => (
           <Link
-            key={user.url}
             href={user.url}
             isExternal
+            key={user.url}
             rel="noopener noreferrer"
             title={user.name}
           >
             <Image
-              alt={user.name}
-              height="2.5rem"
-              maxWidth={{ base: 32, md: 40 }}
-              filter="grayscale(1)"
-              transition="ease-in-out 0.15s"
               _hover={{
                 filter: 'grayscale(0)',
               }}
+              alt={user.name}
+              filter="grayscale(1)"
+              height="2.5rem"
+              maxWidth={{ base: 32, md: 40 }}
               src={user.imagePath}
+              transition="ease-in-out 0.15s"
             />
           </Link>
         ))}

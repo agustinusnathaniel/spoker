@@ -1,10 +1,10 @@
-export type FirebaseConfigType = {
+export interface FirebaseConfigType {
   apiKey: string;
+  appId: string;
   authDomain: string;
   databaseURL: string;
+  measurementId: string;
+  messagingSenderId: string;
   projectId: string;
   storageBucket: string;
-  messagingSenderId: string;
-  appId: string;
-  measurementId: string;
-};
+}

@@ -4,21 +4,21 @@ import { useShallow } from 'zustand/shallow';
 import type { RoomInstance } from '~/lib/types/raw-db';
 import type { RoomUser } from '~/lib/types/room';
 
-type RoomState = {
-  isBusy: boolean;
-  showVote: boolean;
-  roomData?: RoomInstance;
-  users: Array<RoomUser>;
+interface RoomState {
   inRoom: boolean;
-};
+  isBusy: boolean;
+  roomData?: RoomInstance;
+  showVote: boolean;
+  users: Array<RoomUser>;
+}
 
-type RoomSetStateAction = {
-  setIsBusy: (isBusy: boolean) => void;
-  setShowVote: (showVote: boolean) => void;
-  setRoomData: (roomData: RoomInstance) => void;
-  setUsers: (users: Array<RoomUser>) => void;
+interface RoomSetStateAction {
   setInRoom: (inRoom: boolean) => void;
-};
+  setIsBusy: (isBusy: boolean) => void;
+  setRoomData: (roomData: RoomInstance) => void;
+  setShowVote: (showVote: boolean) => void;
+  setUsers: (users: Array<RoomUser>) => void;
+}
 
 type RoomStore = RoomState & RoomSetStateAction;
 
@@ -42,7 +42,7 @@ export const useRoomStoreState = (): RoomState =>
       showVote,
       users,
       inRoom,
-    })),
+    }))
   );
 
 export const useRoomStoreAction = (): RoomSetStateAction =>
@@ -54,6 +54,6 @@ export const useRoomStoreAction = (): RoomSetStateAction =>
         setRoomData,
         setUsers,
         setInRoom,
-      }),
-    ),
+      })
+    )
   );

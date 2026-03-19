@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 
 import { useAuthStoreState } from '~/lib/stores/auth';
 import { useRoomStoreState } from '~/lib/stores/room';
@@ -8,9 +8,9 @@ export const useUserRole = () => {
   const { currentUser } = useAuthStoreState();
   const { roomData } = useRoomStoreState();
 
-  const userRole = React.useMemo(
+  const userRole = useMemo(
     () => currentUser && roomData?.users?.[currentUser.uid]?.role,
-    [currentUser, roomData?.users],
+    [currentUser, roomData?.users]
   );
 
   const isParticipant = userRole === RoleType.participant;

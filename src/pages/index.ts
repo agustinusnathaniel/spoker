@@ -1,3 +1,1 @@
-import { HallPage } from '~/lib/pages/hall';
-
-export default HallPage;
+export { HallPage as default } from '~/lib/pages/hall';

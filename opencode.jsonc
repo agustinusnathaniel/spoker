@@ -1,0 +1,17 @@
+{
+  "mcp": {
+    "next-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "next-devtools-mcp@latest"]
+    },
+    "chakra-ui": {
+      "type": "local",
+      "command": ["npx", "-y", "@chakra-ui/react-mcp"]
+    },
+    "ultracite": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://docs.ultracite.ai/mcp"]
+    }
+  },
+  "$schema": "https://opencode.ai/config.json"
+}

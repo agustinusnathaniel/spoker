@@ -1,16 +1,16 @@
-export enum RoleType {
-  owner = 'owner',
-  participant = 'participant',
-  observant = 'observant',
-}
+export const RoleType = {
+  owner: 'owner',
+  participant: 'participant',
+  observant: 'observant',
+} as const;
 
-export const roleOptions: Array<RoleType> = Object.keys(RoleType)
-  .filter((key) => Number.isNaN(Number(key)))
-  .map((role: string) => role as RoleType);
+export type RoleType = (typeof RoleType)[keyof typeof RoleType];
+
+export const roleOptions: Array<RoleType> = Object.values(RoleType);
 
 export interface User {
-  name: string;
-  role: RoleType;
-  point?: number;
   isConnected: boolean;
+  name: string;
+  point?: number;
+  role: RoleType;
 }

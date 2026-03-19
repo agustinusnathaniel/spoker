@@ -11,9 +11,9 @@ import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
 
 import { SupportContent } from './support-content';
 
-type SupportCTAProps = {
+interface SupportCTAProps {
   isCompact?: boolean;
-};
+}
 
 export const SupportCTA = ({ isCompact = false }: SupportCTAProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,10 +26,10 @@ export const SupportCTA = ({ isCompact = false }: SupportCTAProps) => {
   return (
     <>
       <Button
-        paddingX={2}
-        onClick={onOpen}
-        size={buttonSize}
         colorScheme="gray"
+        onClick={onOpen}
+        paddingX={2}
+        size={buttonSize}
       >
         <HStack fontSize="2xl" spacing={2}>
           <BiDonateHeart />
@@ -38,12 +38,12 @@ export const SupportCTA = ({ isCompact = false }: SupportCTAProps) => {
       </Button>
 
       <SpokerModalWrapper
-        isOpen={isOpen}
-        onClose={onClose}
+        body={<SupportContent />}
         closeOnOverlayClick
         header="Support spoker"
+        isOpen={isOpen}
+        onClose={onClose}
         size="lg"
-        body={<SupportContent />}
       />
     </>
   );

@@ -2,15 +2,15 @@ import type { User } from 'firebase/auth';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/shallow';
 
-type AuthStoreState = {
+interface AuthStoreState {
   currentUser?: User | null;
   displayName: string;
-};
+}
 
-type AuthStoreAction = {
+interface AuthStoreAction {
   setCurrentUser: (user?: User | null) => void;
   setDisplayName: (displayName: string) => void;
-};
+}
 
 type AuthStore = AuthStoreState & AuthStoreAction;
 
@@ -25,7 +25,7 @@ export const useAuthStoreState = (): AuthStoreState =>
     useShallow(({ currentUser, displayName }) => ({
       currentUser,
       displayName,
-    })),
+    }))
   );
 
 export const useAuthStoreAction = (): AuthStoreAction =>
@@ -33,5 +33,5 @@ export const useAuthStoreAction = (): AuthStoreAction =>
     useShallow(({ setCurrentUser, setDisplayName }) => ({
       setCurrentUser,
       setDisplayName,
-    })),
+    }))
   );

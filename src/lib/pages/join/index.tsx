@@ -47,7 +47,7 @@ export const JoinRoomPage = () => {
         status: 'error',
         position: 'top',
       });
-      router.push(`/`);
+      router.push('/');
     }
   }, [id, router, toast]);
 
@@ -97,7 +97,7 @@ export const JoinRoomPage = () => {
           </Grid>
         </Grid>
 
-        <Button isLoading={isLoading} colorScheme="blue" onClick={handleJoin}>
+        <Button colorScheme="blue" isLoading={isLoading} onClick={handleJoin}>
           Let&apos;s Go!
         </Button>
       </SpokerWrapperGrid>

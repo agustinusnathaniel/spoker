@@ -36,20 +36,20 @@ export const AutoResizeTextarea = forwardRef(
       helperText,
       ...props
     }: AutoResizeTextareaProps,
-    ref,
+    ref
   ) => {
     return (
       <FormControl isInvalid={isInvalid}>
         {label && <FormLabel>{label}</FormLabel>}
 
         <Textarea
-          minH="unset"
-          overflow="hidden"
-          w="100%"
-          resize="none"
-          ref={ref}
-          minRows={1}
           as={ResizeTextarea}
+          minH="unset"
+          minRows={1}
+          overflow="hidden"
+          ref={ref}
+          resize="none"
+          w="100%"
           {...contraStyle}
           {...props}
         />
@@ -60,5 +60,5 @@ export const AutoResizeTextarea = forwardRef(
         )}
       </FormControl>
     );
-  },
+  }
 );

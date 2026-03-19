@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
@@ -9,9 +10,9 @@ import { useAuthStoreState } from '~/lib/stores/auth';
 
 import { useAuthObserver } from './hooks';
 
-type RouteWrapperProps = {
-  children: React.ReactNode;
-};
+interface RouteWrapperProps {
+  children: ReactNode;
+}
 
 export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const router = useRouter();
@@ -19,30 +20,30 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const { isLoadingAuth } = useAuthObserver();
 
   const { currentUser } = useAuthStoreState();
-  const [busy, setBusy] = React.useState<boolean>(false);
+  const [busy, setBusy] = useState<boolean>(false);
 
   const toast = useToast();
 
-  const isPublicRoute = React.useMemo(
+  const isPublicRoute = useMemo(
     () => PUBLIC_ROUTES.includes(pathname),
-    [pathname],
+    [pathname]
   );
-  const isRestrictedRoute = React.useMemo(
+  const isRestrictedRoute = useMemo(
     () => RESTRICTED_ROUTES.includes(pathname),
-    [pathname],
+    [pathname]
   );
 
-  const isNotVerified = React.useMemo(
+  const isNotVerified = useMemo(
     () =>
       currentUser &&
       !currentUser.emailVerified &&
       pathname !== '/' &&
       !isPublicRoute &&
       !isRestrictedRoute,
-    [currentUser, isPublicRoute, isRestrictedRoute, pathname],
+    [currentUser, isPublicRoute, isRestrictedRoute, pathname]
   );
 
-  const routeCheck = React.useCallback(() => {
+  const routeCheck = useCallback(() => {
     if (currentUser && isRestrictedRoute) {
       // setBusy(true);
       router.replace('/').then(() => setBusy(false));
@@ -71,7 +72,7 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   }, [currentUser, isNotVerified, isRestrictedRoute, router, toast]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: -
-  React.useEffect(() => {
+  useEffect(() => {
     routeCheck();
   }, [pathname, currentUser]);
 
@@ -79,5 +80,5 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
     return <FullScreenLoading />;
   }
 
-  return children as React.ReactElement;
+  return children as ReactElement;
 };

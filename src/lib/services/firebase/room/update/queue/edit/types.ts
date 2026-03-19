@@ -1,8 +1,8 @@
 import type { Task } from '~/lib/types/raw-db';
 
-export type EditQueueItemArgs = {
-  roomId: string;
-  updatedItem: Task;
-  selectedQueueIndex: number;
+export interface EditQueueItemArgs {
   queue?: Array<Task>;
-};
+  roomId: string;
+  selectedQueueIndex: number;
+  updatedItem: Task;
+}

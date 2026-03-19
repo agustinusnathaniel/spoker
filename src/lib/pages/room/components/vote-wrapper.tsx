@@ -43,7 +43,7 @@ export const VoteWrapper = () => {
     <SpokerWrapperGrid gap={4}>
       <Heading size="lg">Vote!</Heading>
 
-      <Flex wrap="wrap" gridGap={2} {...voteOptionGroup}>
+      <Flex gridGap={2} wrap="wrap" {...voteOptionGroup}>
         {pointOptions.map((voteOption) => {
           const radio = getRadioProps({ value: voteOption });
 

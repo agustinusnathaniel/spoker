@@ -1,3 +1,1 @@
-import { Auth } from '~/lib/pages/auth';
-
-export default Auth;
+export { Auth as default } from '~/lib/pages/auth';

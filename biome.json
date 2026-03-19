@@ -1,10 +1,15 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.3/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ],
   "files": {
     "ignoreUnknown": false,
     "includes": [
@@ -15,7 +20,8 @@
       "!src/components/ui/**/*",
       "!src/**/*/utils.ts",
       "!src/**/*.css",
-      "!*.d.ts"
+      "!*.d.ts",
+      "!.agents"
     ]
   },
   "formatter": {
@@ -29,31 +35,11 @@
     },
     "rules": {
       "recommended": true,
-      "a11y": {
-        "useSemanticElements": "error"
-      },
-      "complexity": {
-        "noExcessiveCognitiveComplexity": "error",
-        "noUselessStringConcat": "error",
-        "noUselessUndefinedInitialization": "error",
-        "useSimplifiedLogicExpression": "error",
-        "noVoid": "warn"
-      },
-      "correctness": {
-        "noUnusedImports": "error",
-        "noUnusedVariables": "error",
-        "noUnusedFunctionParameters": "error",
-        "useHookAtTopLevel": "error"
-      },
       "performance": {
-        "noBarrelFile": "off",
-        "useTopLevelRegex": "error"
+        "noBarrelFile": "off"
       },
       "style": {
         "noDefaultExport": "off",
-        "useBlockStatements": "error",
-        "useCollapsedElseIf": "error",
-        "useDefaultSwitchClause": "error",
         "useConsistentArrayType": {
           "level": "error",
           "options": {

@@ -21,17 +21,17 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="application-name" content={APP_NAME} />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta content={APP_NAME} name="application-name" />
+          <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta
-            name="apple-mobile-web-app-status-bar-style"
             content="default"
+            name="apple-mobile-web-app-status-bar-style"
           />
-          <meta name="apple-mobile-web-app-title" content={APP_NAME} />
-          <meta name="description" content={APP_DESCRIPTION} />
-          <meta name="format-detection" content="telephone=no" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="theme-color" content="#FFFFFF" />
+          <meta content={APP_NAME} name="apple-mobile-web-app-title" />
+          <meta content={APP_DESCRIPTION} name="description" />
+          <meta content="telephone=no" name="format-detection" />
+          <meta content="yes" name="mobile-web-app-capable" />
+          <meta content="#FFFFFF" name="theme-color" />
 
           {/* add your own app-icon */}
           {/* <link
@@ -40,17 +40,17 @@ class MyDocument extends Document {
             href="/icons/apple-touch-icon.png"
           />
           <link rel="shortcut icon" href="/app-icon.png" /> */}
-          <link rel="manifest" href="/manifest.json" />
+          <link href="/manifest.json" rel="manifest" />
 
           {/* umami self-hosted analytics */}
 
           {UMAMI_SRC && UMAMI_WEBSITE_ID && (
             <script
               async
-              defer
-              data-website-id={UMAMI_WEBSITE_ID}
-              src={UMAMI_SRC}
               data-domains={UMAMI_DATA_DOMAIN}
+              data-website-id={UMAMI_WEBSITE_ID}
+              defer
+              src={UMAMI_SRC}
             />
           )}
         </Head>

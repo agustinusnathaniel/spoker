@@ -7,10 +7,10 @@ import { ThemeToggle } from './theme-toggle';
 
 export const Header = () => {
   return (
-    <Flex as="header" width="full" align="center">
+    <Flex align="center" as="header" width="full">
       <SpokerLogo />
 
-      <Flex alignItems="center" marginLeft="auto" gridGap={[2, 4]}>
+      <Flex alignItems="center" gridGap={[2, 4]} marginLeft="auto">
         <AuthPopover />
         <ThemeToggle />
       </Flex>

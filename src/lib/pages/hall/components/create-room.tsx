@@ -8,8 +8,8 @@ import { SpokerInput } from '~/lib/components/spoker-input';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { createRoomFormSchema, initialValues } from '~/lib/models/hall';
 import { createRoom } from '~/lib/services/firebase/room/create';
-import { formatId } from '~/lib/utils/formatId';
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
+import { formatId } from '~/lib/utils/format-id';
+import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
 
 export const CreateRoom = () => {
   const toast = useToast();
@@ -49,8 +49,8 @@ export const CreateRoom = () => {
 
   return (
     <SpokerWrapperGrid
-      gap={8}
       as="form"
+      gap={8}
       onSubmit={handleSubmit(processCreateRoom)}
     >
       <Heading size="lg">Create Room</Heading>
@@ -59,23 +59,23 @@ export const CreateRoom = () => {
         <SpokerInput
           label="Room Name"
           {...register('name')}
-          isInvalid={!!errors.name?.message}
           errorText={errors.name?.message}
+          isInvalid={!!errors.name?.message}
           placeholder="The Quick Brown Fox"
         />
         <SpokerInput
           label="Room ID"
           {...register('id')}
-          isInvalid={!!errors.id?.message}
           errorText={errors.id?.message}
+          isInvalid={!!errors.id?.message}
           placeholder="define your own room slug"
         />
       </Grid>
 
       <Button
-        isLoading={isLoading}
-        disabled={!(isDirty && isValid) || isLoading}
         colorScheme="green"
+        disabled={!(isDirty && isValid) || isLoading}
+        isLoading={isLoading}
         type="submit"
       >
         Let&apos;s Have Some Fun!

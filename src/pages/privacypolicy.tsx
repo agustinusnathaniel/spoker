@@ -1,3 +1,1 @@
-import { PrivacyPolicy } from '~/lib/pages/privacypolicy';
-
-export default PrivacyPolicy;
+export { PrivacyPolicy as default } from '~/lib/pages/privacypolicy';

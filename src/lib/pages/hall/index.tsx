@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { generateNextSeo } from 'next-seo/pages';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { requestVerificationMail } from '~/lib/services/firebase/auth/request-verification-mail';
@@ -20,8 +20,8 @@ import { HallWrapper } from './components/hall-wrapper';
 
 export const HallPage = () => {
   const { currentUser } = useAuthStoreState();
-  const [busy, setBusy] = React.useState<boolean>(true);
-  const [isEmailVerified, setIsEmailVerified] = React.useState<boolean>(false);
+  const [busy, setBusy] = useState<boolean>(true);
+  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
   const toast = useToast();
 
   const requestEmailVerification = () => {
@@ -29,7 +29,7 @@ export const HallPage = () => {
       if (currentUser.emailVerified) {
         setIsEmailVerified(currentUser.emailVerified);
         toast({
-          description: `Your email is already verified.`,
+          description: 'Your email is already verified.',
           status: 'info',
           position: 'top',
           isClosable: true,
@@ -40,7 +40,7 @@ export const HallPage = () => {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setBusy(true);
     if (currentUser) {
       currentUser.reload().then(() => {
@@ -72,9 +72,9 @@ export const HallPage = () => {
               Haven&apos;t received any verification email?{' '}
               <Button
                 colorScheme="orange"
-                size="sm"
                 fontWeight="semibold"
                 onClick={requestEmailVerification}
+                size="sm"
               >
                 Request Verification Link
               </Button>

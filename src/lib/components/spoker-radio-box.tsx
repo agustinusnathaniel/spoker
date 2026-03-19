@@ -15,10 +15,6 @@ export const SpokerRadioBox = ({ children, ...props }: SpokerRadioBoxProps) => {
       <input {...input} />
       <Box
         {...radio}
-        cursor="pointer"
-        borderWidth="1px"
-        borderRadius="xl"
-        boxShadow="md"
         _checked={{
           bg: 'teal.500',
           color: 'white',
@@ -30,6 +26,10 @@ export const SpokerRadioBox = ({ children, ...props }: SpokerRadioBoxProps) => {
         _focus={{
           boxShadow: 'outline',
         }}
+        borderRadius="xl"
+        borderWidth="1px"
+        boxShadow="md"
+        cursor="pointer"
         px={5}
         py={3}
       >

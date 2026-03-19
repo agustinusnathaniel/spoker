@@ -36,17 +36,17 @@ export const SpokerModalWrapper = ({
 }: SpokerModalWrapperProps) => {
   return (
     <Modal
-      size={size}
-      isOpen={isOpen}
-      onClose={onClose}
       closeOnOverlayClick={closeOnOverlayClick}
       isCentered
+      isOpen={isOpen}
+      onClose={onClose}
+      size={size}
     >
       <ModalOverlay />
 
       <ModalContent {...contraGridStyle} marginX="6" {...contentWrapperProps}>
         {header && (
-          <ModalHeader fontWeight="bold" fontSize={{ base: '2xl', lg: '3xl' }}>
+          <ModalHeader fontSize={{ base: '2xl', lg: '3xl' }} fontWeight="bold">
             {header}
           </ModalHeader>
         )}

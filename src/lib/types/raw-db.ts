@@ -15,40 +15,40 @@ export interface RoomMappedUser {
 }
 
 export interface RoomInstance {
-  room: RoomInfo;
-  task: Task;
-  queue?: Array<Task>;
   completed?: Array<Task>;
-  selectedTaskIndex: number;
-
-  users?: RoomMappedUser;
 
   config: RoomConfig;
+  queue?: Array<Task>;
+  room: RoomInfo;
+  selectedTaskIndex: number;
+  task: Task;
+
+  users?: RoomMappedUser;
 }
 
 interface RoomInfo {
-  name: string;
   isPrivate: boolean;
+  name: string;
   password?: string;
 }
 
 export interface RoomConfig {
-  isFreezeAfterVote: boolean;
   hideLabel?: HideLabelOptionsType;
+  isFreezeAfterVote: boolean;
 }
 
 export type PointEntry = Pick<User, 'name' | 'point'>;
 
-type LastVoted = {
+interface LastVoted {
   name: string;
   time: string;
-};
+}
 
 export interface Task {
-  id: string;
-  name: string;
   description?: string;
   estimation?: number;
+  id: string;
   lastVoted?: LastVoted | null;
+  name: string;
   pointEntries?: Array<PointEntry>;
 }

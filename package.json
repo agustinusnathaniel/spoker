@@ -17,11 +17,10 @@
     "build:turbo": "pnpm turbo build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "biome:check": "biome check --no-errors-on-unmatched --error-on-warnings",
-    "biome:fix": "pnpm biome:check --write",
-    "biome:ci": "biome ci",
     "type:check": "tsc --noEmit",
-    "check:turbo": "pnpm turbo biome:check type:check",
+    "ultracite:check": "ultracite check",
+    "ultracite:fix": "ultracite fix",
+    "check:turbo": "pnpm turbo ultracite:check type:check",
     "check:unused": "knip",
     "release": "cross-env HUSKY=0 standard-version",
     "push-release": "git push --follow-tags origin dev",
@@ -60,7 +59,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.4",
+    "@biomejs/biome": "2.4.7",
     "@commitlint/config-conventional": "^20.4.4",
     "@commitlint/cz-commitlint": "^20.4.4",
     "@commitlint/types": "^20.4.4",
@@ -80,7 +79,8 @@
     "next-sitemap": "^4.2.3",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "ultracite": "7.3.2"
   },
   "repository": {
     "url": "https://github.com/agustinusnathaniel/spoker"

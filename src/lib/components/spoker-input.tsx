@@ -37,7 +37,7 @@ export const SpokerInput = forwardRef(
       helperText,
       ...inputProps
     }: SpokerInputProps,
-    ref,
+    ref
   ) => {
     return (
       <FormControl isInvalid={isInvalid} width={formControlWidth}>
@@ -51,5 +51,5 @@ export const SpokerInput = forwardRef(
         )}
       </FormControl>
     );
-  },
+  }
 );

@@ -11,7 +11,7 @@ export const HallWrapper = () => {
   return (
     <Grid gap={12}>
       <Heading>Hello, {displayName}</Heading>
-      <Grid templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']} gap={12}>
+      <Grid gap={12} templateColumns={['1fr', '1fr', 'repeat(2, 1fr)']}>
         <CreateRoom />
         <JoinRoom />
       </Grid>

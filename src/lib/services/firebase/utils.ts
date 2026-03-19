@@ -1,7 +1,7 @@
 import type { UseToastOptions } from '@chakra-ui/react';
 import { createStandaloneToast } from '@chakra-ui/react';
 
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
+import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
 
 const { toast } = createStandaloneToast();
 

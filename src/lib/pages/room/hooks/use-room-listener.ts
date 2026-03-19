@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { child, onDisconnect, onValue } from 'firebase/database';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { roomsData } from '~/lib/services/firebase/room/common';
@@ -13,7 +13,7 @@ import type { RoomUser } from '~/lib/types/room';
 import {
   checkAllParticipantVoted,
   connectedUsers,
-} from '~/lib/utils/roomUtils';
+} from '~/lib/utils/room-utils';
 
 export const useRoomListener = () => {
   const router = useRouter();
@@ -28,19 +28,19 @@ export const useRoomListener = () => {
   const {
     query: { id },
   } = router;
-  const firstRenderRef = React.useRef(true);
+  const firstRenderRef = useRef(true);
 
-  const handleOnDisconnect = React.useCallback(() => {
+  const handleOnDisconnect = useCallback(() => {
     if (currentUser?.uid) {
       onDisconnect(
-        child(roomsData, `${id as string}/users/${currentUser.uid}`),
+        child(roomsData, `${id as string}/users/${currentUser.uid}`)
       ).update({
         isConnected: false,
       });
     }
   }, [currentUser?.uid, id]);
 
-  const getRoomData = React.useCallback(() => {
+  const getRoomData = useCallback(() => {
     setInRoom(true);
     onValue(child(roomsData, id as string), (snap) => {
       if (snap.exists()) {
@@ -65,12 +65,12 @@ export const useRoomListener = () => {
     }
   };
 
-  const handleRejoin = React.useCallback(async () => {
+  const handleRejoin = useCallback(async () => {
     await rejoinRoom(id as string, userRole);
     setInRoom(true);
   }, [id, setInRoom, userRole]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false;
       toast.closeAll();
@@ -78,7 +78,7 @@ export const useRoomListener = () => {
     }
   }, [getRoomData, toast]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (roomData && currentUser && inRoom) {
       if (roomData.users?.[currentUser.uid]) {
         setIsBusy(false);
@@ -96,7 +96,7 @@ export const useRoomListener = () => {
         description:
           "Either you haven't join the room before or rejoin or disconnected / refreshed the page",
         position: 'top-right',
-        duration: 15000,
+        duration: 15_000,
         isClosable: true,
       });
     }
@@ -112,7 +112,7 @@ export const useRoomListener = () => {
     setUsers,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const inRoomDisconnected =
       roomData &&
       currentUser &&
@@ -126,7 +126,7 @@ export const useRoomListener = () => {
     }
   }, [currentUser, handleRejoin, inRoom, roomData, roomData?.users]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     router.events.on('routeChangeStart', removeUserFromRoom);
     return () => {
       router.events.off('routeChangeStart', removeUserFromRoom);

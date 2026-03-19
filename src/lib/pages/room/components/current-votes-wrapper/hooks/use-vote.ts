@@ -20,7 +20,7 @@ export const useVote = () => {
 
     if (roomData && currentUser && isOwner) {
       const pointEntries: Array<PointEntry> = users.map(
-        (user) => ({ name: user.name, point: user.point ?? 0 }) as PointEntry,
+        (user) => ({ name: user.name, point: user.point ?? 0 }) as PointEntry
       );
       await submitVote({
         roomId: id as string,

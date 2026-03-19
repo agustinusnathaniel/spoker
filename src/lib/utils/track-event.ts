@@ -1,7 +1,7 @@
-type TrackEventToUmamiArgs = {
-  eventName: string;
+interface TrackEventToUmamiArgs {
   eventData: Record<string, string | number>;
-};
+  eventName: string;
+}
 
 /**
  * umami tracker functions:

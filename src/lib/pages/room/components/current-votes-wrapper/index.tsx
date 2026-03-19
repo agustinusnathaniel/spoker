@@ -11,7 +11,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import type { ChangeEvent } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -45,30 +46,32 @@ export const CurrentVotesWrapper = () => {
   const { averagePoint, highestPoint } = useRoomPoint();
   const { handleFinishVote } = useVote();
   const [isLoadingSubmitVote, setIsLoadingSubmitVote] =
-    React.useState<boolean>(false);
-  const [estimate, setEstimate] = React.useState<number>(0);
+    useState<boolean>(false);
+  const [estimate, setEstimate] = useState<number>(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (showVote) {
       setEstimate(highestPoint);
     }
   }, [highestPoint, showVote]);
 
-  const showAveragePoint = React.useMemo(
+  const showAveragePoint = useMemo(
     () => showVote && !Number.isNaN(averagePoint),
-    [averagePoint, showVote],
+    [averagePoint, showVote]
   );
 
-  const sortedParticipants = React.useMemo(
+  const sortedParticipants = useMemo(
     () =>
       users
         .filter((user) =>
-          [RoleType.participant, RoleType.owner].includes(user.role),
+          ([RoleType.participant, RoleType.owner] as Array<RoleType>).includes(
+            user.role
+          )
         )
         .sort((a, b) => (showVote ? (b.point ?? 0) - (a.point ?? 0) : 0))
         .map((participant, participantIndex, participants) => (
-          <React.Fragment key={participant.uid}>
-            <Grid templateColumns="2fr 1fr" alignItems="center">
+          <Fragment key={participant.uid}>
+            <Grid alignItems="center" templateColumns="2fr 1fr">
               <Heading size="sm">{participant.name}</Heading>
               <Text
                 fontSize={
@@ -79,21 +82,21 @@ export const CurrentVotesWrapper = () => {
                 }
               >
                 <PointWrapper
-                  showVote={showVote}
-                  roomSelectedHideLabel={config?.hideLabel ?? 'monkey'}
                   isCurrentUser={participant.uid === currentUser?.uid}
                   point={participant.point}
+                  roomSelectedHideLabel={config?.hideLabel ?? 'monkey'}
+                  showVote={showVote}
                 />
               </Text>
             </Grid>
             {participantIndex !== participants.length - 1 && <Divider />}
-          </React.Fragment>
+          </Fragment>
         )),
-    [currentUser?.uid, config?.hideLabel, showVote, users],
+    [currentUser?.uid, config?.hideLabel, showVote, users]
   );
 
   const handleUpdateFreezeAfterVote = async (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>
   ) => {
     if (isOwner) {
       const updatedConfig: Partial<RoomConfig> = {
@@ -111,7 +114,7 @@ export const CurrentVotesWrapper = () => {
   };
 
   const handleUpdateHideLabel = async (
-    selectedHideLabel: HideLabelOptionsType,
+    selectedHideLabel: HideLabelOptionsType
   ) => {
     if (isOwner || isObservant) {
       const updatedConfig: Partial<RoomConfig> = {
@@ -121,7 +124,7 @@ export const CurrentVotesWrapper = () => {
     }
   };
 
-  const handleSetEstimate = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSetEstimate = (e: ChangeEvent<HTMLSelectElement>) => {
     setEstimate(Number(e.target.value));
   };
 
@@ -140,17 +143,17 @@ export const CurrentVotesWrapper = () => {
       <Heading size="lg">Current Votes</Heading>
 
       <Checkbox
+        colorScheme="teal"
         disabled={!isOwner}
         isChecked={config?.isFreezeAfterVote}
-        onChange={handleUpdateFreezeAfterVote}
-        colorScheme="teal"
         marginY={4}
+        onChange={handleUpdateFreezeAfterVote}
       >
         freeze after vote
       </Checkbox>
 
       {(isOwner || isObservant) && (
-        <FormControl display="flex" alignItems="center">
+        <FormControl alignItems="center" display="flex">
           <FormLabel fontSize="sm" width="30%">
             Hide Label
           </FormLabel>
@@ -162,7 +165,7 @@ export const CurrentVotesWrapper = () => {
             value={config?.hideLabel ?? 'monkey'}
           >
             {hideLabelOptions.map((hideLabelOption) => (
-              <Text as="option" value={hideLabelOption} key={hideLabelOption}>
+              <Text as="option" key={hideLabelOption} value={hideLabelOption}>
                 {hideLabelOption}
               </Text>
             ))}
@@ -177,12 +180,12 @@ export const CurrentVotesWrapper = () => {
 
       {isOwner && showVote && (
         <Grid
-          marginTop={6}
-          gap={4}
-          padding={2}
           borderColor="orange"
-          borderWidth={2}
           borderRadius={16}
+          borderWidth={2}
+          gap={4}
+          marginTop={6}
+          padding={2}
         >
           <Grid gap={2}>
             <Heading fontSize="md" fontStyle="italic">
@@ -198,23 +201,23 @@ export const CurrentVotesWrapper = () => {
             <Select
               borderRadius={12}
               borderWidth={2}
-              value={estimate}
-              onChange={handleSetEstimate}
               fontWeight="bold"
+              onChange={handleSetEstimate}
+              value={estimate}
             >
               {pointOptions.map((point) => (
-                <option value={point} key={point}>
+                <option key={point} value={point}>
                   {point}
                 </option>
               ))}
             </Select>
             <Button
-              isLoading={isLoadingSubmitVote}
-              disabled={isLoadingSubmitVote}
               colorScheme="teal"
-              size="md"
-              onClick={handleFinishVoting}
+              disabled={isLoadingSubmitVote}
+              isLoading={isLoadingSubmitVote}
               marginY={-1}
+              onClick={handleFinishVoting}
+              size="md"
             >
               Finish Vote
             </Button>

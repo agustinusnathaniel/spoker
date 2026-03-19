@@ -21,9 +21,9 @@ import { ForgotPasswordButton } from './forgot-password-button';
 import { SignInProviders } from './sign-in-providers';
 import { contraBoxStyle } from './style';
 
-type LoginProps = {
+interface LoginProps {
   handleSwitchToRegister: () => void;
-};
+}
 
 export const Login = ({ handleSwitchToRegister }: LoginProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
     setIsLoading(true);
     const values = getValues();
     await loginUserWithEmailAndPassword(values.email, values.password).finally(
-      () => setIsLoading(false),
+      () => setIsLoading(false)
     );
   };
 
@@ -55,7 +55,7 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
       onSubmit={handleSubmit(processLogin)}
     >
       <ModalHeader>
-        <Heading bgGradient="linear(to-br, teal.200, blue.600)" bgClip="text">
+        <Heading bgClip="text" bgGradient="linear(to-br, teal.200, blue.600)">
           Login
         </Heading>
 
@@ -68,18 +68,18 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
 
           <SpokerInput
             {...register('email')}
-            label="email"
-            isInvalid={!!errors.email?.message}
             errorText={errors.email?.message}
+            isInvalid={!!errors.email?.message}
+            label="email"
             placeholder="Your e-mail"
           />
           <SpokerInput
             {...register('password')}
-            type="password"
-            label="password"
-            isInvalid={!!errors.password?.message}
             errorText={errors.password?.message}
+            isInvalid={!!errors.password?.message}
+            label="password"
             placeholder="Your password"
+            type="password"
           />
 
           <ForgotPasswordButton />
@@ -88,17 +88,17 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
 
       <ModalFooter gridGap={2}>
         <Button
-          variant="ghost"
           fontWeight="normal"
           onClick={handleSwitchToRegister}
+          variant="ghost"
         >
           Register
         </Button>
         <Button
-          type="submit"
+          colorScheme="blue"
           disabled={!(isDirty && isValid)}
           isLoading={isLoading}
-          colorScheme="blue"
+          type="submit"
         >
           Sign In
         </Button>

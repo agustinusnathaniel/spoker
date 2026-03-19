@@ -5,11 +5,11 @@ import { roomsData } from '~/lib/services/firebase/room/common';
 export const clearPoints = async (roomId: string) => {
   await get(child(roomsData, `${roomId}/users`)).then((snap) => {
     if (snap.exists()) {
-      snap.forEach((user) => {
+      for (const user of snap.val()) {
         update(user.ref, {
           point: null,
         });
-      });
+      }
     }
   });
 };

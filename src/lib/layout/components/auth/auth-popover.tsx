@@ -15,7 +15,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useState } from 'react';
 import { BsPencil } from 'react-icons/bs';
 import { ImCheckmark } from 'react-icons/im';
 import { IoMdPerson } from 'react-icons/io';
@@ -27,15 +27,15 @@ import { logoutUser } from '~/lib/services/firebase/auth/logout';
 import { updateDisplayName } from '~/lib/services/firebase/auth/update-display-name';
 import { disconnectUser } from '~/lib/services/firebase/room/update/disconnect-user';
 import { useAuthStoreAction, useAuthStoreState } from '~/lib/stores/auth';
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
+import { trackEvent } from '~/lib/utils/track-event';
 
 export const AuthPopover = () => {
   const { currentUser, displayName } = useAuthStoreState();
   const { setDisplayName } = useAuthStoreAction();
   const [isEditingDisplayName, setIsEditingDisplayName] =
-    React.useState<boolean>(false);
-  const [displayNameInput, setDisplayNameInput] = React.useState<string>('');
+    useState<boolean>(false);
+  const [displayNameInput, setDisplayNameInput] = useState<string>('');
   const toast = useToast();
   const router = useRouter();
   const buttonSize = useBreakpointValue({
@@ -117,38 +117,38 @@ export const AuthPopover = () => {
   return (
     <Box>
       <Popover
-        placement="bottom-end"
         onClose={() => setIsEditingDisplayName(false)}
+        placement="bottom-end"
       >
         <PopoverTrigger>
           <IconButton
-            size={buttonSize}
             aria-label="account"
             icon={<IoMdPerson />}
+            size={buttonSize}
           />
         </PopoverTrigger>
 
         <PopoverContent>
           <PopoverCloseButton />
           <PopoverHeader>
-            <Flex gridGap={2} alignItems="center">
+            <Flex alignItems="center" gridGap={2}>
               {isEditingDisplayName ? (
                 <SpokerInput
-                  value={displayNameInput}
+                  formControlWidth="70%"
                   onChange={(e) => setDisplayNameInput(e.target.value)}
                   size="sm"
-                  formControlWidth="70%"
+                  value={displayNameInput}
                 />
               ) : (
                 <Heading size="sm">{displayName}</Heading>
               )}
               <IconButton
+                aria-label="edit"
                 border="none"
                 boxShadow="none"
-                size="xs"
-                aria-label="edit"
                 icon={isEditingDisplayName ? <ImCheckmark /> : <BsPencil />}
                 onClick={handleEditClick}
+                size="xs"
               />
             </Flex>
             <Text color="gray" fontSize="sm">
@@ -157,10 +157,10 @@ export const AuthPopover = () => {
           </PopoverHeader>
           <PopoverBody>
             <Button
-              size="md"
-              width="full"
               colorScheme="red"
               onClick={handleLogout}
+              size="md"
+              width="full"
             >
               Sign Out
             </Button>

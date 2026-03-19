@@ -6,7 +6,9 @@ import { RoleType } from '~/lib/types/user';
 
 export const filterUserWithPoints = (unfilteredUsers: Array<RoomUser>) =>
   [...unfilteredUsers].filter((unfilteredUser) =>
-    [RoleType.owner, RoleType.participant].includes(unfilteredUser.role),
+    ([RoleType.owner, RoleType.participant] as Array<RoleType>).includes(
+      unfilteredUser.role
+    )
   );
 
 export const countAveragePoint = (points: Array<number>) => mean(points);

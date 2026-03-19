@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Heading, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
@@ -15,7 +15,7 @@ import { showSuccessToast } from '~/lib/services/firebase/utils';
 
 export const ResetPasswordPage = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -40,7 +40,7 @@ export const ResetPasswordPage = () => {
         showSuccessToast({
           title: 'Password Reset Requested',
           description: `Check your email (${email}) for the password reset link. If there's none, please check your spam folder.`,
-          duration: 15000,
+          duration: 15_000,
         });
       });
     });
@@ -49,15 +49,15 @@ export const ResetPasswordPage = () => {
 
   return (
     <Container
-      paddingX={0}
+      alignItems="center"
       display="grid"
       gridGap={8}
       minHeight={{ base: '50vh', md: '60vh' }}
-      alignItems="center"
+      paddingX={0}
     >
       <SpokerWrapperGrid
-        gap={6}
         as="form"
+        gap={6}
         onSubmit={handleSubmit(handleRequestResetPassword)}
       >
         <Grid gap={2}>
@@ -70,16 +70,16 @@ export const ResetPasswordPage = () => {
 
         <SpokerInput
           {...register('email')}
+          errorText={errors.email?.message}
+          isInvalid={!!errors.email?.message}
           placeholder="e-mail address"
           type="email"
-          isInvalid={!!errors.email?.message}
-          errorText={errors.email?.message}
         />
 
         <Button
-          type="submit"
           disabled={!(isDirty && isValid)}
           isLoading={isLoading}
+          type="submit"
         >
           Reset Password
         </Button>

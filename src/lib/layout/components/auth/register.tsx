@@ -12,9 +12,9 @@ import {
 import { SignInProviders } from './sign-in-providers';
 import { contraBoxStyle } from './style';
 
-type RegisterProps = {
+interface RegisterProps {
   handleSwitchToLogin: () => void;
-};
+}
 
 export const Register = ({ handleSwitchToLogin }: RegisterProps) => {
   const borderColor = useColorModeValue('#18191F', '#FFFFFF');
@@ -22,7 +22,7 @@ export const Register = ({ handleSwitchToLogin }: RegisterProps) => {
   return (
     <ModalContent as="form" {...contraBoxStyle(borderColor)}>
       <ModalHeader>
-        <Heading bgGradient="linear(to-br, teal.200, green.400)" bgClip="text">
+        <Heading bgClip="text" bgGradient="linear(to-br, teal.200, green.400)">
           Register
         </Heading>
       </ModalHeader>
@@ -35,9 +35,9 @@ export const Register = ({ handleSwitchToLogin }: RegisterProps) => {
 
       <ModalFooter gridGap={2}>
         <Button
-          variant="ghost"
           fontWeight="normal"
           onClick={handleSwitchToLogin}
+          variant="ghost"
         >
           Sign In
         </Button>

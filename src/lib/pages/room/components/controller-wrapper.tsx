@@ -8,7 +8,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useMemo } from 'react';
 import { BiLink, BiShareAlt } from 'react-icons/bi';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -41,14 +41,14 @@ export const ControllerWrapper = () => {
     });
   };
 
-  const currentUserList = React.useMemo(
+  const currentUserList = useMemo(
     () =>
       users.map((user) => (
         <ListItem key={user.uid}>
           {user.name} - {user.role}
         </ListItem>
       )),
-    [users],
+    [users]
   );
 
   return (
@@ -57,14 +57,14 @@ export const ControllerWrapper = () => {
 
       <Flex gridGap={2} wrap="wrap">
         {isOwner && (
-          <Button size="sm" colorScheme="red" onClick={handleClearPoints}>
+          <Button colorScheme="red" onClick={handleClearPoints} size="sm">
             Reset
           </Button>
         )}
         <Button
-          size="sm"
           colorScheme="orange"
           onClick={() => router.push(`/join/${id}`)}
+          size="sm"
         >
           Rejoin
         </Button>
@@ -72,17 +72,17 @@ export const ControllerWrapper = () => {
 
       <Box>
         <Button
-          leftIcon={<BiShareAlt />}
-          rightIcon={<BiLink />}
           colorScheme="blue"
+          leftIcon={<BiShareAlt />}
           onClick={handleCopyRoomLink}
+          rightIcon={<BiLink />}
           size="sm"
         >
           Copy Invite Link
         </Button>
       </Box>
 
-      <Flex wrap="wrap" gridGap={2}>
+      <Flex gridGap={2} wrap="wrap">
         <Heading size="sm">Current Users: </Heading>
         <OrderedList spacing={1}>{currentUserList}</OrderedList>
       </Flex>

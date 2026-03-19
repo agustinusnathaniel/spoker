@@ -30,9 +30,9 @@ export const RoomPage = () => {
       <Grid gap={8}>
         <Head>{generateNextSeo({ title: roomData.room.name })}</Head>
         <Grid
-          templateColumns={{ base: '1fr', md: '3fr 2fr' }}
-          gap={6}
           alignItems="start"
+          gap={6}
+          templateColumns={{ base: '1fr', md: '3fr 2fr' }}
         >
           <Grid gap={6}>
             <RoomHeader />

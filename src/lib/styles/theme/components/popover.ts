@@ -5,7 +5,7 @@ export const Popover: ComponentStyleConfig = {
     content: {
       borderRadius: 16,
       border: '2px solid black !important',
-      boxShadow: `0px 6px 0px black`,
+      boxShadow: '0px 6px 0px black',
       marginY: 1,
     },
     header: {

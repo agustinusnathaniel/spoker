@@ -8,7 +8,7 @@ import type { RoomInstance } from '~/lib/types/raw-db';
 export const createRoom = async (roomInstance: CreateRoomFormType) => {
   await get(roomsData).then((snap) => {
     if (snap.hasChild(roomInstance.id)) {
-      throw Error('room already exists, try another id.');
+      throw new Error('room already exists, try another id.');
     }
   });
 

@@ -7,17 +7,17 @@ export const SupportContent = () => {
     <Grid gap={4}>
       <Text>Support this project</Text>
 
-      <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={2}>
+      <Grid gap={2} templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}>
         {sponsorLinks.map((sponsorLink) => (
           <Button
             as={Link}
+            colorScheme={sponsorLink.colorScheme}
+            flexDirection="column"
+            fontSize={{ base: 'sm', md: 'md' }}
             href={sponsorLink.url}
             isExternal
-            colorScheme={sponsorLink.colorScheme}
-            leftIcon={sponsorLink.icon}
-            fontSize={{ base: 'sm', md: 'md' }}
-            flexDirection="column"
             key={sponsorLink.label}
+            leftIcon={sponsorLink.icon}
           >
             <Text>{sponsorLink.label}</Text>
             {sponsorLink.description && (
