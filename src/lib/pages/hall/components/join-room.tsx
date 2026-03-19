@@ -1,6 +1,8 @@
+'use client';
+
 import { Button, Grid, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler, KeyboardEventHandler } from 'react';
 import { useMemo, useState } from 'react';
 
@@ -38,16 +40,15 @@ export const JoinRoom = () => {
         />
       </Grid>
 
-      <Button
-        alignSelf="flex-end"
-        as={Link}
-        href={isDisabled ? '#' : `/join/${roomId}`}
-        isDisabled={isDisabled}
-        style={{
-          pointerEvents: isDisabled ? 'none' : 'auto',
-        }}
-      >
-        Let Me in!
+      <Button alignSelf="flex-end" asChild disabled={isDisabled}>
+        <Link
+          href={isDisabled ? '#' : `/join/${roomId}`}
+          style={{
+            pointerEvents: isDisabled ? 'none' : 'auto',
+          }}
+        >
+          Let Me in!
+        </Link>
       </Button>
     </SpokerWrapperGrid>
   );

@@ -1,4 +1,7 @@
-import { Button, Grid, Link, Text } from '@chakra-ui/react';
+'use client';
+
+import { Button, Grid, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 import { sponsorLinks } from './constants';
 
@@ -10,19 +13,23 @@ export const SupportContent = () => {
       <Grid gap={2} templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}>
         {sponsorLinks.map((sponsorLink) => (
           <Button
-            as={Link}
-            colorScheme={sponsorLink.colorScheme}
+            asChild
+            colorPalette={sponsorLink.colorScheme}
             flexDirection="column"
             fontSize={{ base: 'sm', md: 'md' }}
-            href={sponsorLink.url}
-            isExternal
             key={sponsorLink.label}
-            leftIcon={sponsorLink.icon}
           >
-            <Text>{sponsorLink.label}</Text>
-            {sponsorLink.description && (
-              <Text fontSize="xs">{sponsorLink.description}</Text>
-            )}
+            <Link
+              href={sponsorLink.url}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {sponsorLink.icon}
+              <Text>{sponsorLink.label}</Text>
+              {sponsorLink.description && (
+                <Text fontSize="xs">{sponsorLink.description}</Text>
+              )}
+            </Link>
           </Button>
         ))}
       </Grid>

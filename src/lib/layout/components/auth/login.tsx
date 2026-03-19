@@ -1,19 +1,21 @@
+'use client';
+
 import {
   Button,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
   Grid,
   Heading,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
+import { useColorModeValue } from '~/lib/components/ui/color-mode';
 import { initialValues, loginFormValidationSchema } from '~/lib/models/login';
 import { loginUserWithEmailAndPassword } from '~/lib/services/firebase/auth/login/email-and-password';
 
@@ -49,34 +51,34 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
   };
 
   return (
-    <ModalContent
+    <DialogContent
       as="form"
       {...contraBoxStyle(borderColor)}
       onSubmit={handleSubmit(processLogin)}
     >
-      <ModalHeader>
+      <DialogHeader>
         <Heading bgClip="text" bgGradient="linear(to-br, teal.200, blue.600)">
           Login
         </Heading>
 
-        <ModalCloseButton />
-      </ModalHeader>
+        <DialogCloseTrigger />
+      </DialogHeader>
 
-      <ModalBody>
+      <DialogBody>
         <Grid gap={4}>
           <SignInProviders />
 
           <SpokerInput
             {...register('email')}
             errorText={errors.email?.message}
-            isInvalid={!!errors.email?.message}
+            invalid={!!errors.email?.message}
             label="email"
             placeholder="Your e-mail"
           />
           <SpokerInput
             {...register('password')}
             errorText={errors.password?.message}
-            isInvalid={!!errors.password?.message}
+            invalid={!!errors.password?.message}
             label="password"
             placeholder="Your password"
             type="password"
@@ -84,9 +86,9 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
 
           <ForgotPasswordButton />
         </Grid>
-      </ModalBody>
+      </DialogBody>
 
-      <ModalFooter gridGap={2}>
+      <DialogFooter gap={2}>
         <Button
           fontWeight="normal"
           onClick={handleSwitchToRegister}
@@ -95,14 +97,14 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
           Register
         </Button>
         <Button
-          colorScheme="blue"
+          colorPalette="blue"
           disabled={!(isDirty && isValid)}
-          isLoading={isLoading}
+          loading={isLoading}
           type="submit"
         >
           Sign In
         </Button>
-      </ModalFooter>
-    </ModalContent>
+      </DialogFooter>
+    </DialogContent>
   );
 };

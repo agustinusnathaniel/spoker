@@ -1,7 +1,7 @@
+'use client';
+
 import { Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { generateNextSeo } from 'next-seo/pages';
+import { useRouter } from 'next/navigation';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { EVENT_TYPE_NAVIGATE } from '~/lib/constants/tracking';
@@ -22,12 +22,6 @@ export const Home = () => {
 
   return (
     <Grid gap={16} minHeight={{ base: '50vh', sm: '60vh' }} paddingX={0}>
-      <Head>
-        {generateNextSeo({
-          title:
-            'Estimate with your Team | spoker - real-time multiplayer scrum poker app',
-        })}
-      </Head>
       <Flex
         alignItems="center"
         direction="column"
@@ -38,11 +32,13 @@ export const Home = () => {
         textAlign="center"
       >
         <Flex direction="column" gap={4}>
-          <Heading fontWeight="extrabold" size="3xl">
+          <Heading fontWeight="extrabold" size="6xl">
             <Text
               as="span"
               bgClip="text"
-              bgGradient="linear(to-br, purple.300, purple.700)"
+              bgGradient="to-br"
+              gradientFrom="purple.300"
+              gradientTo="purple.700"
             >
               Estimate
             </Text>{' '}
@@ -52,7 +48,9 @@ export const Home = () => {
             <Text
               as="span"
               bgClip="text"
-              bgGradient="linear(to-br, teal.400, teal.700)"
+              bgGradient="to-br"
+              gradientFrom="teal.400"
+              gradientTo="teal.700"
             >
               team
             </Text>
@@ -63,7 +61,7 @@ export const Home = () => {
           </Text>
         </Flex>
 
-        <Button colorScheme="orange" onClick={handleClickStart}>
+        <Button colorPalette="orange" onClick={handleClickStart}>
           Start
         </Button>
 
@@ -76,11 +74,13 @@ export const Home = () => {
         templateColumns={{ base: '1fr', md: 'repeat(3,1fr)' }}
       >
         <SpokerWrapperGrid
-          bgGradient="linear(to-br, teal.400, teal.800)"
+          bgGradient="to-br"
           gap={4}
+          gradientFrom="teal.400"
+          gradientTo="teal.800"
           gridColumn={{ md: 'span 2' }}
         >
-          <Heading>Real-time multiplayer scrum poker voting</Heading>
+          <Heading size="4xl">Real-time multiplayer scrum poker voting</Heading>
           <Text>
             Collaborate in real-time during scrum poker with Spoker&apos;s
             multiplayer feature. Vote simultaneously and see results instantly
@@ -89,11 +89,13 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          bgGradient="linear(to-br, pink.300, pink.800)"
+          bgGradient="to-br"
           gap={4}
+          gradientFrom="pink.300"
+          gradientTo="pink.800"
         >
           <Grid gap={1}>
-            <Heading>Open Sourced, self-hostable</Heading>
+            <Heading size="4xl">Open Sourced, self-hostable</Heading>
             <Text fontSize="xs">*self-host docs/guide coming soon</Text>
           </Grid>
           <Text>
@@ -104,10 +106,12 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          bgGradient="linear(to-br, purple.300, purple.800)"
+          bgGradient="to-br"
           gap={4}
+          gradientFrom="purple.300"
+          gradientTo="purple.800"
         >
-          <Heading>Multi Story Queue</Heading>
+          <Heading size="4xl">Multi Story Queue</Heading>
           <Text>
             Easily manage and prioritize your team&apos;s stories with
             spoker&apos;s intuitive queue feature. Quickly switch between
@@ -117,10 +121,12 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          bgGradient="linear(to-br, cyan.300, cyan.800)"
+          bgGradient="to-br"
           gap={4}
+          gradientFrom="cyan.300"
+          gradientTo="cyan.800"
         >
-          <Heading>Responsive Design</Heading>
+          <Heading size="4xl">Responsive Design</Heading>
           <Text>
             Enjoy a seamless user experience with spoker&apos;s responsive
             design. The app adapts to your screen size and device, ensuring that
@@ -129,10 +135,12 @@ export const Home = () => {
         </SpokerWrapperGrid>
 
         <SpokerWrapperGrid
-          bgGradient="linear(to-br, green.300, green.800)"
+          bgGradient="to-br"
           gap={4}
+          gradientFrom="green.300"
+          gradientTo="green.800"
         >
-          <Heading>Performant</Heading>
+          <Heading size="4xl">Performant</Heading>
           <Text>
             Spoker is built for speed and performance. It ensures a fast and
             smooth voting process, even with multiple team members voting at
