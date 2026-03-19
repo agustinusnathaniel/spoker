@@ -1,18 +1,10 @@
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Box,
-  Button,
-  Grid,
-  useToast,
-} from '@chakra-ui/react';
-import Head from 'next/head';
-import { generateNextSeo } from 'next-seo/pages';
+'use client';
+
+import { Alert, Box, Button, Grid } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
+import { toaster } from '~/lib/components/ui/toaster';
 import { requestVerificationMail } from '~/lib/services/firebase/auth/request-verification-mail';
 import { useAuthStoreState } from '~/lib/stores/auth';
 
@@ -22,17 +14,14 @@ export const HallPage = () => {
   const { currentUser } = useAuthStoreState();
   const [busy, setBusy] = useState<boolean>(true);
   const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
-  const toast = useToast();
 
   const requestEmailVerification = () => {
     currentUser?.reload().then(async () => {
       if (currentUser.emailVerified) {
         setIsEmailVerified(currentUser.emailVerified);
-        toast({
+        toaster.create({
           description: 'Your email is already verified.',
-          status: 'info',
-          position: 'top',
-          isClosable: true,
+          type: 'info',
         });
       } else {
         await requestVerificationMail();
@@ -58,29 +47,28 @@ export const HallPage = () => {
 
   return (
     <Box mb={8} w="full">
-      <Head>{generateNextSeo({ title: 'Hall' })}</Head>
       {currentUser && !isEmailVerified ? (
-        <Alert borderRadius={24} status="warning">
-          <AlertIcon />
+        <Alert.Root borderRadius={24} status="warning">
+          <Alert.Indicator />
           <Grid>
-            <AlertTitle>
+            <Alert.Title>
               Your email is not verified yet. Please check your email for
               verification instructions.
-            </AlertTitle>
+            </Alert.Title>
 
-            <AlertDescription>
+            <Alert.Description>
               Haven&apos;t received any verification email?{' '}
               <Button
-                colorScheme="orange"
+                colorPalette="orange"
                 fontWeight="semibold"
                 onClick={requestEmailVerification}
                 size="sm"
               >
                 Request Verification Link
               </Button>
-            </AlertDescription>
+            </Alert.Description>
           </Grid>
-        </Alert>
+        </Alert.Root>
       ) : (
         <HallWrapper />
       )}

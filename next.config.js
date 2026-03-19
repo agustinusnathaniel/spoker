@@ -3,9 +3,6 @@ const { withSentryConfig } = require('@sentry/nextjs');
 /** @type {import('next').NextConfig} */
 const moduleExports = {
   reactStrictMode: true,
-  eslint: {
-    dirs: ['src'],
-  },
   redirects: async () => [
     {
       source: '/intro',
@@ -13,6 +10,9 @@ const moduleExports = {
       permanent: true,
     },
   ],
+  experimental: {
+    optimizePackageImports: ['@chakra-ui/react'],
+  },
 };
 
 module.exports = withSentryConfig(moduleExports, {

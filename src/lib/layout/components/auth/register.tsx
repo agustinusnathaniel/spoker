@@ -1,13 +1,16 @@
+'use client';
+
 import {
   Button,
+  DialogBody,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
   Grid,
   Heading,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useColorModeValue,
 } from '@chakra-ui/react';
+
+import { useColorModeValue } from '~/lib/components/ui/color-mode';
 
 import { SignInProviders } from './sign-in-providers';
 import { contraBoxStyle } from './style';
@@ -20,20 +23,20 @@ export const Register = ({ handleSwitchToLogin }: RegisterProps) => {
   const borderColor = useColorModeValue('#18191F', '#FFFFFF');
 
   return (
-    <ModalContent as="form" {...contraBoxStyle(borderColor)}>
-      <ModalHeader>
+    <DialogContent as="form" {...contraBoxStyle(borderColor)}>
+      <DialogHeader>
         <Heading bgClip="text" bgGradient="linear(to-br, teal.200, green.400)">
           Register
         </Heading>
-      </ModalHeader>
+      </DialogHeader>
 
-      <ModalBody>
+      <DialogBody>
         <Grid gap={4}>
           <SignInProviders />
         </Grid>
-      </ModalBody>
+      </DialogBody>
 
-      <ModalFooter gridGap={2}>
+      <DialogFooter gap={2}>
         <Button
           fontWeight="normal"
           onClick={handleSwitchToLogin}
@@ -41,7 +44,7 @@ export const Register = ({ handleSwitchToLogin }: RegisterProps) => {
         >
           Sign In
         </Button>
-      </ModalFooter>
-    </ModalContent>
+      </DialogFooter>
+    </DialogContent>
   );
 };

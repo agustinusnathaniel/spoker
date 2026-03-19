@@ -1,16 +1,14 @@
-import { IconButton, useBreakpointValue, useColorMode } from '@chakra-ui/react';
+'use client';
+
+import { IconButton } from '@chakra-ui/react';
 import { RiMoonFill, RiSunLine } from 'react-icons/ri';
 
+import { useColorMode } from '~/lib/components/ui/color-mode';
 import { EVENT_TYPE_CTA } from '~/lib/constants/tracking';
 import { trackEvent } from '~/lib/utils/track-event';
 
 export const ThemeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-
-  const buttonSize = useBreakpointValue({
-    base: 'md',
-    sm: 'lg',
-  });
 
   const handleClickToggle = () => {
     trackEvent({
@@ -23,9 +21,11 @@ export const ThemeToggle = () => {
   return (
     <IconButton
       aria-label="theme toggle"
-      icon={colorMode === 'light' ? <RiMoonFill /> : <RiSunLine />}
       onClick={handleClickToggle}
-      size={buttonSize}
-    />
+      size="md"
+      variant="ghost"
+    >
+      {colorMode === 'light' ? <RiMoonFill /> : <RiSunLine />}
+    </IconButton>
   );
 };

@@ -1,25 +1,18 @@
-import type { TabProps } from '@chakra-ui/react';
+'use client';
+
 import {
   Box,
   Button,
   Flex,
   Grid,
-  Icon,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
   Text,
   Tooltip,
   useBreakpointValue,
-  useColorModeValue,
-  useDisclosure,
-  useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import { useForm } from 'react-hook-form';
@@ -31,6 +24,8 @@ import { useShallow } from 'zustand/shallow';
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
 import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
+import { useColorModeValue } from '~/lib/components/ui/color-mode';
+import { toaster } from '~/lib/components/ui/toaster';
 import { emptyRoom } from '~/lib/constants/empty-room';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { submitStoryFormValidationSchema } from '~/lib/models/task-list';
@@ -49,18 +44,9 @@ const initialFormValue: UpsertStoryForm = {
   description: '',
 };
 
-const tabStyle: TabProps = {
-  fontSize: {
-    base: 'xs',
-    md: 'md',
-  },
-};
-
 export const TaskList = () => {
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const params = useParams();
+  const id = params?.id as string;
 
   const queue = useRoomStore(
     useShallow((state) => state.roomData?.queue ?? emptyRoom.queue)
@@ -86,27 +72,14 @@ export const TaskList = () => {
 
   const { isOwner } = useUserRole();
   const tabTextColor = useColorModeValue('', 'gray.300');
-  const {
-    isOpen: isOpenAddStory,
-    onOpen: onOpenAddStory,
-    onClose: onCloseAddStory,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenEditStory,
-    onOpen: onOpenEditStory,
-    onClose: onCloseEditStory,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenRemoveStory,
-    onOpen: onOpenRemoveStory,
-    onClose: onCloseRemoveStory,
-  } = useDisclosure();
-  const toast = useToast();
+  const [isOpenAddStory, setIsOpenAddStory] = useState<boolean>(false);
+  const [isOpenEditStory, setIsOpenEditStory] = useState<boolean>(false);
+  const [isOpenRemoveStory, setIsOpenRemoveStory] = useState<boolean>(false);
   const buttonContent = useBreakpointValue({
     base: <GoPlus />,
     md: 'Add Story',
   });
-  const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
+  const [selectedTabIndex, setSelectedTabIndex] = useState<string>('active');
   const [isBusy, setIsBusy] = useState<boolean>();
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
     useState<number>();
@@ -158,18 +131,25 @@ export const TaskList = () => {
     mode: 'onChange',
   });
 
+  const onOpenAddStory = useCallback(() => setIsOpenAddStory(true), []);
+  const onCloseAddStory = useCallback(() => setIsOpenAddStory(false), []);
+  const onOpenEditStory = useCallback(() => setIsOpenEditStory(true), []);
+  const onCloseEditStory = useCallback(() => setIsOpenEditStory(false), []);
+  const onOpenRemoveStory = useCallback(() => setIsOpenRemoveStory(true), []);
+  const onCloseRemoveStory = useCallback(() => setIsOpenRemoveStory(false), []);
+
   const handleAddStory = useCallback(async () => {
     if (isValid && isOwner) {
       const values = getValues();
       const randomId = nanoid(21);
       setIsBusy(true);
-      await rewriteQueue(id as string, [
+      await rewriteQueue(id, [
         ...(queueRef.current ?? []),
         { ...values, id: randomId } as Task,
       ]);
       onCloseAddStory();
       setIsBusy(false);
-      setSelectedTabIndex(0);
+      setSelectedTabIndex('active');
       reset();
     }
   }, [id, isOwner, isValid, onCloseAddStory, reset, getValues]);
@@ -198,7 +178,7 @@ export const TaskList = () => {
       const values = getEditStoryValues();
       setIsBusy(true);
       await editQueueItem({
-        roomId: id as string,
+        roomId: id,
         updatedItem: values as Task,
         selectedQueueIndex: selectedEditStoryIndex,
         queue: queueRef.current,
@@ -232,7 +212,7 @@ export const TaskList = () => {
     if (isOwner && selectedEditStoryIndex !== undefined) {
       setIsBusy(true);
       await removeQueueItem({
-        roomId: id as string,
+        roomId: id,
         selectedQueueIndex: selectedEditStoryIndex,
         queue: queueRef.current,
       });
@@ -252,7 +232,7 @@ export const TaskList = () => {
           return temp;
         });
         if (!isEqual(queueRef.current, updated)) {
-          await rewriteQueue(id as string, updated);
+          await rewriteQueue(id, updated);
         }
       }
     },
@@ -263,51 +243,48 @@ export const TaskList = () => {
     async (selectedQueueIndex: number) => {
       if (isOwner) {
         if (showVote) {
-          toast({
+          toaster.create({
             description:
               'Cannot swap now as current story is already voted by all participants. Either finish or reset vote of current story to be able to swap.',
-            status: 'warning',
-            position: 'top',
+            type: 'warning',
           });
           return;
         }
         await swapSelectedQueueWithCurrent({
-          roomId: id as string,
+          roomId: id,
           task: taskRef.current,
           selectedQueueIndex,
           queue: queueRef.current,
         });
       }
     },
-    [id, isOwner, showVote, toast]
+    [id, isOwner, showVote]
   );
-
-  const handleChangeTab = (index: number) => setSelectedTabIndex(index);
 
   return (
     <>
       <SpokerWrapperGrid>
-        <Tabs
-          colorScheme="gray"
-          index={selectedTabIndex}
-          onChange={handleChangeTab}
-          variant="soft-rounded"
+        <Tabs.Root
+          colorPalette="gray"
+          onValueChange={(details) => setSelectedTabIndex(details.value)}
+          value={selectedTabIndex}
+          variant="enclosed"
         >
-          <TabList alignItems="center">
+          <Tabs.List alignItems="center">
             {isOwner && (
-              <Tab {...tabStyle} color={tabTextColor}>
+              <Tabs.Trigger color={tabTextColor} value="active">
                 {activeStoriesTabText}
-              </Tab>
+              </Tabs.Trigger>
             )}
-            <Tab {...tabStyle} color={tabTextColor}>
+            <Tabs.Trigger color={tabTextColor} value="completed">
               {completedTabText}
-            </Tab>
-            <Tab {...tabStyle} color={tabTextColor}>
+            </Tabs.Trigger>
+            <Tabs.Trigger color={tabTextColor} value="all">
               {allTabText}
-            </Tab>
+            </Tabs.Trigger>
             {isOwner && (
               <Button
-                colorScheme="blue"
+                colorPalette="blue"
                 marginLeft="auto"
                 onClick={onOpenAddStory}
                 size="md"
@@ -315,26 +292,39 @@ export const TaskList = () => {
                 {buttonContent}
               </Button>
             )}
-          </TabList>
+          </Tabs.List>
 
-          <TabPanels>
+          <Tabs.ContentGroup>
             {isOwner && (
-              <TabPanel display="flex" flexDir="column" gap={2}>
+              <Tabs.Content
+                display="flex"
+                flexDir="column"
+                gap={2}
+                value="active"
+              >
                 <Text>Current:</Text>
                 <TaskItem task={task} />
 
                 <Box>
-                  <Tooltip label="Queue can be re-arranged using drag and drop, the first item will be the next story to be voted.">
-                    <Text
-                      _hover={{ cursor: 'help' }}
-                      alignItems="center"
-                      as="span"
-                      fontWeight="semibold"
-                      textDecoration="underline"
-                    >
-                      {queueTabText}: <Icon as={RiInformationLine} />
-                    </Text>
-                  </Tooltip>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <Text
+                        _hover={{ cursor: 'help' }}
+                        alignItems="center"
+                        as="span"
+                        fontWeight="semibold"
+                        textDecoration="underline"
+                      >
+                        {queueTabText}: <RiInformationLine />
+                      </Text>
+                    </Tooltip.Trigger>
+                    <Tooltip.Positioner>
+                      <Tooltip.Content>
+                        Queue can be re-arranged using drag and drop, the first
+                        item will be the next story to be voted.
+                      </Tooltip.Content>
+                    </Tooltip.Positioner>
+                  </Tooltip.Root>
                 </Box>
                 <ReactSortable
                   animation={200}
@@ -355,20 +345,20 @@ export const TaskList = () => {
                     />
                   ))}
                 </ReactSortable>
-              </TabPanel>
+              </Tabs.Content>
             )}
-            <TabPanel>
+            <Tabs.Content value="completed">
               {completed?.map((completedItem) => (
                 <TaskItem key={completedItem.id} task={completedItem} />
               ))}
-            </TabPanel>
-            <TabPanel>
+            </Tabs.Content>
+            <Tabs.Content value="all">
               {all.map((completedItem) => (
                 <TaskItem key={completedItem.id} task={completedItem} />
               ))}
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+            </Tabs.Content>
+          </Tabs.ContentGroup>
+        </Tabs.Root>
       </SpokerWrapperGrid>
 
       <SpokerModalWrapper
@@ -378,9 +368,9 @@ export const TaskList = () => {
             <AutoResizeTextarea
               {...register('name')}
               errorText={errors.name?.message}
-              isInvalid={!!errors.name?.message}
-              isRequired
+              invalid={!!errors.name?.message}
               label="Name"
+              required
             />
             <AutoResizeTextarea
               {...register('description')}
@@ -393,14 +383,14 @@ export const TaskList = () => {
           onSubmit: handleSubmit(handleAddStory),
         }}
         footer={
-          <Flex gridGap={2}>
+          <Flex gap={2}>
             <Button disabled={isBusy} onClick={onCloseAddStory}>
               Cancel
             </Button>
             <Button
-              colorScheme="teal"
-              isDisabled={!isValid || isBusy}
-              isLoading={isBusy}
+              colorPalette="teal"
+              disabled={!isValid || isBusy}
+              loading={isBusy}
               type="submit"
             >
               Add
@@ -408,8 +398,12 @@ export const TaskList = () => {
           </Flex>
         }
         header="Add Story"
-        isOpen={isOpenAddStory}
-        onClose={onCloseAddStory}
+        onOpenChange={({ open }) => {
+          if (!open) {
+            onCloseAddStory();
+          }
+        }}
+        open={isOpenAddStory}
       />
 
       <SpokerModalWrapper
@@ -418,9 +412,9 @@ export const TaskList = () => {
             <AutoResizeTextarea
               {...registerEditStoryField('name')}
               errorText={editStoryErrors.name?.message}
-              isInvalid={!!editStoryErrors.name?.message}
-              isRequired
+              invalid={!!editStoryErrors.name?.message}
               label="Name"
+              required
             />
             <AutoResizeTextarea
               {...registerEditStoryField('description')}
@@ -433,14 +427,14 @@ export const TaskList = () => {
           onSubmit: handleSubmitEditStory(processEditStory),
         }}
         footer={
-          <Flex gridGap={2}>
+          <Flex gap={2}>
             <Button disabled={isBusy} onClick={closeEditStory}>
               Cancel
             </Button>
             <Button
-              colorScheme="blue"
-              isDisabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
-              isLoading={isBusy}
+              colorPalette="blue"
+              disabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
+              loading={isBusy}
               type="submit"
             >
               Save
@@ -448,8 +442,12 @@ export const TaskList = () => {
           </Flex>
         }
         header="Edit Story"
-        isOpen={isOpenEditStory}
-        onClose={closeEditStory}
+        onOpenChange={({ open }) => {
+          if (!open) {
+            closeEditStory();
+          }
+        }}
+        open={isOpenEditStory}
       />
 
       <SpokerModalWrapper
@@ -462,12 +460,12 @@ export const TaskList = () => {
           </Box>
         }
         footer={
-          <Flex gridGap={2}>
+          <Flex gap={2}>
             <Button onClick={closeRemoveStory}>Cancel</Button>
             <Button
-              colorScheme="red"
-              isDisabled={isBusy}
-              isLoading={isBusy}
+              colorPalette="red"
+              disabled={isBusy}
+              loading={isBusy}
               onClick={processRemoveStory}
             >
               Yes, Remove
@@ -475,8 +473,12 @@ export const TaskList = () => {
           </Flex>
         }
         header="Confirm Remove Story"
-        isOpen={isOpenRemoveStory}
-        onClose={closeRemoveStory}
+        onOpenChange={({ open }) => {
+          if (!open) {
+            closeRemoveStory();
+          }
+        }}
+        open={isOpenRemoveStory}
       />
     </>
   );

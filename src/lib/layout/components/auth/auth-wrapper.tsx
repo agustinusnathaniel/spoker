@@ -1,8 +1,11 @@
-import { Modal, ModalOverlay, useDisclosure } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { DialogRoot } from '@chakra-ui/react';
+import { usePathname, useRouter } from 'next/navigation';
 import type { ReactElement, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 
+import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
@@ -17,24 +20,26 @@ interface AuthWrapperProps {
 }
 
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
   const { currentUser } = useAuthStoreState();
 
   const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   const isPublicRoute = PUBLIC_ROUTES.indexOf(pathname) >= 0;
   const isRestrictedRoute = RESTRICTED_ROUTES.includes(pathname);
 
+  // currentUser is undefined while loading, null when not authenticated, or User when authenticated
+  const isLoading = currentUser === undefined;
   const isUnauthorized =
     currentUser === null && !isPublicRoute && !isRestrictedRoute;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: -
   useEffect(() => {
     if (isUnauthorized) {
-      onOpen();
+      setIsOpen(true);
     } else {
-      onClose();
+      setIsOpen(false);
     }
   }, [currentUser, pathname]);
 
@@ -48,32 +53,39 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const handleSwitchToLogin = () => setIsRegistered(true);
 
   const handleCloseAuthModal = () => {
-    router.push({ pathname: '/home' });
+    router.push('/home');
     trackEvent({
       eventName: 'close_auth-back_to_home',
       eventData: { type: EVENT_TYPE_AUTH },
     });
   };
 
+  // Show loading while determining auth state
+  if (isLoading && !isPublicRoute) {
+    return <FullScreenLoading />;
+  }
+
   if (!isUnauthorized) {
     return children as ReactElement;
   }
 
   return (
-    <Modal
-      isCentered
-      isOpen={isOpen}
-      motionPreset="slideInBottom"
-      onClose={handleCloseAuthModal}
+    <DialogRoot
+      onOpenChange={({ open }) => {
+        if (!open) {
+          handleCloseAuthModal();
+        }
+        setIsOpen(open);
+      }}
+      open={isOpen}
+      placement="center"
       size="md"
     >
-      <ModalOverlay />
-
       {isRegistered ? (
         <Login {...{ handleSwitchToRegister }} />
       ) : (
         <Register {...{ handleSwitchToLogin }} />
       )}
-    </Modal>
+    </DialogRoot>
   );
 };

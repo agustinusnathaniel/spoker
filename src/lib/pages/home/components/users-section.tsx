@@ -1,4 +1,7 @@
-import { Flex, Image, Link, Text } from '@chakra-ui/react';
+'use client';
+
+import { Flex, Image, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 interface UserMeta {
   imagePath: string;
@@ -54,9 +57,9 @@ export const UsersSection = () => {
         {users.map((user) => (
           <Link
             href={user.url}
-            isExternal
             key={user.url}
             rel="noopener noreferrer"
+            target="_blank"
             title={user.name}
           >
             <Image

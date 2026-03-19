@@ -17,7 +17,12 @@
     "paths": {
       "~/*": ["./*"]
     },
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -25,7 +30,9 @@
     "**/*.ts",
     "**/*.tsx",
     "src",
-    "tools"
+    "tools",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"],
   "ts-node": {

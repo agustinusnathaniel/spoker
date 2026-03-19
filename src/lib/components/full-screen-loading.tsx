@@ -1,10 +1,11 @@
-import type { LayoutProps } from '@chakra-ui/react';
+'use client';
+
 import { Grid } from '@chakra-ui/react';
 
 import { SpokerLoading } from '~/lib/components/spoker-loading';
 
 interface FullScreenLoadingProps {
-  height?: LayoutProps['height'];
+  height?: string;
 }
 
 export const FullScreenLoading = ({ height }: FullScreenLoadingProps) => {

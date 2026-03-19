@@ -1,19 +1,21 @@
+'use client';
+
 import { Button, Container, Grid, Heading, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
+import { toaster } from '~/lib/components/ui/toaster';
 import {
   initialValues,
   resetPasswordFormValidationSchema,
 } from '~/lib/models/reset-password';
 import { requestPasswordReset } from '~/lib/services/firebase/auth/request-password-reset';
-import { showSuccessToast } from '~/lib/services/firebase/utils';
 
-export const ResetPasswordPage = () => {
+export const ResetPassword = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -36,12 +38,12 @@ export const ResetPasswordPage = () => {
     setIsLoading(true);
     const { email } = getValues();
     await requestPasswordReset(email, () => {
-      router.push('/').then(() => {
-        showSuccessToast({
-          title: 'Password Reset Requested',
-          description: `Check your email (${email}) for the password reset link. If there's none, please check your spam folder.`,
-          duration: 15_000,
-        });
+      router.push('/');
+      toaster.create({
+        title: 'Password Reset Requested',
+        description: `Check your email (${email}) for the password reset link. If there's none, please check your spam folder.`,
+        duration: 15_000,
+        type: 'success',
       });
     });
     setIsLoading(false);
@@ -51,7 +53,7 @@ export const ResetPasswordPage = () => {
     <Container
       alignItems="center"
       display="grid"
-      gridGap={8}
+      gap={8}
       minHeight={{ base: '50vh', md: '60vh' }}
       paddingX={0}
     >
@@ -71,14 +73,14 @@ export const ResetPasswordPage = () => {
         <SpokerInput
           {...register('email')}
           errorText={errors.email?.message}
-          isInvalid={!!errors.email?.message}
+          invalid={!!errors.email?.message}
           placeholder="e-mail address"
           type="email"
         />
 
         <Button
           disabled={!(isDirty && isValid)}
-          isLoading={isLoading}
+          loading={isLoading}
           type="submit"
         >
           Reset Password

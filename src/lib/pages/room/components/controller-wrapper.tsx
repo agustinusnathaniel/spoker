@@ -1,17 +1,12 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  ListItem,
-  OrderedList,
-  useToast,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { Box, Button, Flex, Heading, List } from '@chakra-ui/react';
+import { useParams, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { BiLink, BiShareAlt } from 'react-icons/bi';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
+import { toaster } from '~/lib/components/ui/toaster';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { clearPoints } from '~/lib/services/firebase/room/update/point/clear';
 import { useRoomStoreState } from '~/lib/stores/room';
@@ -20,33 +15,29 @@ export const ControllerWrapper = () => {
   const { users } = useRoomStoreState();
   const { isOwner } = useUserRole();
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-  const toast = useToast();
+  const params = useParams();
+  const id = params?.id as string;
 
   const handleClearPoints = async () => {
-    await clearPoints(id as string);
+    await clearPoints(id);
   };
 
   const handleCopyRoomLink = async () => {
     const roomLink = `${window.location.protocol}//${window.location.host}/join/${id}`;
     await navigator.clipboard.writeText(roomLink);
 
-    toast({
+    toaster.create({
       title: `Room Link Copied!\n${roomLink}`,
-      status: 'success',
-      isClosable: true,
-      position: 'top',
+      type: 'success',
     });
   };
 
   const currentUserList = useMemo(
     () =>
       users.map((user) => (
-        <ListItem key={user.uid}>
+        <List.Item key={user.uid}>
           {user.name} - {user.role}
-        </ListItem>
+        </List.Item>
       )),
     [users]
   );
@@ -55,14 +46,14 @@ export const ControllerWrapper = () => {
     <SpokerWrapperGrid gap={2}>
       <Heading size="md">Controller</Heading>
 
-      <Flex gridGap={2} wrap="wrap">
+      <Flex gap={2} wrap="wrap">
         {isOwner && (
-          <Button colorScheme="red" onClick={handleClearPoints} size="sm">
+          <Button colorPalette="red" onClick={handleClearPoints} size="sm">
             Reset
           </Button>
         )}
         <Button
-          colorScheme="orange"
+          colorPalette="orange"
           onClick={() => router.push(`/join/${id}`)}
           size="sm"
         >
@@ -71,20 +62,16 @@ export const ControllerWrapper = () => {
       </Flex>
 
       <Box>
-        <Button
-          colorScheme="blue"
-          leftIcon={<BiShareAlt />}
-          onClick={handleCopyRoomLink}
-          rightIcon={<BiLink />}
-          size="sm"
-        >
+        <Button colorPalette="blue" onClick={handleCopyRoomLink} size="sm">
+          <BiShareAlt />
           Copy Invite Link
+          <BiLink />
         </Button>
       </Box>
 
-      <Flex gridGap={2} wrap="wrap">
+      <Flex gap={2} wrap="wrap">
         <Heading size="sm">Current Users: </Heading>
-        <OrderedList spacing={1}>{currentUserList}</OrderedList>
+        <List.Root gap={1}>{currentUserList}</List.Root>
       </Flex>
     </SpokerWrapperGrid>
   );

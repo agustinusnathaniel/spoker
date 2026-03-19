@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -65,31 +67,19 @@ export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
         {task.description && <Text>{task.description}</Text>}
 
         {queueProps?.isQueue && (
-          <Flex gridGap={2} marginTop={2}>
-            <Button
-              colorScheme="orange"
-              leftIcon={<HiSwitchVertical />}
-              onClick={handleClickSwap}
-              size="sm"
-            >
+          <Flex gap={2} marginTop={2}>
+            <Button colorPalette="orange" onClick={handleClickSwap} size="sm">
+              <HiSwitchVertical />
               {swapButtonContent}
             </Button>
 
-            <Button
-              colorScheme="teal"
-              leftIcon={<HiPencil />}
-              onClick={handleClickEdit}
-              size="sm"
-            >
+            <Button colorPalette="teal" onClick={handleClickEdit} size="sm">
+              <HiPencil />
               Edit
             </Button>
 
-            <Button
-              colorScheme="red"
-              leftIcon={<HiTrash />}
-              onClick={handleClickRemove}
-              size="sm"
-            >
+            <Button colorPalette="red" onClick={handleClickRemove} size="sm">
+              <HiTrash />
               {removeButtonContent}
             </Button>
           </Flex>

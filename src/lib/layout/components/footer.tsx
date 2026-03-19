@@ -1,4 +1,7 @@
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
+'use client';
+
+import { Box, Flex, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { RiGithubFill } from 'react-icons/ri';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
@@ -38,8 +41,9 @@ export const Footer = () => {
           {' | '}
           <Link
             href="https://agustinusnathaniel.com"
-            isExternal
             onClick={handleClick('open agustinusnathaniel.com')}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             agustinusnathaniel.com
           </Link>
@@ -53,18 +57,19 @@ export const Footer = () => {
         marginLeft={{ md: 'auto' }}
       >
         <Link
-          fontSize="sm"
-          fontWeight="bold"
           href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
-          isExternal
           onClick={handleClick('open repo changelog')}
+          rel="noopener noreferrer"
+          style={{ fontSize: 'sm', fontWeight: 'bold' }}
+          target="_blank"
         >
           v{packageInfo.version}
         </Link>
         <Link
           href={packageInfo.repository.url}
-          isExternal
           onClick={handleClick('open repository')}
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <RiGithubFill fontSize="2rem" />
         </Link>
