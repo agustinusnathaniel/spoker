@@ -1,15 +1,6 @@
 'use client';
 
-import {
-  Button,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  Grid,
-  Heading,
-} from '@chakra-ui/react';
+import { Button, Dialog, Grid, Heading } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,20 +42,25 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
   };
 
   return (
-    <DialogContent
+    <Dialog.Content
       as="form"
       {...contraBoxStyle(borderColor)}
       onSubmit={handleSubmit(processLogin)}
     >
-      <DialogHeader>
-        <Heading bgClip="text" bgGradient="linear(to-br, teal.200, blue.600)">
+      <Dialog.Header>
+        <Heading
+          bgClip="text"
+          bgGradient="to-br"
+          gradientFrom="teal.200"
+          gradientTo="blue.600"
+        >
           Login
         </Heading>
 
-        <DialogCloseTrigger />
-      </DialogHeader>
+        <Dialog.CloseTrigger />
+      </Dialog.Header>
 
-      <DialogBody>
+      <Dialog.Body>
         <Grid gap={4}>
           <SignInProviders />
 
@@ -86,9 +82,9 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
 
           <ForgotPasswordButton />
         </Grid>
-      </DialogBody>
+      </Dialog.Body>
 
-      <DialogFooter gap={2}>
+      <Dialog.Footer gap={2}>
         <Button
           fontWeight="normal"
           onClick={handleSwitchToRegister}
@@ -104,7 +100,7 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
         >
           Sign In
         </Button>
-      </DialogFooter>
-    </DialogContent>
+      </Dialog.Footer>
+    </Dialog.Content>
   );
 };

@@ -27,7 +27,7 @@ export const JoinRoom = () => {
 
   return (
     <SpokerWrapperGrid backgroundColor="cyan.600" color="white" gap={8}>
-      <Heading size="lg">or Join the Party!</Heading>
+      <Heading size="2xl">or Join the Party!</Heading>
 
       <Grid gap={4}>
         <SpokerInput

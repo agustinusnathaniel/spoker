@@ -53,7 +53,7 @@ export const CreateRoom = () => {
       gap={8}
       onSubmit={handleSubmit(processCreateRoom)}
     >
-      <Heading size="lg">Create Room</Heading>
+      <Heading size="2xl">Create Room</Heading>
 
       <Grid gap={4}>
         <SpokerInput

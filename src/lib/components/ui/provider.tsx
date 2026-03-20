@@ -6,10 +6,13 @@ import { system } from '~/lib/styles/theme';
 
 import { ColorModeProvider, type ColorModeProviderProps } from './color-mode';
 
-export function Provider(props: ColorModeProviderProps) {
+export function Provider({
+  children,
+  ...props
+}: ColorModeProviderProps) {
   return (
-    <ChakraProvider value={system}>
-      <ColorModeProvider {...props} />
-    </ChakraProvider>
+    <ColorModeProvider {...props}>
+      <ChakraProvider value={system}>{children}</ChakraProvider>
+    </ColorModeProvider>
   );
 }

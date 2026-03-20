@@ -1,6 +1,6 @@
 import { getDatabase, ref } from 'firebase/database';
 
-import { fbase } from '~/lib/services/firebase/config';
+import { fbase } from '~/lib/services/firebase/client';
 
 const database = getDatabase(fbase);
 
