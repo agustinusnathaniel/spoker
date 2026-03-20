@@ -14,11 +14,7 @@ import { ForgotPasswordButton } from './forgot-password-button';
 import { SignInProviders } from './sign-in-providers';
 import { contraBoxStyle } from './style';
 
-interface LoginProps {
-  handleSwitchToRegister: () => void;
-}
-
-export const Login = ({ handleSwitchToRegister }: LoginProps) => {
+export const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const borderColor = useColorModeValue('#18191F', '#FFFFFF');
 
@@ -85,13 +81,6 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
       </Dialog.Body>
 
       <Dialog.Footer gap={2}>
-        <Button
-          fontWeight="normal"
-          onClick={handleSwitchToRegister}
-          variant="ghost"
-        >
-          Register
-        </Button>
         <Button
           colorPalette="blue"
           disabled={!(isDirty && isValid)}
