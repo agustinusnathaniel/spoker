@@ -1,6 +1,6 @@
 import { type Auth, getAuth } from 'firebase/auth';
 
-import { fbase } from '~/lib/services/firebase/config';
+import { fbase } from '~/lib/services/firebase/client';
 
 let authInstance: Auth | undefined;
 

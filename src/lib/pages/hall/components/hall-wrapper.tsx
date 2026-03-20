@@ -12,7 +12,7 @@ export const HallWrapper = () => {
 
   return (
     <Grid gap={12}>
-      <Heading>Hello, {displayName}</Heading>
+      <Heading size="4xl">Hello, {displayName}</Heading>
       <Grid
         gap={12}
         templateColumns={{ base: '1fr', md: '1fr', lg: 'repeat(2, 1fr)' }}

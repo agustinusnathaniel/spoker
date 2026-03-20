@@ -1,6 +1,6 @@
 'use client';
 
-import { DialogRoot } from '@chakra-ui/react';
+import { Dialog, Portal } from '@chakra-ui/react';
 import { usePathname, useRouter } from 'next/navigation';
 import type { ReactElement, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
@@ -70,7 +70,7 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   }
 
   return (
-    <DialogRoot
+    <Dialog.Root
       onOpenChange={({ open }) => {
         if (!open) {
           handleCloseAuthModal();
@@ -81,11 +81,16 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
       placement="center"
       size="md"
     >
-      {isRegistered ? (
-        <Login {...{ handleSwitchToRegister }} />
-      ) : (
-        <Register {...{ handleSwitchToLogin }} />
-      )}
-    </DialogRoot>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          {isRegistered ? (
+            <Login {...{ handleSwitchToRegister }} />
+          ) : (
+            <Register {...{ handleSwitchToLogin }} />
+          )}
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 };

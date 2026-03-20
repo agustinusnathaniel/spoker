@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 
 import { Provider } from '~/lib/components/ui/provider';
 import { Toaster } from '~/lib/components/ui/toaster';
@@ -70,7 +71,7 @@ export default function RootLayout({
         {/* Umami self-hosted analytics */}
         {process.env.NEXT_PUBLIC_UMAMI_SRC &&
           process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
-            <script
+            <Script
               async
               data-domains={process.env.NEXT_PUBLIC_UMAMI_DATA_DOMAIN}
               data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
