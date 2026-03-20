@@ -14,7 +14,11 @@ export const SignInProviders = () => {
       <Text>Sign In with:</Text>
 
       <Button
-        _hover={{ bgGradient: 'linear(to-r, blue.100, cyan.100)' }}
+        _hover={{
+          bgGradient: 'to-r',
+          gradientFrom: 'blue.100',
+          gradientTo: 'cyan.100',
+        }}
         onClick={handleLoginWithGoogle}
       >
         Google
