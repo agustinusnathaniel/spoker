@@ -13,7 +13,6 @@ import { useAuthStoreState } from '~/lib/stores/auth';
 import { trackEvent } from '~/lib/utils/track-event';
 
 import { Login } from './login';
-import { Register } from './register';
 
 interface AuthWrapperProps {
   children: ReactNode;
@@ -21,7 +20,6 @@ interface AuthWrapperProps {
 
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isRegistered, setIsRegistered] = useState<boolean>(true);
   const { currentUser } = useAuthStoreState();
 
   const router = useRouter();
@@ -42,15 +40,6 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
       setIsOpen(false);
     }
   }, [currentUser, pathname]);
-
-  useEffect(() => {
-    if (!isUnauthorized) {
-      setIsRegistered(true);
-    }
-  }, [isUnauthorized]);
-
-  const handleSwitchToRegister = () => setIsRegistered(false);
-  const handleSwitchToLogin = () => setIsRegistered(true);
 
   const handleCloseAuthModal = () => {
     router.push('/home');
@@ -84,11 +73,7 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          {isRegistered ? (
-            <Login {...{ handleSwitchToRegister }} />
-          ) : (
-            <Register {...{ handleSwitchToLogin }} />
-          )}
+          <Login />
         </Dialog.Positioner>
       </Portal>
     </Dialog.Root>
