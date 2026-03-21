@@ -51,3 +51,6 @@ sitemap*.xml
 .sentryclirc
 # turborepo
 .turbo
+
+# https://nextjs.org/docs/app/api-reference/config/typescript#next-envdts
+next-env.d.ts
