@@ -33,7 +33,7 @@ export const VoteRadioCard = ({ children, value }: VoteRadioCardProps) => {
         display="inline-flex"
         fontSize="lg"
         justifyContent="center"
-        px="20"
+        px="8"
         py="6"
         w="full"
       >
