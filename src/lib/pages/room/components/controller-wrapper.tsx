@@ -44,7 +44,7 @@ export const ControllerWrapper = () => {
 
   return (
     <SpokerWrapperGrid gap={2}>
-      <Heading size="md">Controller</Heading>
+      <Heading size="xl">Controller</Heading>
 
       <Flex gap={2} wrap="wrap">
         {isOwner && (

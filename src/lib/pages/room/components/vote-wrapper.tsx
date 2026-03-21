@@ -35,7 +35,7 @@ export const VoteWrapper = () => {
 
   return (
     <SpokerWrapperGrid gap={4}>
-      <Heading size="lg">Vote!</Heading>
+      <Heading size="2xl">Vote!</Heading>
 
       <RadioGroup.Root
         disabled={roomData?.config.isFreezeAfterVote && showVote}

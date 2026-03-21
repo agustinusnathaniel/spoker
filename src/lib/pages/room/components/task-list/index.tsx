@@ -268,11 +268,14 @@ export const TaskList = () => {
       <SpokerWrapperGrid>
         <Tabs.Root
           colorPalette="gray"
+          css={{
+            '--tabs-trigger-radius': 'radii.xl',
+          }}
           onValueChange={(details) => setSelectedTabIndex(details.value)}
           value={selectedTabIndex}
-          variant="enclosed"
+          variant="subtle"
         >
-          <Tabs.List alignItems="center">
+          <Tabs.List alignItems="center" flexWrap="wrap" w="full">
             {isOwner && (
               <Tabs.Trigger color={tabTextColor} value="active">
                 {activeStoriesTabText}
