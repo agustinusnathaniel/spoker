@@ -49,6 +49,7 @@ export const Login = () => {
           bgGradient="to-br"
           gradientFrom="teal.200"
           gradientTo="blue.600"
+          size="3xl"
         >
           Login
         </Heading>
