@@ -7,8 +7,9 @@ export const popoverRecipe = defineSlotRecipe({
   base: {
     content: {
       borderRadius: '16px',
-      border: '2px solid black',
-      boxShadow: '0px 6px 0px black',
+      border: '2px solid',
+      borderColor: 'border.emphasized',
+      boxShadow: '0px 6px 0px {colors.border.emphasized}',
       marginY: 1,
     },
     header: {
