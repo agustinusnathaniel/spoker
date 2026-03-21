@@ -79,7 +79,9 @@ export const TaskList = () => {
     base: <GoPlus />,
     md: 'Add Story',
   });
-  const [selectedTabIndex, setSelectedTabIndex] = useState<string>('active');
+  const [selectedTabIndex, setSelectedTabIndex] = useState<string>(
+    isOwner ? 'active' : 'completed'
+  );
   const [isBusy, setIsBusy] = useState<boolean>();
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
     useState<number>();
