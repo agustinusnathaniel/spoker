@@ -1,5 +1,7 @@
 import { createSystem, defaultConfig } from '@chakra-ui/react';
 
+import { tabsRecipe } from '~/lib/styles/theme/recipes/tabs';
+
 import { buttonRecipe } from './recipes/button';
 import { popoverRecipe } from './recipes/popover';
 
@@ -83,6 +85,7 @@ export const system = createSystem(defaultConfig, {
     },
     slotRecipes: {
       popover: popoverRecipe,
+      tabs: tabsRecipe,
     },
   },
 });

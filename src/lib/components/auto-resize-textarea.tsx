@@ -44,9 +44,7 @@ export const AutoResizeTextarea = ({
         {...props}
       />
       {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
-      {helperText && (
-        <Field.HelperText color="red.400">{helperText}</Field.HelperText>
-      )}
+      {helperText && <Field.HelperText>{helperText}</Field.HelperText>}
     </Field.Root>
   );
 };

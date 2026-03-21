@@ -35,7 +35,7 @@ export const RoomHeader = () => {
 
     return (
       <>
-        <Heading fontSize="2xl" wordBreak="break-word">
+        <Heading fontSize="3xl" wordBreak="break-word">
           {task.name}
         </Heading>
         {task.description && (
@@ -48,12 +48,12 @@ export const RoomHeader = () => {
   return (
     <SpokerWrapperGrid gap={4}>
       <Box>
-        <Heading size="lg">{roomData?.room.name}</Heading>
+        <Heading size="2xl">{roomData?.room.name}</Heading>
         <Separator borderColor="black" marginTop={2} />
       </Box>
 
       <Flex gap={4}>
-        <Heading size="md">Story</Heading>
+        <Heading size="lg">Story</Heading>
 
         <Grid gap={2} width="full">
           {content}

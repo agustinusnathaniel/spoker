@@ -3,10 +3,13 @@
 import {
   Button,
   Checkbox,
+  createListCollection,
   Field,
   Grid,
   Heading,
   NativeSelect,
+  Portal,
+  Select,
   Separator,
   Text,
 } from '@chakra-ui/react';
@@ -118,7 +121,7 @@ export const CurrentVotesWrapper = () => {
       gap={4}
       id={CURRENT_VOTE_WRAPPER_ID}
     >
-      <Heading size="lg">Current Votes</Heading>
+      <Heading size="2xl">Current Votes</Heading>
 
       <Checkbox.Root
         checked={config?.isFreezeAfterVote}
@@ -140,27 +143,38 @@ export const CurrentVotesWrapper = () => {
       </Checkbox.Root>
 
       {(isOwner || isObservant) && (
-        <Field.Root alignItems="center">
-          <Field.Label fontSize="sm" width="30%">
-            Hide Label
-          </Field.Label>
-          <NativeSelect.Root marginBottom={4}>
-            <NativeSelect.Field
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                handleUpdateHideLabel(
-                  e.currentTarget.value as HideLabelOptionsType
-                )
-              }
-              value={config?.hideLabel ?? 'monkey'}
-            >
-              {hideLabelOptions.map((hideLabelOption) => (
-                <option key={hideLabelOption} value={hideLabelOption}>
-                  {hideLabelOption}
-                </option>
-              ))}
-            </NativeSelect.Field>
-            <NativeSelect.Indicator />
-          </NativeSelect.Root>
+        <Field.Root>
+          <Select.Root
+            collection={createListCollection({ items: hideLabelOptions })}
+            marginBottom={4}
+            onValueChange={(detail) =>
+              handleUpdateHideLabel(detail.value[0] as HideLabelOptionsType)
+            }
+            value={[config?.hideLabel ?? 'monkey']}
+          >
+            <Select.HiddenSelect />
+            <Select.Label fontSize="sm">Hide Label</Select.Label>
+            <Select.Control>
+              <Select.Trigger>
+                <Select.ValueText placeholder="Select hide label" />
+              </Select.Trigger>
+              <Select.IndicatorGroup>
+                <Select.Indicator />
+              </Select.IndicatorGroup>
+            </Select.Control>
+            <Portal>
+              <Select.Positioner>
+                <Select.Content>
+                  {hideLabelOptions.map((hideLabelOption) => (
+                    <Select.Item item={hideLabelOption} key={hideLabelOption}>
+                      {hideLabelOption}
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Positioner>
+            </Portal>
+          </Select.Root>
         </Field.Root>
       )}
 
