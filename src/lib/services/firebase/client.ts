@@ -38,11 +38,15 @@ const initAppCheck = () => {
         return;
       }
 
-      initializeAppCheck(fbase, {
-        provider: new ReCaptchaV3Provider(recaptchaSiteKey),
-        isTokenAutoRefreshEnabled: true,
-      });
-      appCheckInitialized = true;
+      try {
+        initializeAppCheck(fbase, {
+          provider: new ReCaptchaV3Provider(recaptchaSiteKey),
+          isTokenAutoRefreshEnabled: true,
+        });
+        appCheckInitialized = true;
+      } catch (error) {
+        console.error('Failed to initialize App Check:', error);
+      }
     },
     { once: true }
   );
