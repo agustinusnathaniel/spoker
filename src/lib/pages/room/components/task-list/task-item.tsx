@@ -72,7 +72,9 @@ export const TaskItem = memo(
           </Box>
         ) : null}
         <Box flex={1}>
-          <Heading fontSize="xl">{task.name}</Heading>
+          <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
+            {task.name}
+          </Heading>
           {task.description && <Text>{task.description}</Text>}
 
           {queueProps?.isQueue && (
