@@ -104,7 +104,12 @@ export const AuthPopover = () => {
     <Box>
       <Popover.Root positioning={{ placement: 'bottom-end' }}>
         <Popover.Trigger asChild>
-          <IconButton aria-label="account" size="md" variant="ghost">
+          <IconButton
+            aria-label="account"
+            backgroundColor={{ _dark: 'gray.500' }}
+            size="md"
+            variant="ghost"
+          >
             <IoMdPerson />
           </IconButton>
         </Popover.Trigger>

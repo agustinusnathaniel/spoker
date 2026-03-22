@@ -21,6 +21,7 @@ export const ThemeToggle = () => {
   return (
     <IconButton
       aria-label="theme toggle"
+      backgroundColor={{ _dark: 'gray.500' }}
       onClick={handleClickToggle}
       size="md"
       variant="ghost"

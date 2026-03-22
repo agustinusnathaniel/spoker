@@ -15,8 +15,8 @@ export const VoteRadioCard = ({ children, value }: VoteRadioCardProps) => {
       <RadioGroup.ItemControl
         _checked={{
           bg: 'teal.500',
-          color: 'fg.inverted',
-          borderColor: 'border.emphasized',
+          color: 'white',
+          borderColor: 'teal.600',
           borderWidth: 2,
           fontWeight: 'bold',
           boxShadow: 'none',
@@ -28,7 +28,7 @@ export const VoteRadioCard = ({ children, value }: VoteRadioCardProps) => {
         borderRadius="xl"
         borderWidth="1px"
         boxShadow="md"
-        color="bg.inverted"
+        color="fg"
         cursor="pointer"
         display="inline-flex"
         fontSize="lg"

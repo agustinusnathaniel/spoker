@@ -68,20 +68,19 @@ export const Home = () => {
         <UsersSection />
       </Flex>
 
-      <Grid
-        color="white"
-        gap={6}
-        templateColumns={{ base: '1fr', md: 'repeat(3,1fr)' }}
-      >
+      <Grid gap={6} templateColumns={{ base: '1fr', md: 'repeat(3,1fr)' }}>
         <SpokerWrapperGrid
           bgGradient="to-br"
+          color="white"
           gap={4}
           gradientFrom="teal.400"
           gradientTo="teal.800"
           gridColumn={{ md: 'span 2' }}
         >
-          <Heading size="4xl">Real-time multiplayer scrum poker voting</Heading>
-          <Text>
+          <Heading color="inherit" size="4xl">
+            Real-time multiplayer scrum poker voting
+          </Heading>
+          <Text color="inherit">
             Collaborate in real-time during scrum poker with Spoker&apos;s
             multiplayer feature. Vote simultaneously and see results instantly
             for collaborative decision-making.
@@ -90,15 +89,20 @@ export const Home = () => {
 
         <SpokerWrapperGrid
           bgGradient="to-br"
+          color="white"
           gap={4}
           gradientFrom="pink.300"
           gradientTo="pink.800"
         >
           <Grid gap={1}>
-            <Heading size="4xl">Open Sourced, self-hostable</Heading>
-            <Text fontSize="xs">*self-host docs/guide coming soon</Text>
+            <Heading color="inherit" size="4xl">
+              Open Sourced, self-hostable
+            </Heading>
+            <Text color="inherit" fontSize="xs">
+              *self-host docs/guide coming soon
+            </Text>
           </Grid>
-          <Text>
+          <Text color="inherit">
             Spoker is open-sourced, allowing you to contribute to improving the
             app while hosting it yourself for data security. Customize it to fit
             your team&apos;s needs and help make it even better.
@@ -107,12 +111,15 @@ export const Home = () => {
 
         <SpokerWrapperGrid
           bgGradient="to-br"
+          color="white"
           gap={4}
           gradientFrom="purple.300"
           gradientTo="purple.800"
         >
-          <Heading size="4xl">Multi Story Queue</Heading>
-          <Text>
+          <Heading color="inherit" size="4xl">
+            Multi Story Queue
+          </Heading>
+          <Text color="inherit">
             Easily manage and prioritize your team&apos;s stories with
             spoker&apos;s intuitive queue feature. Quickly switch between
             stories to vote on the next one, streamlining your team&apos;s
@@ -122,12 +129,15 @@ export const Home = () => {
 
         <SpokerWrapperGrid
           bgGradient="to-br"
+          color="white"
           gap={4}
           gradientFrom="cyan.300"
           gradientTo="cyan.800"
         >
-          <Heading size="4xl">Responsive Design</Heading>
-          <Text>
+          <Heading color="inherit" size="4xl">
+            Responsive Design
+          </Heading>
+          <Text color="inherit">
             Enjoy a seamless user experience with spoker&apos;s responsive
             design. The app adapts to your screen size and device, ensuring that
             you can use it anywhere, anytime.
@@ -136,12 +146,15 @@ export const Home = () => {
 
         <SpokerWrapperGrid
           bgGradient="to-br"
+          color="white"
           gap={4}
           gradientFrom="green.300"
           gradientTo="green.800"
         >
-          <Heading size="4xl">Performant</Heading>
-          <Text>
+          <Heading color="inherit" size="4xl">
+            Performant
+          </Heading>
+          <Text color="inherit">
             Spoker is built for speed and performance. It ensures a fast and
             smooth voting process, even with multiple team members voting at
             once. With Spoker, you can expect a responsive and reliable

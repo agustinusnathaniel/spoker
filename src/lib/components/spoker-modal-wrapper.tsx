@@ -39,6 +39,7 @@ export const SpokerModalWrapper = ({
         <Dialog.Positioner>
           <Dialog.Content
             {...contraGridStyle}
+            backgroundColor={{ _dark: 'gray.500' }}
             marginX="6"
             {...contentWrapperProps}
           >
