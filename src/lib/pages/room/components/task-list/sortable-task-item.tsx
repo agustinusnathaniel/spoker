@@ -26,8 +26,12 @@ export const SortableTaskItem = memo(
     };
 
     return (
-      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-        <TaskItem queueProps={queueProps} task={task} />
+      <div ref={setNodeRef} style={style}>
+        <TaskItem
+          dragHandleProps={{ ...attributes, ...listeners }}
+          queueProps={queueProps}
+          task={task}
+        />
       </div>
     );
   },
