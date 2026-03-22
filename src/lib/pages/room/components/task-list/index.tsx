@@ -10,6 +10,20 @@ import {
   Tooltip,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import {
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
 import { useParams } from 'next/navigation';
@@ -18,7 +32,6 @@ import isEqual from 'react-fast-compare';
 import { useForm } from 'react-hook-form';
 import { GoPlus } from 'react-icons/go';
 import { RiInformationLine } from 'react-icons/ri';
-import { ReactSortable } from 'react-sortablejs';
 import { useShallow } from 'zustand/shallow';
 
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
@@ -36,8 +49,12 @@ import { rewriteQueue } from '~/lib/services/firebase/room/update/rewrite-queue'
 import { useRoomStore } from '~/lib/stores/room';
 import type { Task } from '~/lib/types/raw-db';
 
+import { SortableTaskItem } from './sortable-task-item';
 import { TaskItem } from './task-item';
-import type { SortableTaskItem, UpsertStoryForm } from './types';
+import type {
+  SortableTaskItem as SortableTaskItemType,
+  UpsertStoryForm,
+} from './types';
 
 const initialFormValue: UpsertStoryForm = {
   name: '',
@@ -86,8 +103,8 @@ export const TaskList = () => {
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
     useState<number>();
 
-  const sortableQueue: Array<SortableTaskItem> = useMemo(() => {
-    return (queue ?? []) as Array<SortableTaskItem>;
+  const sortableQueue: Array<SortableTaskItemType> = useMemo(() => {
+    return (queue ?? []) as Array<SortableTaskItemType>;
   }, [queue]);
 
   const all = useMemo(
@@ -224,15 +241,11 @@ export const TaskList = () => {
   }, [closeRemoveStory, id, isOwner, selectedEditStoryIndex]);
 
   const handleRewriteQueue = useCallback(
-    async (updatedQueue: Array<SortableTaskItem>) => {
+    async (updatedQueue: Array<SortableTaskItemType>) => {
       if (isOwner) {
-        const updated: Array<Task> = updatedQueue.map((queueItem) => {
-          const temp = queueItem;
-          temp.chosen = undefined;
-          temp.selected = undefined;
-          temp.filtered = undefined;
-          return temp;
-        });
+        const updated: Array<Task> = updatedQueue.map((queueItem) => ({
+          ...queueItem,
+        }));
         if (!isEqual(queueRef.current, updated)) {
           await rewriteQueue(id, updated);
         }
@@ -261,6 +274,38 @@ export const TaskList = () => {
       }
     },
     [id, isOwner, showVote]
+  );
+
+  // dnd-kit sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = useCallback(
+    (event: {
+      active: { id: string | number };
+      over: { id: string | number } | null;
+    }) => {
+      const { active, over } = event;
+
+      if (over && active.id !== over.id) {
+        const oldIndex = sortableQueue.findIndex(
+          (item) => item.id === active.id
+        );
+        const newIndex = sortableQueue.findIndex((item) => item.id === over.id);
+        const newQueue = arrayMove(sortableQueue, oldIndex, newIndex);
+        handleRewriteQueue(newQueue);
+      }
+    },
+    [sortableQueue, handleRewriteQueue]
+  );
+
+  const queueItemIds = useMemo(
+    () => sortableQueue.map((item) => item.id),
+    [sortableQueue]
   );
 
   return (
@@ -331,25 +376,30 @@ export const TaskList = () => {
                     </Tooltip.Positioner>
                   </Tooltip.Root>
                 </Box>
-                <ReactSortable
-                  animation={200}
-                  list={sortableQueue}
-                  setList={handleRewriteQueue}
+                <DndContext
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                  sensors={sensors}
                 >
-                  {sortableQueue?.map((queueItem, index) => (
-                    <TaskItem
-                      key={queueItem.id}
-                      queueProps={{
-                        isQueue: true,
-                        taskIndex: index,
-                        onClickSwap: handleClickSwap,
-                        onClickEdit: handleOpenEditStory,
-                        onClickRemove: handleOpenRemoveStory,
-                      }}
-                      task={queueItem}
-                    />
-                  ))}
-                </ReactSortable>
+                  <SortableContext
+                    items={queueItemIds}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {sortableQueue?.map((queueItem, index) => (
+                      <SortableTaskItem
+                        key={queueItem.id}
+                        queueProps={{
+                          isQueue: true,
+                          taskIndex: index,
+                          onClickSwap: handleClickSwap,
+                          onClickEdit: handleOpenEditStory,
+                          onClickRemove: handleOpenRemoveStory,
+                        }}
+                        task={queueItem}
+                      />
+                    ))}
+                  </SortableContext>
+                </DndContext>
               </Tabs.Content>
             )}
             <Tabs.Content value="completed">

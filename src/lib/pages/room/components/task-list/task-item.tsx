@@ -61,7 +61,11 @@ export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
       marginBottom={2}
       padding={4}
     >
-      {queueProps?.isQueue ? <RiDraggable /> : null}
+      {queueProps?.isQueue ? (
+        <Box _active={{ cursor: 'grabbing' }} cursor="grab">
+          <RiDraggable />
+        </Box>
+      ) : null}
       <Box>
         <Heading fontSize="xl">{task.name}</Heading>
         {task.description && <Text>{task.description}</Text>}
