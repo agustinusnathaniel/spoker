@@ -1,8 +1,9 @@
-import { Button } from '@chakra-ui/react';
+'use client';
+
 import Link from 'next/link';
 
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { trackEvent } from '~/lib/utils/track-event';
 
 export const ForgotPasswordButton = () => {
   const handleClickForgotPassword = () => {
@@ -13,16 +14,12 @@ export const ForgotPasswordButton = () => {
   };
 
   return (
-    <Button
-      as={Link}
+    <Link
       href="/reset-password"
       onClick={handleClickForgotPassword}
-      variant="ghost"
-      border="none"
-      boxShadow="none"
-      size="sm"
+      style={{ fontSize: 'sm' }}
     >
       Forgot Password
-    </Button>
+    </Link>
   );
 };

@@ -19,11 +19,11 @@
         "SENTRY_DSN"
       ]
     },
-    "lint": {
+    "ultracite:check": {
       "outputs": [],
-      "inputs": [".eslintrc.*", "src/**"]
+      "inputs": ["biome.jsonc", "src/**"]
     },
-    "type-check": {
+    "type:check": {
       "outputs": ["*.tsbuildinfo"]
     }
   }

@@ -1,10 +1,13 @@
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
+'use client';
+
+import { Box, Flex, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { RiGithubFill } from 'react-icons/ri';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
 import { packageInfo } from '~/lib/constants/package-info';
 import { EVENT_TYPE_LINK } from '~/lib/constants/tracking';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { trackEvent } from '~/lib/utils/track-event';
 
 export const Footer = () => {
   const handleClick = (eventName: string) => () => {
@@ -16,30 +19,31 @@ export const Footer = () => {
 
   return (
     <Box
+      alignItems="center"
+      as="footer"
       display="flex"
       flexDirection={{ base: 'column-reverse', md: 'row' }}
-      alignItems="center"
-      justifyContent="center"
-      as="footer"
-      width="full"
-      paddingY={8}
       gap={{ base: 6, md: 4 }}
+      justifyContent="center"
+      paddingY={8}
+      width="full"
     >
       <Flex
+        alignItems={{ base: 'center', md: 'normal' }}
         direction="column"
         gap={2}
-        alignItems={{ base: 'center', md: 'normal' }}
       >
-        <Box transform="auto" scale={0.8} translateX="-10%">
+        <Box scale={0.8} transform="auto" translateX="-10%">
           <SpokerLogo />
         </Box>
-        <Text fontSize="sm" color="gray">
+        <Text color="gray" fontSize="sm">
           2021 - {new Date().getFullYear()}
           {' | '}
           <Link
             href="https://agustinusnathaniel.com"
-            isExternal
             onClick={handleClick('open agustinusnathaniel.com')}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             agustinusnathaniel.com
           </Link>
@@ -47,24 +51,25 @@ export const Footer = () => {
       </Flex>
 
       <Flex
-        marginLeft={{ md: 'auto' }}
-        justifyContent="center"
         alignItems="center"
         gap={2}
+        justifyContent="center"
+        marginLeft={{ md: 'auto' }}
       >
         <Link
           href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
-          isExternal
           onClick={handleClick('open repo changelog')}
-          fontSize="sm"
-          fontWeight="bold"
+          rel="noopener noreferrer"
+          style={{ fontSize: 'sm', fontWeight: 'bold' }}
+          target="_blank"
         >
           v{packageInfo.version}
         </Link>
         <Link
           href={packageInfo.repository.url}
           onClick={handleClick('open repository')}
-          isExternal
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <RiGithubFill fontSize="2rem" />
         </Link>

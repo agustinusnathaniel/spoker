@@ -1,79 +1,81 @@
-import { Modal, ModalOverlay, useDisclosure } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import type { ReactNode } from 'react';
-import * as React from 'react';
+'use client';
 
+import { Dialog, Portal } from '@chakra-ui/react';
+import { usePathname, useRouter } from 'next/navigation';
+import type { ReactElement, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+
+import { FullScreenLoading } from '~/lib/components/full-screen-loading';
 import { PUBLIC_ROUTES } from '~/lib/constants/routes/public';
 import { RESTRICTED_ROUTES } from '~/lib/constants/routes/restricted';
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
 import { useAuthStoreState } from '~/lib/stores/auth';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { trackEvent } from '~/lib/utils/track-event';
 
 import { Login } from './login';
-import { Register } from './register';
 
-type AuthWrapperProps = {
+interface AuthWrapperProps {
   children: ReactNode;
-};
+}
 
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isRegistered, setIsRegistered] = React.useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { currentUser } = useAuthStoreState();
 
   const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   const isPublicRoute = PUBLIC_ROUTES.indexOf(pathname) >= 0;
   const isRestrictedRoute = RESTRICTED_ROUTES.includes(pathname);
 
+  // currentUser is undefined while loading, null when not authenticated, or User when authenticated
+  const isLoading = currentUser === undefined;
   const isUnauthorized =
     currentUser === null && !isPublicRoute && !isRestrictedRoute;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: -
-  React.useEffect(() => {
+  useEffect(() => {
     if (isUnauthorized) {
-      onOpen();
+      setIsOpen(true);
     } else {
-      onClose();
+      setIsOpen(false);
     }
   }, [currentUser, pathname]);
 
-  React.useEffect(() => {
-    if (!isUnauthorized) {
-      setIsRegistered(true);
-    }
-  }, [isUnauthorized]);
-
-  const handleSwitchToRegister = () => setIsRegistered(false);
-  const handleSwitchToLogin = () => setIsRegistered(true);
-
   const handleCloseAuthModal = () => {
-    router.push({ pathname: '/home' });
+    router.push('/home');
     trackEvent({
       eventName: 'close_auth-back_to_home',
       eventData: { type: EVENT_TYPE_AUTH },
     });
   };
 
+  // Show loading while determining auth state
+  if (isLoading && !isPublicRoute) {
+    return <FullScreenLoading />;
+  }
+
   if (!isUnauthorized) {
-    return children as React.ReactElement;
+    return children as ReactElement;
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={handleCloseAuthModal}
-      motionPreset="slideInBottom"
-      isCentered
+    <Dialog.Root
+      onOpenChange={({ open }) => {
+        if (!open) {
+          handleCloseAuthModal();
+        }
+        setIsOpen(open);
+      }}
+      open={isOpen}
+      placement="center"
       size="md"
     >
-      <ModalOverlay />
-
-      {isRegistered ? (
-        <Login {...{ handleSwitchToRegister }} />
-      ) : (
-        <Register {...{ handleSwitchToLogin }} />
-      )}
-    </Modal>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Login />
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 };

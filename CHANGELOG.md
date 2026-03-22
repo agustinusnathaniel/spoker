@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.0](https://github.com/agustinusnathaniel/spoker/compare/v1.16.36...v1.17.0) (2026-03-22)
+
+
+### Features
+
+* **layout:** migrate to next.js app router ([910af66](https://github.com/agustinusnathaniel/spoker/commit/910af6685c11d7bd38bc5ea0461cfb2c72abedc5))
+* **room:** migrate drag-and-drop to [@dnd-kit](https://github.com/dnd-kit) ([1086111](https://github.com/agustinusnathaniel/spoker/commit/108611150ea6608b846671b4f6ac91363c55b7f4))
+* **theme:** migrate to chakra ui v3 theme system ([5302de4](https://github.com/agustinusnathaniel/spoker/commit/5302de4e2732db4dc3107a2ebaa601ce109d8919))
+* **ui:** add chakra ui v3 compatible components ([fdaeae9](https://github.com/agustinusnathaniel/spoker/commit/fdaeae945394b8d59d91d7a5f7f5d947d88b9099))
+
+
+### Bug Fixes
+
+* **auth:** correct dialog usage to chakra ui v3 pattern ([e9bd53a](https://github.com/agustinusnathaniel/spoker/commit/e9bd53a3d79b9851e7cbc57dd986c168810b0c93))
+* **auth:** update gradient syntax in sign-in-providers ([59b94a7](https://github.com/agustinusnathaniel/spoker/commit/59b94a78306bfc9a9e77003eae67d97bce9c74cf))
+* **deps:** update all dependencies ([#404](https://github.com/agustinusnathaniel/spoker/issues/404)) ([c5f1db1](https://github.com/agustinusnathaniel/spoker/commit/c5f1db1d4f491981eac794ac9a44a40ad43317af))
+* **deps:** update all dependencies ([#405](https://github.com/agustinusnathaniel/spoker/issues/405)) ([8c99253](https://github.com/agustinusnathaniel/spoker/commit/8c992531a149f5fd1651ade65ff3e80cf328e5c4))
+* **firebase:** fix clearPoints to handle object data correctly ([e60a33d](https://github.com/agustinusnathaniel/spoker/commit/e60a33d2fffc01cff82b268db4f1dcfe2606e65e))
+* **room:** use drag handle pattern for dnd-kit ([475bba7](https://github.com/agustinusnathaniel/spoker/commit/475bba7d99b89cc2350b457d11f892788784022f))
+
+
+### Improvements
+
+* add error handling to firebase client module intiializeAppCheck ([6bbe7e0](https://github.com/agustinusnathaniel/spoker/commit/6bbe7e0b9cbc20cf298907b1cabc20a605f1f960))
+* adjust minor iterator ([a1bee73](https://github.com/agustinusnathaniel/spoker/commit/a1bee738e46afd3fcdc3e93771bf4f595e02b7ff))
+* adjust next config to ts ([7903167](https://github.com/agustinusnathaniel/spoker/commit/7903167defb0e7365fd09c782e1f67a5ddc83417))
+* adjust vote-radio-card ([49267d0](https://github.com/agustinusnathaniel/spoker/commit/49267d01e20009f640bda234ffdd6599afe6a603))
+* **components:** migrate all components to chakra ui v3 ([3c1b043](https://github.com/agustinusnathaniel/spoker/commit/3c1b043c4b247e56f8d35f3aead85542ee7254fe))
+* enable pinch-zoom - a11y ([f142abc](https://github.com/agustinusnathaniel/spoker/commit/f142abc4f3d63e5190d29b62dbd68cfd191d56bc))
+* fix ([c8db6d3](https://github.com/agustinusnathaniel/spoker/commit/c8db6d39a34655aa51d5f918c0959fb7b7a6aac7))
+* fix default tab issue ([14b8877](https://github.com/agustinusnathaniel/spoker/commit/14b8877c6bdc8a0ecaa4dc0eb17ab817efb9501f))
+* improve dark mode contrast ([ea5fb2f](https://github.com/agustinusnathaniel/spoker/commit/ea5fb2f0358deeeb50a298bcc989782e61791022))
+* polish ([aad7b33](https://github.com/agustinusnathaniel/spoker/commit/aad7b33bb5f243a4fea51e142abdf75be06ad964))
+* polishing UI ([2e72840](https://github.com/agustinusnathaniel/spoker/commit/2e72840737d1ad4527b812654688e7e1928b203b))
+* remove duplicate title template ([1f2faf5](https://github.com/agustinusnathaniel/spoker/commit/1f2faf5a6488049ed239cef2d5fcda8b438d2fcb))
+* use chakra semantic color ([cf63822](https://github.com/agustinusnathaniel/spoker/commit/cf63822c8a4bff5ff0c9953daf71269daef03123))
+* use sequential async / await ([ba7e329](https://github.com/agustinusnathaniel/spoker/commit/ba7e329f22a20d5622c40c7ebe214f1ba5cef7a4))
+
 ## [1.16.36](https://github.com/agustinusnathaniel/spoker/compare/v1.16.35...v1.16.36) (2026-02-21)
 
 ## [1.16.35](https://github.com/agustinusnathaniel/spoker/compare/v1.16.34...v1.16.35) (2026-02-20)

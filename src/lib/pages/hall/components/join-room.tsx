@@ -1,21 +1,23 @@
+'use client';
+
 import { Button, Grid, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import type { ChangeEventHandler } from 'react';
-import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import type { ChangeEventHandler, KeyboardEventHandler } from 'react';
+import { useMemo, useState } from 'react';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 
 export const JoinRoom = () => {
   const router = useRouter();
-  const [roomId, setRoomId] = React.useState<string>('');
-  const isDisabled = React.useMemo(() => roomId.length === 0, [roomId.length]);
+  const [roomId, setRoomId] = useState<string>('');
+  const isDisabled = useMemo(() => roomId.length === 0, [roomId.length]);
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (e) =>
     setRoomId(e.target.value);
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter' && !isDisabled) {
       e.preventDefault();
       e.stopPropagation();
@@ -24,30 +26,29 @@ export const JoinRoom = () => {
   };
 
   return (
-    <SpokerWrapperGrid gap={8} backgroundColor="cyan.600" color="white">
-      <Heading size="lg">or Join the Party!</Heading>
+    <SpokerWrapperGrid backgroundColor="cyan.600" color="white" gap={8}>
+      <Heading size="2xl">or Join the Party!</Heading>
 
       <Grid gap={4}>
         <SpokerInput
-          label="Room ID"
-          value={roomId}
-          onChange={handleChangeInput}
-          placeholder="quick-brown-fox"
           _placeholder={{ color: 'cyan.400' }}
+          label="Room ID"
+          onChange={handleChangeInput}
           onKeyDown={handleKeyDown}
+          placeholder="quick-brown-fox"
+          value={roomId}
         />
       </Grid>
 
-      <Button
-        as={Link}
-        href={!isDisabled ? `/join/${roomId}` : '#'}
-        isDisabled={isDisabled}
-        alignSelf="flex-end"
-        style={{
-          pointerEvents: isDisabled ? 'none' : 'auto',
-        }}
-      >
-        Let Me in!
+      <Button alignSelf="flex-end" asChild disabled={isDisabled}>
+        <Link
+          href={isDisabled ? '#' : `/join/${roomId}`}
+          style={{
+            pointerEvents: isDisabled ? 'none' : 'auto',
+          }}
+        >
+          Let Me in!
+        </Link>
       </Button>
     </SpokerWrapperGrid>
   );

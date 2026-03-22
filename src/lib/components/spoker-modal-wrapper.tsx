@@ -1,61 +1,71 @@
-import type { ModalContentProps, ModalProps } from '@chakra-ui/react';
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from '@chakra-ui/react';
+'use client';
+
+import type { DialogContentProps, DialogRootProps } from '@chakra-ui/react';
+import { CloseButton, Dialog, Portal } from '@chakra-ui/react';
 import type * as React from 'react';
 
 import { contraGridStyle } from '~/lib/components/style';
 
 type SpokerModalWrapperProps = Pick<
-  ModalProps,
-  'isOpen' | 'onClose' | 'size' | 'closeOnOverlayClick'
+  DialogRootProps,
+  'open' | 'onOpenChange' | 'size'
 > & {
   header?: React.ReactNode;
   withCloseButton?: boolean;
   body?: React.ReactNode;
   footer?: React.ReactNode;
-  contentWrapperProps?: ModalContentProps;
+  contentWrapperProps?: DialogContentProps;
 };
 
 export const SpokerModalWrapper = ({
-  isOpen,
-  size = '2xl',
+  open,
+  size = 'lg',
   header,
   withCloseButton = true,
   body,
   footer,
-  closeOnOverlayClick = false,
   contentWrapperProps,
-  onClose,
+  onOpenChange,
 }: SpokerModalWrapperProps) => {
   return (
-    <Modal
+    <Dialog.Root
+      onOpenChange={onOpenChange}
+      open={open}
+      placement="center"
       size={size}
-      isOpen={isOpen}
-      onClose={onClose}
-      closeOnOverlayClick={closeOnOverlayClick}
-      isCentered
     >
-      <ModalOverlay />
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content
+            {...contraGridStyle}
+            backgroundColor={{ _dark: 'gray.500' }}
+            marginX="6"
+            {...contentWrapperProps}
+          >
+            {header && (
+              <Dialog.Header>
+                <Dialog.Title
+                  fontSize={{ base: '2xl', lg: '3xl' }}
+                  fontWeight="bold"
+                >
+                  {header}
+                </Dialog.Title>
+              </Dialog.Header>
+            )}
 
-      <ModalContent {...contraGridStyle} marginX="6" {...contentWrapperProps}>
-        {header && (
-          <ModalHeader fontWeight="bold" fontSize={{ base: '2xl', lg: '3xl' }}>
-            {header}
-          </ModalHeader>
-        )}
-        {withCloseButton && <ModalCloseButton />}
+            {body && <Dialog.Body>{body}</Dialog.Body>}
 
-        {body && <ModalBody>{body}</ModalBody>}
+            {footer && <Dialog.Footer gap={2}>{footer}</Dialog.Footer>}
 
-        {footer && <ModalFooter gridGap={2}>{footer}</ModalFooter>}
-      </ModalContent>
-    </Modal>
+            {withCloseButton && (
+              <Dialog.CloseTrigger asChild>
+                <CloseButton />
+              </Dialog.CloseTrigger>
+            )}
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 };

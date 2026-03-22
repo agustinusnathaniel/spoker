@@ -5,12 +5,12 @@ import { Twemoji } from '~/lib/components/twemoji';
 import type { HideLabelOptionsType } from '~/lib/constants/hide-label';
 import { hideLabel } from '~/lib/constants/hide-label';
 
-type PointWrapperProps = {
-  showVote: boolean;
-  roomSelectedHideLabel: HideLabelOptionsType;
+interface PointWrapperProps {
   isCurrentUser: boolean;
   point?: number;
-};
+  roomSelectedHideLabel: HideLabelOptionsType;
+  showVote: boolean;
+}
 
 export const PointWrapper = memo(
   ({
@@ -23,8 +23,8 @@ export const PointWrapper = memo(
       return (
         <Text
           as="span"
-          minWidth="1.875rem"
           display="inline-block"
+          minWidth="1.875rem"
           textAlign="center"
         >
           {point}
@@ -35,7 +35,7 @@ export const PointWrapper = memo(
       return <Twemoji emoji={hideLabel[roomSelectedHideLabel].selected} />;
     }
     return <Twemoji emoji={hideLabel[roomSelectedHideLabel].empty} />;
-  },
+  }
 );
 
 PointWrapper.displayName = 'PointWrapper';

@@ -1,21 +1,18 @@
-enum HideLabelOptions {
-  monkey = 'monkey',
-  chicken = 'chicken',
-  cow = 'cow',
-  fish = 'fish',
-  money = 'money',
-  cloud = 'cloud',
-  shrimp = 'shrimp',
-  think = 'think',
-}
+const HideLabelOptions = {
+  monkey: 'monkey',
+  chicken: 'chicken',
+  cow: 'cow',
+  fish: 'fish',
+  money: 'money',
+  cloud: 'cloud',
+  shrimp: 'shrimp',
+  think: 'think',
+} as const;
 
 export type HideLabelOptionsType = keyof typeof HideLabelOptions;
 
-export const hideLabelOptions: Array<HideLabelOptionsType> = Object.keys(
-  HideLabelOptions,
-)
-  .filter((label) => Number.isNaN(Number(label)))
-  .map((labelOption) => labelOption as HideLabelOptionsType);
+export const hideLabelOptions: Array<HideLabelOptionsType> =
+  Object.values(HideLabelOptions);
 
 type HideLabelType = Record<
   HideLabelOptionsType,

@@ -1,20 +1,15 @@
-import {
-  Box,
-  Link as ChakraLink,
-  Flex,
-  Heading,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+'use client';
+
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
 export const SpokerLogo = () => {
   return (
-    <ChakraLink as={Link} href="/" _hover={undefined}>
-      <Flex alignItems="center" gridGap={{ base: 2, md: 4 }}>
-        <Image src="/chip.svg" alt="poker icon" width={{ base: 8, md: 10 }} />
+    <Link href="/" style={{ textDecoration: 'none' }}>
+      <Flex alignItems="center" gap={{ base: 2, md: 4 }}>
+        <Image alt="poker icon" src="/chip.svg" width={{ base: 8, md: 10 }} />
         <Box>
-          <Heading as="h1" size={{ base: 'sm', md: 'md' }}>
+          <Heading as="h1" size={{ base: 'lg', md: 'xl' }}>
             spoker
           </Heading>
           <Text color="gray" fontSize={{ base: 'xs', md: 'sm' }}>
@@ -22,6 +17,6 @@ export const SpokerLogo = () => {
           </Text>
         </Box>
       </Flex>
-    </ChakraLink>
+    </Link>
   );
 };

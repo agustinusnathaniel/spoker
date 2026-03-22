@@ -1,5 +1,7 @@
-import { Box, Divider, Flex, Grid, Heading, Text } from '@chakra-ui/react';
-import * as React from 'react';
+'use client';
+
+import { Box, Flex, Grid, Heading, Separator, Text } from '@chakra-ui/react';
+import { useMemo } from 'react';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { useUserRole } from '~/lib/hooks/use-user-role';
@@ -16,13 +18,13 @@ export const RoomHeader = () => {
     isOwner,
   });
 
-  const content = React.useMemo(() => {
+  const content = useMemo(() => {
     if (isOwner) {
       return (
         <EditableFields
-          name={name}
           description={description}
           handleUpdateTask={handleUpdateTask}
+          name={name}
         />
       );
     }
@@ -33,7 +35,7 @@ export const RoomHeader = () => {
 
     return (
       <>
-        <Heading fontSize="2xl" wordBreak="break-word">
+        <Heading fontSize="3xl" wordBreak="break-word">
           {task.name}
         </Heading>
         {task.description && (
@@ -46,12 +48,12 @@ export const RoomHeader = () => {
   return (
     <SpokerWrapperGrid gap={4}>
       <Box>
-        <Heading size="lg">{roomData?.room.name}</Heading>
-        <Divider borderColor="black" marginTop={2} />
+        <Heading size="2xl">{roomData?.room.name}</Heading>
+        <Separator borderColor="black" marginTop={2} />
       </Box>
 
-      <Flex gridGap={4}>
-        <Heading size="md">Story</Heading>
+      <Flex gap={4}>
+        <Heading size="lg">Story</Heading>
 
         <Grid gap={2} width="full">
           {content}

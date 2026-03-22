@@ -1,5 +1,5 @@
 import type { RoomInstance } from '~/lib/types/raw-db';
 
-export type RoomHeaderProps = {
+export interface RoomHeaderProps {
   roomData?: RoomInstance;
-};
+}

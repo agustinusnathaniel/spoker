@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -5,68 +7,53 @@ import {
   Heading,
   IconButton,
   Popover,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
+  Portal,
   Text,
-  useBreakpointValue,
-  useToast,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { BsPencil } from 'react-icons/bs';
 import { ImCheckmark } from 'react-icons/im';
 import { IoMdPerson } from 'react-icons/io';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
+import { toaster } from '~/lib/components/ui/toaster';
 import { PRIVATE_ROUTES } from '~/lib/constants/routes/private';
 import { EVENT_TYPE_AUTH } from '~/lib/constants/tracking';
 import { logoutUser } from '~/lib/services/firebase/auth/logout';
 import { updateDisplayName } from '~/lib/services/firebase/auth/update-display-name';
 import { disconnectUser } from '~/lib/services/firebase/room/update/disconnect-user';
 import { useAuthStoreAction, useAuthStoreState } from '~/lib/stores/auth';
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
-import { trackEvent } from '~/lib/utils/trackEvent';
+import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
+import { trackEvent } from '~/lib/utils/track-event';
 
 export const AuthPopover = () => {
   const { currentUser, displayName } = useAuthStoreState();
   const { setDisplayName } = useAuthStoreAction();
   const [isEditingDisplayName, setIsEditingDisplayName] =
-    React.useState<boolean>(false);
-  const [displayNameInput, setDisplayNameInput] = React.useState<string>('');
-  const toast = useToast();
+    useState<boolean>(false);
+  const [displayNameInput, setDisplayNameInput] = useState<string>('');
   const router = useRouter();
-  const buttonSize = useBreakpointValue({
-    base: 'md',
-    sm: 'lg',
-  });
+  const pathname = usePathname();
+  const params = useParams();
 
-  const {
-    query: { id },
-    pathname,
-  } = router;
+  const id = params?.id as string;
 
   const handleEditClick = () => {
     if (isEditingDisplayName) {
       if (displayNameInput !== displayName) {
         updateDisplayName(displayNameInput)
           .then(() => {
-            toast({
+            toaster.create({
               title: 'Update name successful',
-              status: 'success',
-              position: 'top',
-              isClosable: true,
+              type: 'success',
             });
             setDisplayName(displayNameInput);
           })
           .catch((e) => {
-            toast({
+            toaster.create({
               description: removeFirebasePrefix(e.message),
-              status: 'error',
-              position: 'top',
-              isClosable: true,
+              type: 'error',
             });
           })
           .finally(() => {
@@ -85,17 +72,16 @@ export const AuthPopover = () => {
 
   const processLogout = async () => {
     await logoutUser().then(() => {
-      toast({
+      toaster.create({
         description: 'Successfully logged out',
-        status: 'info',
-        position: 'top',
+        type: 'info',
       });
     });
   };
 
   const clearUserSessionData = async () => {
     if (id && PRIVATE_ROUTES.includes(pathname) && currentUser) {
-      await disconnectUser(id as string, currentUser.uid);
+      await disconnectUser(id, currentUser.uid);
       router.push('/');
     }
 
@@ -116,57 +102,57 @@ export const AuthPopover = () => {
 
   return (
     <Box>
-      <Popover
-        placement="bottom-end"
-        onClose={() => setIsEditingDisplayName(false)}
-      >
-        <PopoverTrigger>
+      <Popover.Root positioning={{ placement: 'bottom-end' }}>
+        <Popover.Trigger asChild>
           <IconButton
-            size={buttonSize}
             aria-label="account"
-            icon={<IoMdPerson />}
-          />
-        </PopoverTrigger>
+            backgroundColor={{ _dark: 'gray.500' }}
+            size="md"
+            variant="ghost"
+          >
+            <IoMdPerson />
+          </IconButton>
+        </Popover.Trigger>
 
-        <PopoverContent>
-          <PopoverCloseButton />
-          <PopoverHeader>
-            <Flex gridGap={2} alignItems="center">
-              {isEditingDisplayName ? (
-                <SpokerInput
-                  value={displayNameInput}
-                  onChange={(e) => setDisplayNameInput(e.target.value)}
-                  size="sm"
-                  formControlWidth="70%"
-                />
-              ) : (
-                <Heading size="sm">{displayName}</Heading>
-              )}
-              <IconButton
-                border="none"
-                boxShadow="none"
-                size="xs"
-                aria-label="edit"
-                icon={isEditingDisplayName ? <ImCheckmark /> : <BsPencil />}
-                onClick={handleEditClick}
-              />
-            </Flex>
-            <Text color="gray" fontSize="sm">
-              {currentUser.email}
-            </Text>
-          </PopoverHeader>
-          <PopoverBody>
-            <Button
-              size="md"
-              width="full"
-              colorScheme="red"
-              onClick={handleLogout}
-            >
-              Sign Out
-            </Button>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+        <Portal>
+          <Popover.Positioner>
+            <Popover.Content>
+              <Popover.Body>
+                <Flex alignItems="center" gap={2}>
+                  {isEditingDisplayName ? (
+                    <SpokerInput
+                      onChange={(e) => setDisplayNameInput(e.target.value)}
+                      size="sm"
+                      value={displayNameInput}
+                    />
+                  ) : (
+                    <Heading size="lg">{displayName}</Heading>
+                  )}
+                  <IconButton
+                    aria-label="edit"
+                    onClick={handleEditClick}
+                    size="xs"
+                    variant="ghost"
+                  >
+                    {isEditingDisplayName ? <ImCheckmark /> : <BsPencil />}
+                  </IconButton>
+                </Flex>
+                <Text color="gray" fontSize="sm" mb={4}>
+                  {currentUser.email}
+                </Text>
+                <Button
+                  colorPalette="red"
+                  onClick={handleLogout}
+                  size="md"
+                  width="full"
+                >
+                  Sign Out
+                </Button>
+              </Popover.Body>
+            </Popover.Content>
+          </Popover.Positioner>
+        </Portal>
+      </Popover.Root>
     </Box>
   );
 };

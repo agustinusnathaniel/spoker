@@ -1,27 +1,30 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 import { useRoomStore } from '~/lib/stores/room';
-import { countAveragePoint, filterUserWithPoints } from '~/lib/utils/roomUtils';
+import {
+  countAveragePoint,
+  filterUserWithPoints,
+} from '~/lib/utils/room-utils';
 
 export const useRoomPoint = () => {
   const showVote = useRoomStore(useShallow((state) => state.showVote));
   const users = useRoomStore(useShallow((state) => state.users));
 
-  const participantPoints = React.useMemo(() => {
+  const participantPoints = useMemo(() => {
     if (!showVote) {
       return [];
     }
     return filterUserWithPoints(users).map((user) => user.point ?? 0);
   }, [showVote, users]);
 
-  const averagePoint = React.useMemo(() => {
+  const averagePoint = useMemo(() => {
     const filledPoints = participantPoints.filter((point) => point);
     return countAveragePoint(filledPoints);
   }, [participantPoints]);
-  const highestPoint = React.useMemo(
+  const highestPoint = useMemo(
     () => participantPoints.sort((a, b) => b - a)[0] ?? 0,
-    [participantPoints],
+    [participantPoints]
   );
 
   return {

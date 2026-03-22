@@ -1,24 +1,17 @@
-import type { UseToastOptions } from '@chakra-ui/react';
-import { createStandaloneToast } from '@chakra-ui/react';
+import { toaster } from "~/lib/components/ui/toaster";
 
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
+import { removeFirebasePrefix } from "~/lib/utils/remove-firebase-prefix";
 
-const { toast } = createStandaloneToast();
-
-export const showSuccessToast = (options?: UseToastOptions) =>
-  toast({
-    status: 'success',
-    position: 'top',
-    isClosable: true,
-    duration: 8000,
+export const showSuccessToast = (options?: { title?: string; description?: string; duration?: number }) =>
+  toaster.create({
+    type: "success",
+    duration: options?.duration ?? 8000,
     ...options,
   });
 
 export const showErrorToast = (err: Error) =>
-  toast({
+  toaster.create({
     description: removeFirebasePrefix(err.message),
-    status: 'error',
-    position: 'top',
-    isClosable: true,
+    type: "error",
     duration: 15000,
   });

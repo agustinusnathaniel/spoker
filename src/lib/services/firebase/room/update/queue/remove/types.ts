@@ -1,7 +1,7 @@
 import type { Task } from '~/lib/types/raw-db';
 
-export type RemoveQueueItemArgs = {
+export interface RemoveQueueItemArgs {
+  queue?: Array<Task>;
   roomId: string;
   selectedQueueIndex: number;
-  queue?: Array<Task>;
-};
+}

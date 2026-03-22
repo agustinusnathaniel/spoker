@@ -1,28 +1,28 @@
-import { useToast } from '@chakra-ui/react';
-import * as React from 'react';
+'use client';
+
+import { useEffect } from 'react';
 import { useReward } from 'react-rewards';
 
+import { toaster } from '~/lib/components/ui/toaster';
 import { CURRENT_VOTE_WRAPPER_ID } from '~/lib/constants/wrapperkeys';
 import { useRoomStoreState } from '~/lib/stores/room';
 
 export const useVoteListener = () => {
-  const toast = useToast();
   const { roomData, showVote } = useRoomStoreState();
   const { reward } = useReward(CURRENT_VOTE_WRAPPER_ID, 'confetti');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (showVote) {
       reward();
     }
   }, [showVote, reward]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (roomData?.task.lastVoted?.name && roomData?.task.lastVoted?.time) {
-      toast({
+      toaster.create({
         description: `${roomData.task.lastVoted.name} just voted`,
-        status: 'info',
-        position: 'bottom-right',
+        type: 'info',
       });
     }
-  }, [roomData?.task.lastVoted?.name, roomData?.task.lastVoted?.time, toast]);
+  }, [roomData?.task.lastVoted?.name, roomData?.task.lastVoted?.time]);
 };

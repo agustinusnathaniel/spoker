@@ -1,7 +1,10 @@
+'use client';
+
 import debounce from 'lodash-es/debounce';
 import isNil from 'lodash-es/isNil';
-import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useParams } from 'next/navigation';
+import type { ChangeEvent } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { updateRoomTask } from '~/lib/services/firebase/room/update/room-task';
 import type { Task } from '~/lib/types/raw-db';
@@ -13,45 +16,41 @@ type UseRoomHeaderArgs = RoomHeaderProps & {
 };
 
 export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
-  const [name, setName] = React.useState<string | undefined>(
-    roomData?.task.name,
+  const [name, setName] = useState<string | undefined>(roomData?.task.name);
+  const [description, setDescription] = useState<string | undefined>(
+    roomData?.task.description
   );
-  const [description, setDescription] = React.useState<string | undefined>(
-    roomData?.task.description,
-  );
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const params = useParams();
+  const id = params?.id as string;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isNil(roomData?.task.name)) {
       setName(roomData?.task.name);
     }
   }, [roomData?.task.name]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isNil(roomData?.task.description)) {
       setDescription(roomData?.task.description);
     }
   }, [roomData?.task.description]);
 
-  const handleUpdateRemoteTask = React.useCallback(
+  const handleUpdateRemoteTask = useCallback(
     (field: keyof Task) =>
-      debounce(async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      debounce(async (event: ChangeEvent<HTMLTextAreaElement>) => {
         if (roomData && isOwner) {
           const updatedTask: Task = {
             ...roomData.task,
             [field]: event.target.value,
           };
-          await updateRoomTask(id as string, updatedTask);
+          await updateRoomTask(id, updatedTask);
         }
       }, 500),
-    [id, isOwner, roomData],
+    [id, isOwner, roomData]
   );
 
-  const handleUpdateTask = React.useCallback(
-    (field: keyof Task) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleUpdateTask = useCallback(
+    (field: keyof Task) => (event: ChangeEvent<HTMLTextAreaElement>) => {
       if (field === 'name') {
         setName(event.target.value);
       }
@@ -60,7 +59,7 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
       }
       handleUpdateRemoteTask(field)(event);
     },
-    [handleUpdateRemoteTask],
+    [handleUpdateRemoteTask]
   );
 
   return {

@@ -1,6 +1,6 @@
+'use client';
+
 import { Box, Grid } from '@chakra-ui/react';
-import Head from 'next/head';
-import { generateNextSeo } from 'next-seo/pages';
 
 import { SpokerLoading } from '~/lib/components/spoker-loading';
 import { useAuthStoreState } from '~/lib/stores/auth';
@@ -28,11 +28,10 @@ export const RoomPage = () => {
   if (currentUser && roomData) {
     return (
       <Grid gap={8}>
-        <Head>{generateNextSeo({ title: roomData.room.name })}</Head>
         <Grid
-          templateColumns={{ base: '1fr', md: '3fr 2fr' }}
-          gap={6}
           alignItems="start"
+          gap={6}
+          templateColumns={{ base: '1fr', md: '3fr 2fr' }}
         >
           <Grid gap={6}>
             <RoomHeader />

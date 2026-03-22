@@ -1,19 +1,12 @@
-import {
-  Button,
-  Grid,
-  Heading,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useColorModeValue,
-} from '@chakra-ui/react';
+'use client';
+
+import { Button, Dialog, Grid, Heading } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
+import { useColorModeValue } from '~/lib/components/ui/color-mode';
 import { initialValues, loginFormValidationSchema } from '~/lib/models/login';
 import { loginUserWithEmailAndPassword } from '~/lib/services/firebase/auth/login/email-and-password';
 
@@ -21,11 +14,7 @@ import { ForgotPasswordButton } from './forgot-password-button';
 import { SignInProviders } from './sign-in-providers';
 import { contraBoxStyle } from './style';
 
-type LoginProps = {
-  handleSwitchToRegister: () => void;
-};
-
-export const Login = ({ handleSwitchToRegister }: LoginProps) => {
+export const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const borderColor = useColorModeValue('#18191F', '#FFFFFF');
 
@@ -44,65 +33,64 @@ export const Login = ({ handleSwitchToRegister }: LoginProps) => {
     setIsLoading(true);
     const values = getValues();
     await loginUserWithEmailAndPassword(values.email, values.password).finally(
-      () => setIsLoading(false),
+      () => setIsLoading(false)
     );
   };
 
   return (
-    <ModalContent
+    <Dialog.Content
       as="form"
       {...contraBoxStyle(borderColor)}
       onSubmit={handleSubmit(processLogin)}
     >
-      <ModalHeader>
-        <Heading bgGradient="linear(to-br, teal.200, blue.600)" bgClip="text">
+      <Dialog.Header>
+        <Heading
+          bgClip="text"
+          bgGradient="to-br"
+          gradientFrom="teal.200"
+          gradientTo="blue.600"
+          size="3xl"
+        >
           Login
         </Heading>
 
-        <ModalCloseButton />
-      </ModalHeader>
+        <Dialog.CloseTrigger />
+      </Dialog.Header>
 
-      <ModalBody>
+      <Dialog.Body>
         <Grid gap={4}>
           <SignInProviders />
 
           <SpokerInput
             {...register('email')}
-            label="email"
-            isInvalid={!!errors.email?.message}
             errorText={errors.email?.message}
+            invalid={!!errors.email?.message}
+            label="email"
             placeholder="Your e-mail"
           />
           <SpokerInput
             {...register('password')}
-            type="password"
-            label="password"
-            isInvalid={!!errors.password?.message}
             errorText={errors.password?.message}
+            invalid={!!errors.password?.message}
+            label="password"
             placeholder="Your password"
+            type="password"
           />
 
           <ForgotPasswordButton />
         </Grid>
-      </ModalBody>
+      </Dialog.Body>
 
-      <ModalFooter gridGap={2}>
+      <Dialog.Footer gap={2}>
         <Button
-          variant="ghost"
-          fontWeight="normal"
-          onClick={handleSwitchToRegister}
-        >
-          Register
-        </Button>
-        <Button
-          type="submit"
+          colorPalette="blue"
           disabled={!(isDirty && isValid)}
-          isLoading={isLoading}
-          colorScheme="blue"
+          loading={isLoading}
+          type="submit"
         >
           Sign In
         </Button>
-      </ModalFooter>
-    </ModalContent>
+      </Dialog.Footer>
+    </Dialog.Content>
   );
 };

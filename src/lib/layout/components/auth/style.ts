@@ -1,8 +1,8 @@
-import type { ModalContentProps } from '@chakra-ui/react';
+import type { DialogContentProps } from '@chakra-ui/react';
 
 export const contraBoxStyle = (
-  borderColor: string,
-): Partial<ModalContentProps> => ({
+  borderColor: string
+): Partial<DialogContentProps> => ({
   paddingY: 2,
   borderRadius: 16,
   border: `2px solid ${borderColor}`,

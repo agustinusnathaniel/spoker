@@ -1,73 +1,78 @@
-import { useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import * as React from 'react';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { FullScreenLoading } from '~/lib/components/full-screen-loading';
+import { toaster } from '~/lib/components/ui/toaster';
 import { handleVerifyEmail } from '~/lib/services/firebase/auth/verify-email';
 import { useAuthStoreState } from '~/lib/stores/auth';
-import { removeFirebasePrefix } from '~/lib/utils/removeFirebasePrefix';
+import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
 
-export const Auth = () => {
+const AuthContent = () => {
   const router = useRouter();
-  const { mode, oobCode } = router.query;
+  const searchParams = useSearchParams();
+  const mode = searchParams.get('mode');
+  const oobCode = searchParams.get('oobCode');
 
   const { currentUser } = useAuthStoreState();
-  const [isProcessed, setIsProcessed] = React.useState<boolean>(false);
-  const toast = useToast();
+  const [isProcessed, setIsProcessed] = useState<boolean>(false);
 
-  const handleInvalidLink = React.useCallback(() => {
+  const handleInvalidLink = useCallback(() => {
     setIsProcessed(true);
-    router.push('/').then(() => {
-      toast({
-        description: 'Invalid Link',
-        status: 'warning',
-        position: 'top',
-        isClosable: true,
-      });
+    router.push('/');
+    toaster.create({
+      description: 'Invalid Link',
+      type: 'warning',
     });
-  }, [router, toast]);
+  }, [router]);
 
-  const handleAuthCallback = React.useCallback(() => {
+  const handleAuthCallback = useCallback(() => {
     if (mode === 'verifyEmail') {
       setIsProcessed(true);
-      handleVerifyEmail(oobCode as string)
-        .then(() => {
-          toast({
-            title: 'Email Verification Success',
-            status: 'success',
-            position: 'top',
-            isClosable: true,
-          });
-          if (currentUser) {
-            currentUser.reload().then(() => router.push('/'));
-          } else {
+      if (oobCode) {
+        handleVerifyEmail(oobCode)
+          .then(() => {
+            toaster.create({
+              title: 'Email Verification Success',
+              type: 'success',
+            });
+            if (currentUser) {
+              currentUser.reload().then(() => router.push('/'));
+            } else {
+              router.push('/');
+            }
+          })
+          .catch((err: Error) => {
             router.push('/');
-          }
-        })
-        .catch((err: Error) => {
-          router.push('/').then(() => {
-            toast({
+            toaster.create({
               description: removeFirebasePrefix(err.message),
-              status: 'error',
-              position: 'top',
-              isClosable: true,
+              type: 'error',
             });
           });
-        });
+      } else {
+        handleInvalidLink();
+      }
       return;
     }
 
     handleInvalidLink();
-  }, [currentUser, handleInvalidLink, mode, oobCode, router, toast]);
+  }, [currentUser, handleInvalidLink, mode, oobCode, router]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isProcessed) {
       return;
     }
-    if (router.isReady) {
-      handleAuthCallback();
-    }
-  }, [handleAuthCallback, isProcessed, router.isReady]);
+    handleAuthCallback();
+  }, [handleAuthCallback, isProcessed]);
 
   return <FullScreenLoading />;
+};
+
+export const Auth = () => {
+  return (
+    <Suspense fallback={<FullScreenLoading />}>
+      <AuthContent />
+    </Suspense>
+  );
 };

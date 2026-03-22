@@ -1,24 +1,18 @@
-import type {
-  FormControlProps,
-  FormErrorMessageProps,
-  FormHelperTextProps,
-  TextareaProps,
-} from '@chakra-ui/react';
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  forwardRef,
-  Textarea,
-} from '@chakra-ui/react';
+'use client';
+
+import type { TextareaProps } from '@chakra-ui/react';
+import { Field, Textarea } from '@chakra-ui/react';
+import type { Ref } from 'react';
 import ResizeTextarea from 'react-textarea-autosize';
 
 type AutoResizeTextareaProps = {
-  errorText?: FormErrorMessageProps['children'];
-  helperText?: FormHelperTextProps['children'];
-} & TextareaProps &
-  Pick<FormControlProps, 'label' | 'isInvalid'>;
+  errorText?: string;
+  helperText?: string;
+  label?: string;
+  invalid?: boolean;
+  ref?: Ref<HTMLTextAreaElement>;
+  minRows?: number;
+} & Omit<TextareaProps, 'rows'>;
 
 const contraStyle: Partial<TextareaProps> = {
   borderColor: 'black',
@@ -27,38 +21,30 @@ const contraStyle: Partial<TextareaProps> = {
   size: 'lg',
 };
 
-export const AutoResizeTextarea = forwardRef(
-  (
-    {
-      isInvalid,
-      label,
-      errorText,
-      helperText,
-      ...props
-    }: AutoResizeTextareaProps,
-    ref,
-  ) => {
-    return (
-      <FormControl isInvalid={isInvalid}>
-        {label && <FormLabel>{label}</FormLabel>}
-
-        <Textarea
-          minH="unset"
-          overflow="hidden"
-          w="100%"
-          resize="none"
-          ref={ref}
-          minRows={1}
-          as={ResizeTextarea}
-          {...contraStyle}
-          {...props}
-        />
-
-        {errorText && <FormErrorMessage>{errorText}</FormErrorMessage>}
-        {helperText && (
-          <FormHelperText color="red.400">{helperText}</FormHelperText>
-        )}
-      </FormControl>
-    );
-  },
-);
+export const AutoResizeTextarea = ({
+  invalid,
+  label,
+  errorText,
+  helperText,
+  ref,
+  minRows,
+  ...props
+}: AutoResizeTextareaProps) => {
+  return (
+    <Field.Root invalid={invalid}>
+      {label && <Field.Label>{label}</Field.Label>}
+      <Textarea
+        as={ResizeTextarea}
+        minH="unset"
+        overflow="hidden"
+        ref={ref}
+        resize="none"
+        w="100%"
+        {...contraStyle}
+        {...props}
+      />
+      {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
+      {helperText && <Field.HelperText>{helperText}</Field.HelperText>}
+    </Field.Root>
+  );
+};
