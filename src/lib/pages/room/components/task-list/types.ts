@@ -10,10 +10,10 @@ export type SortableTaskItem = Task;
 export interface SortableTaskItemProps {
   queueProps?: {
     isQueue: boolean;
-    taskIndex: number;
-    onClickSwap: (selectedIndex: number) => Promise<void>;
     onClickEdit: (selectedIndex: number) => void;
     onClickRemove: (selectedIndex: number) => void;
+    onClickSwap: (selectedIndex: number) => Promise<void>;
+    taskIndex: number;
   };
   task: Task;
 }

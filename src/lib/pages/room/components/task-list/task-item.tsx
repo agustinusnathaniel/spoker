@@ -16,6 +16,7 @@ import { RiDraggable } from 'react-icons/ri';
 import type { Task } from '~/lib/types/raw-db';
 
 interface TaskItemProps {
+  dragHandleProps?: Record<string, unknown>;
   queueProps?: {
     isQueue: boolean;
     taskIndex: number;
@@ -26,77 +27,83 @@ interface TaskItemProps {
   task: Task;
 }
 
-export const TaskItem = memo(({ task, queueProps }: TaskItemProps) => {
-  const swapButtonContent = useBreakpointValue({
-    base: null,
-    md: 'Swap with Current',
-  });
+export const TaskItem = memo(
+  ({ task, queueProps, dragHandleProps }: TaskItemProps) => {
+    const swapButtonContent = useBreakpointValue({
+      base: null,
+      md: 'Swap with Current',
+    });
 
-  const removeButtonContent = useBreakpointValue({
-    base: null,
-    md: 'Remove',
-  });
+    const removeButtonContent = useBreakpointValue({
+      base: null,
+      md: 'Remove',
+    });
 
-  const handleClickSwap = async () => {
-    await queueProps?.onClickSwap(queueProps.taskIndex);
-  };
+    const handleClickSwap = async () => {
+      await queueProps?.onClickSwap(queueProps.taskIndex);
+    };
 
-  const handleClickEdit = () => {
-    queueProps?.onClickEdit(queueProps.taskIndex);
-  };
+    const handleClickEdit = () => {
+      queueProps?.onClickEdit(queueProps.taskIndex);
+    };
 
-  const handleClickRemove = () => {
-    queueProps?.onClickRemove(queueProps.taskIndex);
-  };
+    const handleClickRemove = () => {
+      queueProps?.onClickRemove(queueProps.taskIndex);
+    };
 
-  return (
-    <Flex
-      _active={{ cursor: queueProps?.isQueue ? 'grab' : undefined }}
-      _hover={{ cursor: queueProps?.isQueue ? 'move' : undefined }}
-      alignItems="center"
-      borderColor="gray.400"
-      borderRadius={12}
-      borderWidth={2}
-      gap={4}
-      marginBottom={2}
-      padding={4}
-    >
-      {queueProps?.isQueue ? (
-        <Box _active={{ cursor: 'grabbing' }} cursor="grab">
-          <RiDraggable />
+    return (
+      <Flex
+        alignItems="center"
+        borderColor="gray.400"
+        borderRadius={12}
+        borderWidth={2}
+        gap={4}
+        marginBottom={2}
+        padding={4}
+      >
+        {queueProps?.isQueue ? (
+          <Box
+            _active={{ cursor: 'grabbing' }}
+            cursor="grab"
+            padding={2}
+            {...dragHandleProps}
+          >
+            <RiDraggable />
+          </Box>
+        ) : null}
+        <Box flex={1}>
+          <Heading fontSize="xl">{task.name}</Heading>
+          {task.description && <Text>{task.description}</Text>}
+
+          {queueProps?.isQueue && (
+            <Flex gap={2} marginTop={2}>
+              <Button colorPalette="orange" onClick={handleClickSwap} size="sm">
+                <HiSwitchVertical />
+                {swapButtonContent}
+              </Button>
+
+              <Button colorPalette="teal" onClick={handleClickEdit} size="sm">
+                <HiPencil />
+                Edit
+              </Button>
+
+              <Button colorPalette="red" onClick={handleClickRemove} size="sm">
+                <HiTrash />
+                {removeButtonContent}
+              </Button>
+            </Flex>
+          )}
         </Box>
-      ) : null}
-      <Box>
-        <Heading fontSize="xl">{task.name}</Heading>
-        {task.description && <Text>{task.description}</Text>}
 
-        {queueProps?.isQueue && (
-          <Flex gap={2} marginTop={2}>
-            <Button colorPalette="orange" onClick={handleClickSwap} size="sm">
-              <HiSwitchVertical />
-              {swapButtonContent}
-            </Button>
-
-            <Button colorPalette="teal" onClick={handleClickEdit} size="sm">
-              <HiPencil />
-              Edit
-            </Button>
-
-            <Button colorPalette="red" onClick={handleClickRemove} size="sm">
-              <HiTrash />
-              {removeButtonContent}
-            </Button>
-          </Flex>
+        {task.estimation !== undefined && task.estimation >= 0 && (
+          <Text fontSize="lg" fontWeight="bold" marginLeft="auto">
+            {task.estimation}
+          </Text>
         )}
-      </Box>
-
-      {task.estimation && task.estimation >= 0 && (
-        <Text fontSize="lg" fontWeight="bold" marginLeft="auto">
-          {task.estimation}
-        </Text>
-      )}
-    </Flex>
-  );
-}, isEqual);
+      </Flex>
+    );
+  },
+  isEqual
+);
 
 TaskItem.displayName = 'TaskItem';
