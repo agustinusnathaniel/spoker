@@ -408,8 +408,8 @@ export const TaskList = () => {
               ))}
             </Tabs.Content>
             <Tabs.Content value="all">
-              {all.map((completedItem) => (
-                <TaskItem key={completedItem.id} task={completedItem} />
+              {all.map((task) => (
+                <TaskItem key={task.id} task={task} />
               ))}
             </Tabs.Content>
           </Tabs.ContentGroup>
