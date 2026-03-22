@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.1](https://github.com/agustinusnathaniel/spoker/compare/v1.17.0...v1.17.1) (2026-03-22)
+
+
+### Improvements
+
+* overflow style on task item card ([c614eb0](https://github.com/agustinusnathaniel/spoker/commit/c614eb0d8d516ee5e0268465e296abbaf6063316))
+
 ## [1.17.0](https://github.com/agustinusnathaniel/spoker/compare/v1.16.36...v1.17.0) (2026-03-22)
 
 
