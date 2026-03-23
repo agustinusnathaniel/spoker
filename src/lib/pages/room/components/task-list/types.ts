@@ -7,13 +7,14 @@ export type UpsertStoryForm = z.infer<typeof submitStoryFormValidationSchema>;
 
 export type SortableTaskItem = Task;
 
+export interface QueueTaskCallbacks {
+  onClickEdit: (selectedIndex: number) => void;
+  onClickRemove: (selectedIndex: number) => void;
+  onClickSwap: (selectedIndex: number) => Promise<void>;
+  taskIndex: number;
+}
+
 export interface SortableTaskItemProps {
-  queueProps?: {
-    isQueue: boolean;
-    onClickEdit: (selectedIndex: number) => void;
-    onClickRemove: (selectedIndex: number) => void;
-    onClickSwap: (selectedIndex: number) => Promise<void>;
-    taskIndex: number;
-  };
+  queueCallbacks: QueueTaskCallbacks;
   task: Task;
 }

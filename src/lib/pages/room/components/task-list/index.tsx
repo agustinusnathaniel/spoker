@@ -20,7 +20,7 @@ import { GoPlus } from 'react-icons/go';
 import { useShallow } from 'zustand/shallow';
 
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
-import { SpokerModalWrapper } from '~/lib/components/spoker-modal-wrapper';
+import { Modal } from '~/lib/components/spoker-modal-wrapper';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 import { useColorModeValue } from '~/lib/components/ui/color-mode';
 import { toaster } from '~/lib/components/ui/toaster';
@@ -34,7 +34,7 @@ import { rewriteQueue } from '~/lib/services/firebase/room/update/rewrite-queue'
 import { useRoomStore } from '~/lib/stores/room';
 import type { Task } from '~/lib/types/raw-db';
 
-import { TaskItem } from './task-item';
+import { CompletedTaskItem } from './task-item';
 import type {
   SortableTaskItem as SortableTaskItemType,
   UpsertStoryForm,
@@ -331,137 +331,154 @@ export const TaskList = () => {
             )}
             <Tabs.Content value="completed">
               {completed?.map((completedItem) => (
-                <TaskItem key={completedItem.id} task={completedItem} />
+                <CompletedTaskItem
+                  key={completedItem.id}
+                  task={completedItem}
+                />
               ))}
             </Tabs.Content>
             <Tabs.Content value="all">
               {all.map((task) => (
-                <TaskItem key={task.id} task={task} />
+                <CompletedTaskItem key={task.id} task={task} />
               ))}
             </Tabs.Content>
           </Tabs.ContentGroup>
         </Tabs.Root>
       </SpokerWrapperGrid>
 
-      <SpokerModalWrapper
-        body={
-          <Grid gap={4}>
-            <Text>Add story to queue</Text>
-            <AutoResizeTextarea
-              {...register('name')}
-              errorText={errors.name?.message}
-              invalid={!!errors.name?.message}
-              label="Name"
-              required
-            />
-            <AutoResizeTextarea
-              {...register('description')}
-              label="Description"
-            />
-          </Grid>
-        }
-        contentWrapperProps={{
-          as: 'form',
-          onSubmit: handleSubmit(handleAddStory),
-        }}
-        footer={
-          <Flex gap={2}>
-            <Button disabled={isBusy} onClick={onCloseAddStory}>
-              Cancel
-            </Button>
-            <Button
-              colorPalette="teal"
-              disabled={!isValid || isBusy}
-              loading={isBusy}
-              type="submit"
-            >
-              Add
-            </Button>
-          </Flex>
-        }
-        header="Add Story"
+      <Modal.Provider
         onOpenChange={({ open }) => {
           if (!open) {
             onCloseAddStory();
           }
         }}
         open={isOpenAddStory}
-      />
+      >
+        <Modal.Content
+          contentWrapperProps={{
+            as: 'form',
+            onSubmit: handleSubmit(handleAddStory),
+          }}
+        >
+          <Modal.Header>Add Story</Modal.Header>
+          <Modal.Body>
+            <Grid gap={4}>
+              <Text>Add story to queue</Text>
+              <AutoResizeTextarea
+                {...register('name')}
+                errorText={errors.name?.message}
+                invalid={!!errors.name?.message}
+                label="Name"
+                required
+              />
+              <AutoResizeTextarea
+                {...register('description')}
+                label="Description"
+              />
+            </Grid>
+          </Modal.Body>
+          <Modal.Footer>
+            <Flex gap={2}>
+              <Button disabled={isBusy} onClick={onCloseAddStory}>
+                Cancel
+              </Button>
+              <Button
+                colorPalette="teal"
+                disabled={!isValid || isBusy}
+                loading={isBusy}
+                type="submit"
+              >
+                Add
+              </Button>
+            </Flex>
+          </Modal.Footer>
+          <Modal.CloseTrigger />
+        </Modal.Content>
+      </Modal.Provider>
 
-      <SpokerModalWrapper
-        body={
-          <Grid gap={4}>
-            <AutoResizeTextarea
-              {...registerEditStoryField('name')}
-              errorText={editStoryErrors.name?.message}
-              invalid={!!editStoryErrors.name?.message}
-              label="Name"
-              required
-            />
-            <AutoResizeTextarea
-              {...registerEditStoryField('description')}
-              label="Description"
-            />
-          </Grid>
-        }
-        contentWrapperProps={{
-          as: 'form',
-          onSubmit: handleSubmitEditStory(processEditStory),
-        }}
-        footer={
-          <Flex gap={2}>
-            <Button disabled={isBusy} onClick={closeEditStory}>
-              Cancel
-            </Button>
-            <Button
-              colorPalette="blue"
-              disabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
-              loading={isBusy}
-              type="submit"
-            >
-              Save
-            </Button>
-          </Flex>
-        }
-        header="Edit Story"
+      <Modal.Provider
         onOpenChange={({ open }) => {
           if (!open) {
             closeEditStory();
           }
         }}
         open={isOpenEditStory}
-      />
+      >
+        <Modal.Content
+          contentWrapperProps={{
+            as: 'form',
+            onSubmit: handleSubmitEditStory(processEditStory),
+          }}
+        >
+          <Modal.Header>Edit Story</Modal.Header>
+          <Modal.Body>
+            <Grid gap={4}>
+              <AutoResizeTextarea
+                {...registerEditStoryField('name')}
+                errorText={editStoryErrors.name?.message}
+                invalid={!!editStoryErrors.name?.message}
+                label="Name"
+                required
+              />
+              <AutoResizeTextarea
+                {...registerEditStoryField('description')}
+                label="Description"
+              />
+            </Grid>
+          </Modal.Body>
+          <Modal.Footer>
+            <Flex gap={2}>
+              <Button disabled={isBusy} onClick={closeEditStory}>
+                Cancel
+              </Button>
+              <Button
+                colorPalette="blue"
+                disabled={!(isEditStoryValid && isEditStoryDirty) || isBusy}
+                loading={isBusy}
+                type="submit"
+              >
+                Save
+              </Button>
+            </Flex>
+          </Modal.Footer>
+          <Modal.CloseTrigger />
+        </Modal.Content>
+      </Modal.Provider>
 
-      <SpokerModalWrapper
-        body={
-          <Box>
-            <Text>
-              Are you sure you want to remove{' '}
-              {queue?.[selectedEditStoryIndex ?? 0]?.name ?? ''}?
-            </Text>
-          </Box>
-        }
-        footer={
-          <Flex gap={2}>
-            <Button onClick={closeRemoveStory}>Cancel</Button>
-            <Button
-              colorPalette="red"
-              disabled={isBusy}
-              loading={isBusy}
-              onClick={processRemoveStory}
-            >
-              Yes, Remove
-            </Button>
-          </Flex>
-        }
-        header="Confirm Remove Story"
+      <Modal.Provider
         onOpenChange={({ open }) => {
           if (!open) {
             closeRemoveStory();
           }
         }}
         open={isOpenRemoveStory}
-      />
+      >
+        <Modal.Content>
+          <Modal.Header>Confirm Remove Story</Modal.Header>
+          <Modal.Body>
+            <Box>
+              <Text>
+                Are you sure you want to remove{' '}
+                {queue?.[selectedEditStoryIndex ?? 0]?.name ?? ''}?
+              </Text>
+            </Box>
+          </Modal.Body>
+          <Modal.Footer>
+            <Flex gap={2}>
+              <Button onClick={closeRemoveStory}>Cancel</Button>
+              <Button
+                colorPalette="red"
+                disabled={isBusy}
+                loading={isBusy}
+                onClick={processRemoveStory}
+              >
+                Yes, Remove
+              </Button>
+            </Flex>
+          </Modal.Footer>
+          <Modal.CloseTrigger />
+        </Modal.Content>
+      </Modal.Provider>
     </>
   );
 };

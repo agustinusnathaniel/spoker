@@ -9,103 +9,156 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { memo } from 'react';
-import isEqual from 'react-fast-compare';
 import { HiPencil, HiSwitchVertical, HiTrash } from 'react-icons/hi';
 import { RiDraggable } from 'react-icons/ri';
 
 import type { Task } from '~/lib/types/raw-db';
 
-interface TaskItemProps {
-  dragHandleProps?: Record<string, unknown>;
-  queueProps?: {
-    isQueue: boolean;
-    taskIndex: number;
-    onClickSwap: (selectedIndex: number) => Promise<void>;
-    onClickEdit: (selectedIndex: number) => void;
-    onClickRemove: (selectedIndex: number) => void;
-  };
+// ============================================================================
+// Base Task Display Component
+// ============================================================================
+
+interface TaskDisplayProps {
   task: Task;
 }
 
-export const TaskItem = memo(
-  ({ task, queueProps, dragHandleProps }: TaskItemProps) => {
-    const swapButtonContent = useBreakpointValue({
-      base: null,
-      md: 'Swap with Current',
-    });
+function TaskDisplay({ task }: TaskDisplayProps) {
+  return (
+    <Box flex={1}>
+      <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
+        {task.name}
+      </Heading>
+      {task.description && <Text>{task.description}</Text>}
+    </Box>
+  );
+}
 
-    const removeButtonContent = useBreakpointValue({
-      base: null,
-      md: 'Remove',
-    });
+function TaskEstimation({ estimation }: { estimation: number }) {
+  return (
+    <Text fontSize="lg" fontWeight="bold" marginLeft="auto">
+      {estimation}
+    </Text>
+  );
+}
 
-    const handleClickSwap = async () => {
-      await queueProps?.onClickSwap(queueProps.taskIndex);
-    };
+// ============================================================================
+// Completed Task Item - Simple display only
+// ============================================================================
 
-    const handleClickEdit = () => {
-      queueProps?.onClickEdit(queueProps.taskIndex);
-    };
+export interface CompletedTaskItemProps {
+  task: Task;
+}
 
-    const handleClickRemove = () => {
-      queueProps?.onClickRemove(queueProps.taskIndex);
-    };
+export const CompletedTaskItem = memo(function CompletedTaskItem({
+  task,
+}: CompletedTaskItemProps) {
+  return (
+    <Flex
+      alignItems="center"
+      borderColor="gray.400"
+      borderRadius={12}
+      borderWidth={2}
+      gap={4}
+      marginBottom={2}
+      padding={4}
+    >
+      <TaskDisplay task={task} />
+      {task.estimation !== undefined && task.estimation >= 0 && (
+        <TaskEstimation estimation={task.estimation} />
+      )}
+    </Flex>
+  );
+});
 
-    return (
-      <Flex
-        alignItems="center"
-        borderColor="gray.400"
-        borderRadius={12}
-        borderWidth={2}
-        gap={4}
-        marginBottom={2}
-        padding={4}
+// ============================================================================
+// Queue Task Item - With drag handle and actions
+// ============================================================================
+
+interface QueueTaskActionsProps {
+  onClickEdit: () => void;
+  onClickRemove: () => void;
+  onClickSwap: () => Promise<void>;
+}
+
+function QueueTaskActions({
+  onClickEdit,
+  onClickRemove,
+  onClickSwap,
+}: QueueTaskActionsProps) {
+  const swapButtonContent = useBreakpointValue({
+    base: null,
+    md: 'Swap with Current',
+  });
+
+  const removeButtonContent = useBreakpointValue({
+    base: null,
+    md: 'Remove',
+  });
+
+  return (
+    <Flex gap={2} marginTop={2}>
+      <Button colorPalette="orange" onClick={onClickSwap} size="sm">
+        <HiSwitchVertical />
+        {swapButtonContent}
+      </Button>
+
+      <Button colorPalette="teal" onClick={onClickEdit} size="sm">
+        <HiPencil />
+        Edit
+      </Button>
+
+      <Button colorPalette="red" onClick={onClickRemove} size="sm">
+        <HiTrash />
+        {removeButtonContent}
+      </Button>
+    </Flex>
+  );
+}
+
+export interface QueueTaskItemProps {
+  dragHandleProps?: Record<string, unknown>;
+  onClickEdit: () => void;
+  onClickRemove: () => void;
+  onClickSwap: () => Promise<void>;
+  task: Task;
+}
+
+export const QueueTaskItem = memo(function QueueTaskItem({
+  task,
+  dragHandleProps,
+  onClickSwap,
+  onClickEdit,
+  onClickRemove,
+}: QueueTaskItemProps) {
+  return (
+    <Flex
+      alignItems="center"
+      borderColor="gray.400"
+      borderRadius={12}
+      borderWidth={2}
+      gap={4}
+      marginBottom={2}
+      padding={4}
+    >
+      <Box
+        _active={{ cursor: 'grabbing' }}
+        cursor="grab"
+        padding={2}
+        {...dragHandleProps}
       >
-        {queueProps?.isQueue ? (
-          <Box
-            _active={{ cursor: 'grabbing' }}
-            cursor="grab"
-            padding={2}
-            {...dragHandleProps}
-          >
-            <RiDraggable />
-          </Box>
-        ) : null}
-        <Box flex={1}>
-          <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
-            {task.name}
-          </Heading>
-          {task.description && <Text>{task.description}</Text>}
-
-          {queueProps?.isQueue && (
-            <Flex gap={2} marginTop={2}>
-              <Button colorPalette="orange" onClick={handleClickSwap} size="sm">
-                <HiSwitchVertical />
-                {swapButtonContent}
-              </Button>
-
-              <Button colorPalette="teal" onClick={handleClickEdit} size="sm">
-                <HiPencil />
-                Edit
-              </Button>
-
-              <Button colorPalette="red" onClick={handleClickRemove} size="sm">
-                <HiTrash />
-                {removeButtonContent}
-              </Button>
-            </Flex>
-          )}
-        </Box>
-
-        {task.estimation !== undefined && task.estimation >= 0 && (
-          <Text fontSize="lg" fontWeight="bold" marginLeft="auto">
-            {task.estimation}
-          </Text>
-        )}
-      </Flex>
-    );
-  },
-  isEqual
-);
-
-TaskItem.displayName = 'TaskItem';
+        <RiDraggable />
+      </Box>
+      <Box flex={1}>
+        <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
+          {task.name}
+        </Heading>
+        {task.description && <Text>{task.description}</Text>}
+        <QueueTaskActions
+          onClickEdit={onClickEdit}
+          onClickRemove={onClickRemove}
+          onClickSwap={onClickSwap}
+        />
+      </Box>
+    </Flex>
+  );
+});

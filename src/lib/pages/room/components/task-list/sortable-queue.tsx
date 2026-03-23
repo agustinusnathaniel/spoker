@@ -20,7 +20,7 @@ import isEqual from 'react-fast-compare';
 import type { Task } from '~/lib/types/raw-db';
 
 import { SortableTaskItem } from './sortable-task-item';
-import { TaskItem } from './task-item';
+import { CompletedTaskItem } from './task-item';
 import type { SortableTaskItem as SortableTaskItemType } from './types';
 
 interface SortableQueueProps {
@@ -74,7 +74,7 @@ export const SortableQueue = memo(
     return (
       <>
         <div>Current:</div>
-        <TaskItem task={task} />
+        <CompletedTaskItem task={task} />
 
         <div>Queue:</div>
         <DndContext
@@ -89,12 +89,11 @@ export const SortableQueue = memo(
             {sortableQueue?.map((queueItem, index) => (
               <SortableTaskItem
                 key={queueItem.id}
-                queueProps={{
-                  isQueue: true,
-                  taskIndex: index,
-                  onClickSwap,
+                queueCallbacks={{
                   onClickEdit,
                   onClickRemove,
+                  onClickSwap,
+                  taskIndex: index,
                 }}
                 task={queueItem}
               />
