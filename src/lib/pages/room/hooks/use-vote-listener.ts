@@ -1,21 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useReward } from 'react-rewards';
 
 import { toaster } from '~/lib/components/ui/toaster';
-import { CURRENT_VOTE_WRAPPER_ID } from '~/lib/constants/wrapperkeys';
 import { useRoomStoreState } from '~/lib/stores/room';
 
 export const useVoteListener = () => {
-  const { roomData, showVote } = useRoomStoreState();
-  const { reward } = useReward(CURRENT_VOTE_WRAPPER_ID, 'confetti');
+  const { roomData } = useRoomStoreState();
 
-  useEffect(() => {
-    if (showVote) {
-      reward();
-    }
-  }, [showVote, reward]);
+  // Note: Confetti reward is now handled by dynamically imported ConfettiReward component
+  // in the CurrentVotesWrapper to reduce initial bundle size
 
   useEffect(() => {
     if (roomData?.task.lastVoted?.name && roomData?.task.lastVoted?.time) {
