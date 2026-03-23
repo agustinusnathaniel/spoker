@@ -5,11 +5,11 @@ import { CSS } from '@dnd-kit/utilities';
 import { memo } from 'react';
 import isEqual from 'react-fast-compare';
 
-import { TaskItem } from './task-item';
+import { QueueTaskItem } from './task-item';
 import type { SortableTaskItemProps } from './types';
 
 export const SortableTaskItem = memo(
-  ({ task, queueProps }: SortableTaskItemProps) => {
+  ({ task, queueCallbacks }: SortableTaskItemProps) => {
     const {
       attributes,
       listeners,
@@ -25,11 +25,25 @@ export const SortableTaskItem = memo(
       opacity: isDragging ? 0.5 : 1,
     };
 
+    const handleClickSwap = async () => {
+      await queueCallbacks.onClickSwap(queueCallbacks.taskIndex);
+    };
+
+    const handleClickEdit = () => {
+      queueCallbacks.onClickEdit(queueCallbacks.taskIndex);
+    };
+
+    const handleClickRemove = () => {
+      queueCallbacks.onClickRemove(queueCallbacks.taskIndex);
+    };
+
     return (
       <div ref={setNodeRef} style={style}>
-        <TaskItem
+        <QueueTaskItem
           dragHandleProps={{ ...attributes, ...listeners }}
-          queueProps={queueProps}
+          onClickEdit={handleClickEdit}
+          onClickRemove={handleClickRemove}
+          onClickSwap={handleClickSwap}
           task={task}
         />
       </div>

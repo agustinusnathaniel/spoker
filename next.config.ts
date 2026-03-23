@@ -11,7 +11,13 @@ const nextConfig: NextConfig = {
     },
   ],
   experimental: {
-    optimizePackageImports: ['@chakra-ui/react'],
+    optimizePackageImports: [
+      '@chakra-ui/react',
+      '@dnd-kit/core',
+      '@dnd-kit/sortable',
+      '@dnd-kit/utilities',
+      'react-icons',
+    ],
   },
 };
 

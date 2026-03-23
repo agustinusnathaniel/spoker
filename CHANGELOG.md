@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.2](https://github.com/agustinusnathaniel/spoker/compare/v1.17.1...v1.17.2) (2026-03-23)
+
+
+### Improvements
+
+* **components:** convert SpokerModalWrapper to compound component ([7b3bcaf](https://github.com/agustinusnathaniel/spoker/commit/7b3bcaf9e6894cc04ff4c956159e7f7053c67a2c))
+* **support:** replace isCompact boolean with explicit variants ([839b7bd](https://github.com/agustinusnathaniel/spoker/commit/839b7bda28c7b724808fc4c9c937847ef6f456c0))
+* **task-list:** split TaskItem into explicit variants ([90dc636](https://github.com/agustinusnathaniel/spoker/commit/90dc63663da6d31b69ab7430f6cd50025b0075ea))
+* **ui:** migrate to React 19 ref-as-prop pattern ([44e21a0](https://github.com/agustinusnathaniel/spoker/commit/44e21a030cc56049c413172b4eae43f74c13abae))
+* **votes:** simplify PointWrapper and ParticipantItem ([cf659ef](https://github.com/agustinusnathaniel/spoker/commit/cf659efb90844086ab342528f2cf39109f7f69b5))
+
 ## [1.17.1](https://github.com/agustinusnathaniel/spoker/compare/v1.17.0...v1.17.1) (2026-03-22)
 
 

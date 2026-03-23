@@ -2,7 +2,7 @@
 
 import { Box, Button, Flex, Heading, List } from '@chakra-ui/react';
 import { useParams, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { memo } from 'react';
 import { BiLink, BiShareAlt } from 'react-icons/bi';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -10,6 +10,19 @@ import { toaster } from '~/lib/components/ui/toaster';
 import { useUserRole } from '~/lib/hooks/use-user-role';
 import { clearPoints } from '~/lib/services/firebase/room/update/point/clear';
 import { useRoomStoreState } from '~/lib/stores/room';
+import type { RoomUser } from '~/lib/types/room';
+
+interface UserListItemProps {
+  user: RoomUser;
+}
+
+const UserListItem = memo(function UserListItem({ user }: UserListItemProps) {
+  return (
+    <List.Item>
+      {user.name} - {user.role}
+    </List.Item>
+  );
+});
 
 export const ControllerWrapper = () => {
   const { users } = useRoomStoreState();
@@ -31,16 +44,6 @@ export const ControllerWrapper = () => {
       type: 'success',
     });
   };
-
-  const currentUserList = useMemo(
-    () =>
-      users.map((user) => (
-        <List.Item key={user.uid}>
-          {user.name} - {user.role}
-        </List.Item>
-      )),
-    [users]
-  );
 
   return (
     <SpokerWrapperGrid gap={2}>
@@ -71,7 +74,11 @@ export const ControllerWrapper = () => {
 
       <Flex gap={2} wrap="wrap">
         <Heading size="sm">Current Users: </Heading>
-        <List.Root gap={1}>{currentUserList}</List.Root>
+        <List.Root gap={1}>
+          {users.map((user) => (
+            <UserListItem key={user.uid} user={user} />
+          ))}
+        </List.Root>
       </Flex>
     </SpokerWrapperGrid>
   );

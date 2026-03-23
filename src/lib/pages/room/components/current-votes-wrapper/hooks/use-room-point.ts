@@ -23,7 +23,7 @@ export const useRoomPoint = () => {
     return countAveragePoint(filledPoints);
   }, [participantPoints]);
   const highestPoint = useMemo(
-    () => participantPoints.sort((a, b) => b - a)[0] ?? 0,
+    () => (participantPoints.length > 0 ? Math.max(...participantPoints) : 0),
     [participantPoints]
   );
 
