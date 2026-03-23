@@ -10,7 +10,6 @@ import {
   NativeSelect,
   Portal,
   Select,
-  Separator,
   Text,
 } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
@@ -45,7 +44,6 @@ const ConfettiReward = dynamic(
 interface ParticipantItemProps {
   currentUserUid: string | undefined;
   hideLabel: HideLabelOptionsType;
-  isLast: boolean;
   participant: RoomUser;
   showVote: boolean;
 }
@@ -55,28 +53,30 @@ const ParticipantItem = memo(function ParticipantItem({
   currentUserUid,
   showVote,
   hideLabel,
-  isLast,
 }: ParticipantItemProps) {
   return (
-    <>
-      <Grid alignItems="center" templateColumns="2fr 1fr">
-        <Heading size="sm">{participant.name}</Heading>
-        <Text
-          color={showVote ? pointTextColor(participant.point ?? 0) : undefined}
-          fontSize={
-            showVote ? pointTextSize(participant.point ?? 0) : undefined
-          }
-        >
-          <PointWrapper
-            isCurrentUser={participant.uid === currentUserUid}
-            point={participant.point}
-            roomSelectedHideLabel={hideLabel}
-            showVote={showVote}
-          />
-        </Text>
-      </Grid>
-      {!isLast && <Separator />}
-    </>
+    <Grid
+      _last={{ borderBottomWidth: 0 }}
+      alignItems="center"
+      borderBottomColor="border"
+      borderBottomStyle="solid"
+      borderBottomWidth="1px"
+      paddingBottom={2}
+      paddingTop={2}
+      templateColumns="2fr 1fr"
+    >
+      <Heading size="sm">{participant.name}</Heading>
+      <Text
+        color={showVote ? pointTextColor(participant.point ?? 0) : undefined}
+        fontSize={showVote ? pointTextSize(participant.point ?? 0) : undefined}
+      >
+        <PointWrapper
+          hideLabelType={hideLabel}
+          point={participant.point}
+          reveal={showVote || participant.uid === currentUserUid}
+        />
+      </Text>
+    </Grid>
   );
 });
 
@@ -203,11 +203,10 @@ export const CurrentVotesWrapper = () => {
 
       <Grid gap={2}>
         {showAveragePoint && <Text>average: {averagePoint}</Text>}
-        {sortedParticipants.map((participant, index) => (
+        {sortedParticipants.map((participant) => (
           <ParticipantItem
             currentUserUid={currentUser?.uid}
             hideLabel={config?.hideLabel ?? 'monkey'}
-            isLast={index === sortedParticipants.length - 1}
             key={participant.uid}
             participant={participant}
             showVote={showVote}
