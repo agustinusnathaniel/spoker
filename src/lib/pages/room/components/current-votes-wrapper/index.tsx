@@ -13,8 +13,9 @@ import {
   Separator,
   Text,
 } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -26,6 +27,7 @@ import { updateConfig } from '~/lib/services/firebase/room/update/room-config';
 import { useAuthStoreState } from '~/lib/stores/auth';
 import { useRoomStore } from '~/lib/stores/room';
 import type { RoomConfig } from '~/lib/types/raw-db';
+import type { RoomUser } from '~/lib/types/room';
 import { pointOptions } from '~/lib/types/room';
 import { RoleType } from '~/lib/types/user';
 
@@ -33,6 +35,50 @@ import { PointWrapper } from '../point-wrapper';
 import { pointTextColor, pointTextSize } from '../utils';
 import { useRoomPoint } from './hooks/use-room-point';
 import { useVote } from './hooks/use-vote';
+
+// Dynamically import confetti to reduce initial bundle size
+const ConfettiReward = dynamic(
+  () => import('../confetti-reward').then((mod) => mod.ConfettiReward),
+  { ssr: false }
+);
+
+interface ParticipantItemProps {
+  currentUserUid: string | undefined;
+  hideLabel: HideLabelOptionsType;
+  isLast: boolean;
+  participant: RoomUser;
+  showVote: boolean;
+}
+
+const ParticipantItem = memo(function ParticipantItem({
+  participant,
+  currentUserUid,
+  showVote,
+  hideLabel,
+  isLast,
+}: ParticipantItemProps) {
+  return (
+    <>
+      <Grid alignItems="center" templateColumns="2fr 1fr">
+        <Heading size="sm">{participant.name}</Heading>
+        <Text
+          color={showVote ? pointTextColor(participant.point ?? 0) : undefined}
+          fontSize={
+            showVote ? pointTextSize(participant.point ?? 0) : undefined
+          }
+        >
+          <PointWrapper
+            isCurrentUser={participant.uid === currentUserUid}
+            point={participant.point}
+            roomSelectedHideLabel={hideLabel}
+            showVote={showVote}
+          />
+        </Text>
+      </Grid>
+      {!isLast && <Separator />}
+    </>
+  );
+});
 
 export const CurrentVotesWrapper = () => {
   const params = useParams();
@@ -59,40 +105,17 @@ export const CurrentVotesWrapper = () => {
     [averagePoint, showVote]
   );
 
-  const sortedParticipants = useMemo(
-    () =>
-      users
-        .filter((user) =>
-          ([RoleType.participant, RoleType.owner] as Array<RoleType>).includes(
-            user.role
-          )
-        )
-        .sort((a, b) => (showVote ? (b.point ?? 0) - (a.point ?? 0) : 0))
-        .map((participant, participantIndex, participants) => (
-          <Fragment key={participant.uid}>
-            <Grid alignItems="center" templateColumns="2fr 1fr">
-              <Heading size="sm">{participant.name}</Heading>
-              <Text
-                color={
-                  showVote ? pointTextColor(participant.point ?? 0) : undefined
-                }
-                fontSize={
-                  showVote ? pointTextSize(participant.point ?? 0) : undefined
-                }
-              >
-                <PointWrapper
-                  isCurrentUser={participant.uid === currentUser?.uid}
-                  point={participant.point}
-                  roomSelectedHideLabel={config?.hideLabel ?? 'monkey'}
-                  showVote={showVote}
-                />
-              </Text>
-            </Grid>
-            {participantIndex !== participants.length - 1 && <Separator />}
-          </Fragment>
-        )),
-    [currentUser?.uid, config?.hideLabel, showVote, users]
-  );
+  const sortedParticipants = useMemo(() => {
+    const filtered = users.filter((user) =>
+      ([RoleType.participant, RoleType.owner] as Array<RoleType>).includes(
+        user.role
+      )
+    );
+    if (showVote) {
+      filtered.sort((a, b) => (b.point ?? 0) - (a.point ?? 0));
+    }
+    return filtered;
+  }, [showVote, users]);
 
   const handleUpdateHideLabel = async (
     selectedHideLabel: HideLabelOptionsType
@@ -180,7 +203,16 @@ export const CurrentVotesWrapper = () => {
 
       <Grid gap={2}>
         {showAveragePoint && <Text>average: {averagePoint}</Text>}
-        {sortedParticipants}
+        {sortedParticipants.map((participant, index) => (
+          <ParticipantItem
+            currentUserUid={currentUser?.uid}
+            hideLabel={config?.hideLabel ?? 'monkey'}
+            isLast={index === sortedParticipants.length - 1}
+            key={participant.uid}
+            participant={participant}
+            showVote={showVote}
+          />
+        ))}
       </Grid>
 
       {isOwner && showVote && (
@@ -230,6 +262,8 @@ export const CurrentVotesWrapper = () => {
           </Grid>
         </Grid>
       )}
+      {/* Confetti reward - dynamically loaded to reduce initial bundle */}
+      <ConfettiReward trigger={showVote} />
     </SpokerWrapperGrid>
   );
 };

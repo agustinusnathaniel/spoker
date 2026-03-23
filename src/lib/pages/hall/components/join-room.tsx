@@ -4,7 +4,7 @@ import { Button, Grid, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler, KeyboardEventHandler } from 'react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { SpokerInput } from '~/lib/components/spoker-input';
 import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
@@ -12,7 +12,7 @@ import { SpokerWrapperGrid } from '~/lib/components/spoker-wrapper-grid';
 export const JoinRoom = () => {
   const router = useRouter();
   const [roomId, setRoomId] = useState<string>('');
-  const isDisabled = useMemo(() => roomId.length === 0, [roomId.length]);
+  const isDisabled = roomId.length === 0;
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (e) =>
     setRoomId(e.target.value);

@@ -7,31 +7,16 @@ import {
   Grid,
   Tabs,
   Text,
-  Tooltip,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import {
-  closestCenter,
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import { useForm } from 'react-hook-form';
 import { GoPlus } from 'react-icons/go';
-import { RiInformationLine } from 'react-icons/ri';
 import { useShallow } from 'zustand/shallow';
 
 import { AutoResizeTextarea } from '~/lib/components/auto-resize-textarea';
@@ -49,12 +34,18 @@ import { rewriteQueue } from '~/lib/services/firebase/room/update/rewrite-queue'
 import { useRoomStore } from '~/lib/stores/room';
 import type { Task } from '~/lib/types/raw-db';
 
-import { SortableTaskItem } from './sortable-task-item';
 import { TaskItem } from './task-item';
 import type {
   SortableTaskItem as SortableTaskItemType,
   UpsertStoryForm,
 } from './types';
+
+// Dynamically import DnD components to reduce initial bundle size
+// Only owners need drag-and-drop functionality
+const SortableQueue = dynamic(
+  () => import('./sortable-queue').then((mod) => mod.SortableQueue),
+  { ssr: false }
+);
 
 const initialFormValue: UpsertStoryForm = {
   name: '',
@@ -112,16 +103,22 @@ export const TaskList = () => {
     [completed, queue, task]
   );
 
-  const activeStoriesLengthText = queue?.length
-    ? ` (${queue.length + 1})`
-    : ' (1)';
-  const activeStoriesTabText = `Active${activeStoriesLengthText}`;
-  const queueLengthText = queue?.length ? ` (${queue.length})` : '';
-  const queueTabText = `Queue${queueLengthText}`;
-  const completedLengthText = completed?.length ? ` (${completed.length})` : '';
-  const completedTabText = `Completed${completedLengthText}`;
-  const allLengthText = ` (${all.length})`;
-  const allTabText = `All${allLengthText}`;
+  const tabTexts = useMemo(() => {
+    const activeStoriesLengthText = queue?.length
+      ? ` (${queue.length + 1})`
+      : ' (1)';
+    const queueLengthText = queue?.length ? ` (${queue.length})` : '';
+    const completedLengthText = completed?.length
+      ? ` (${completed.length})`
+      : '';
+
+    return {
+      activeStoriesTabText: `Active${activeStoriesLengthText}`,
+      queueTabText: `Queue${queueLengthText}`,
+      completedTabText: `Completed${completedLengthText}`,
+      allTabText: `All (${all.length})`,
+    };
+  }, [queue?.length, completed?.length, all.length]);
 
   const {
     register,
@@ -276,37 +273,7 @@ export const TaskList = () => {
     [id, isOwner, showVote]
   );
 
-  // dnd-kit sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  const handleDragEnd = useCallback(
-    (event: {
-      active: { id: string | number };
-      over: { id: string | number } | null;
-    }) => {
-      const { active, over } = event;
-
-      if (over && active.id !== over.id) {
-        const oldIndex = sortableQueue.findIndex(
-          (item) => item.id === active.id
-        );
-        const newIndex = sortableQueue.findIndex((item) => item.id === over.id);
-        const newQueue = arrayMove(sortableQueue, oldIndex, newIndex);
-        handleRewriteQueue(newQueue);
-      }
-    },
-    [sortableQueue, handleRewriteQueue]
-  );
-
-  const queueItemIds = useMemo(
-    () => sortableQueue.map((item) => item.id),
-    [sortableQueue]
-  );
+  // Note: DnD sensors and drag handlers are now in the dynamically imported SortableQueue component
 
   return (
     <>
@@ -323,14 +290,14 @@ export const TaskList = () => {
           <Tabs.List alignItems="center" flexWrap="wrap" w="full">
             {isOwner && (
               <Tabs.Trigger color={tabTextColor} value="active">
-                {activeStoriesTabText}
+                {tabTexts.activeStoriesTabText}
               </Tabs.Trigger>
             )}
             <Tabs.Trigger color={tabTextColor} value="completed">
-              {completedTabText}
+              {tabTexts.completedTabText}
             </Tabs.Trigger>
             <Tabs.Trigger color={tabTextColor} value="all">
-              {allTabText}
+              {tabTexts.allTabText}
             </Tabs.Trigger>
             {isOwner && (
               <Button
@@ -352,54 +319,14 @@ export const TaskList = () => {
                 gap={2}
                 value="active"
               >
-                <Text>Current:</Text>
-                <TaskItem task={task} />
-
-                <Box>
-                  <Tooltip.Root>
-                    <Tooltip.Trigger asChild>
-                      <Text
-                        _hover={{ cursor: 'help' }}
-                        alignItems="center"
-                        as="span"
-                        fontWeight="semibold"
-                        textDecoration="underline"
-                      >
-                        {queueTabText}: <RiInformationLine />
-                      </Text>
-                    </Tooltip.Trigger>
-                    <Tooltip.Positioner>
-                      <Tooltip.Content>
-                        Queue can be re-arranged using drag and drop, the first
-                        item will be the next story to be voted.
-                      </Tooltip.Content>
-                    </Tooltip.Positioner>
-                  </Tooltip.Root>
-                </Box>
-                <DndContext
-                  collisionDetection={closestCenter}
-                  onDragEnd={handleDragEnd}
-                  sensors={sensors}
-                >
-                  <SortableContext
-                    items={queueItemIds}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {sortableQueue?.map((queueItem, index) => (
-                      <SortableTaskItem
-                        key={queueItem.id}
-                        queueProps={{
-                          isQueue: true,
-                          taskIndex: index,
-                          onClickSwap: handleClickSwap,
-                          onClickEdit: handleOpenEditStory,
-                          onClickRemove: handleOpenRemoveStory,
-                        }}
-                        task={queueItem}
-                      />
-                    ))}
-                  </SortableContext>
-                </DndContext>
+                <SortableQueue
+                  onClickEdit={handleOpenEditStory}
+                  onClickRemove={handleOpenRemoveStory}
+                  onClickSwap={handleClickSwap}
+                  onRewriteQueue={handleRewriteQueue}
+                  sortableQueue={sortableQueue}
+                  task={task}
+                />
               </Tabs.Content>
             )}
             <Tabs.Content value="completed">
