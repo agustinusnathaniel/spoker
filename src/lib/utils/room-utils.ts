@@ -13,13 +13,15 @@ export const filterUserWithPoints = (unfilteredUsers: Array<RoomUser>) =>
 
 export const countAveragePoint = (points: Array<number>) => mean(points);
 
-export const connectedUsers = (users: RoomMappedUser) =>
-  Object.entries(users)
-    .map(([uid, userData]) => ({
-      uid,
-      ...userData,
-    }))
-    .filter((user) => user.isConnected);
+export const connectedUsers = (users: RoomMappedUser) => {
+  const result: Array<RoomUser> = [];
+  for (const [uid, userData] of Object.entries(users)) {
+    if (userData.isConnected) {
+      result.push({ uid, ...userData });
+    }
+  }
+  return result;
+};
 
 export const checkAllParticipantVoted = (users: Array<RoomUser>) =>
   users
