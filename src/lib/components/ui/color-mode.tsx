@@ -4,7 +4,7 @@ import type { IconButtonProps, SpanProps } from '@chakra-ui/react';
 import { ClientOnly, IconButton, Skeleton, Span } from '@chakra-ui/react';
 import type { ThemeProviderProps } from 'next-themes';
 import { ThemeProvider, useTheme } from 'next-themes';
-import * as React from 'react';
+import type { Ref } from 'react';
 import { LuMoon, LuSun } from 'react-icons/lu';
 
 export interface ColorModeProviderProps extends ThemeProviderProps {}
@@ -46,12 +46,11 @@ export function ColorModeIcon() {
   return colorMode === 'dark' ? <LuMoon /> : <LuSun />;
 }
 
-interface ColorModeButtonProps extends Omit<IconButtonProps, 'aria-label'> {}
+interface ColorModeButtonProps extends Omit<IconButtonProps, 'aria-label'> {
+  ref?: Ref<HTMLButtonElement>;
+}
 
-export const ColorModeButton = React.forwardRef<
-  HTMLButtonElement,
-  ColorModeButtonProps
->(function ColorModeButton(props, ref) {
+export function ColorModeButton({ ref, ...props }: ColorModeButtonProps) {
   const { toggleColorMode } = useColorMode();
   return (
     <ClientOnly fallback={<Skeleton boxSize="9" />}>
@@ -73,36 +72,40 @@ export const ColorModeButton = React.forwardRef<
       </IconButton>
     </ClientOnly>
   );
-});
+}
 
-export const LightMode = React.forwardRef<HTMLSpanElement, SpanProps>(
-  function LightMode(props, ref) {
-    return (
-      <Span
-        className="chakra-theme light"
-        color="fg"
-        colorScheme="light"
-        colorPalette="gray"
-        display="contents"
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+interface LightModeProps extends SpanProps {
+  ref?: Ref<HTMLSpanElement>;
+}
 
-export const DarkMode = React.forwardRef<HTMLSpanElement, SpanProps>(
-  function DarkMode(props, ref) {
-    return (
-      <Span
-        className="chakra-theme dark"
-        color="fg"
-        colorScheme="light"
-        colorPalette="gray"
-        display="contents"
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+export function LightMode({ ref, ...props }: LightModeProps) {
+  return (
+    <Span
+      className="chakra-theme light"
+      color="fg"
+      colorScheme="light"
+      colorPalette="gray"
+      display="contents"
+      ref={ref}
+      {...props}
+    />
+  );
+}
+
+interface DarkModeProps extends SpanProps {
+  ref?: Ref<HTMLSpanElement>;
+}
+
+export function DarkMode({ ref, ...props }: DarkModeProps) {
+  return (
+    <Span
+      className="chakra-theme dark"
+      color="fg"
+      colorScheme="light"
+      colorPalette="gray"
+      display="contents"
+      ref={ref}
+      {...props}
+    />
+  );
+}
