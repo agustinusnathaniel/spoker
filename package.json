@@ -82,7 +82,7 @@
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "ultracite": "7.3.2"
+    "ultracite": "7.4.2"
   },
   "repository": {
     "url": "https://github.com/agustinusnathaniel/spoker"
