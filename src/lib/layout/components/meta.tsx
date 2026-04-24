@@ -1,9 +1,7 @@
 import Head from 'next/head';
 
-export const Meta = () => {
-  return (
-    <Head>
-      <link href="/chip.svg" rel="icon" />
-    </Head>
-  );
-};
+export const Meta = () => (
+  <Head>
+    <link href="/chip.svg" rel="icon" />
+  </Head>
+);

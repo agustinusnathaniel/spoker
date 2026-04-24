@@ -47,35 +47,33 @@ const users: Array<UserMeta> = [
   },
 ];
 
-export const UsersSection = () => {
-  return (
-    <Flex alignItems="center" direction="column" gap={2}>
-      <Text color="gray" fontSize="small">
-        used by various companies and teams
-      </Text>
-      <Flex alignItems="center" gap={6} justifyContent="center" wrap="wrap">
-        {users.map((user) => (
-          <Link
-            href={user.url}
-            key={user.url}
-            rel="noopener noreferrer"
-            target="_blank"
-            title={user.name}
-          >
-            <Image
-              _hover={{
-                filter: 'grayscale(0)',
-              }}
-              alt={user.name}
-              filter="grayscale(1)"
-              height="2.5rem"
-              maxWidth={{ base: 32, md: 40 }}
-              src={user.imagePath}
-              transition="ease-in-out 0.15s"
-            />
-          </Link>
-        ))}
-      </Flex>
+export const UsersSection = () => (
+  <Flex alignItems="center" direction="column" gap={2}>
+    <Text color="gray" fontSize="small">
+      used by various companies and teams
+    </Text>
+    <Flex alignItems="center" gap={6} justifyContent="center" wrap="wrap">
+      {users.map((user) => (
+        <Link
+          href={user.url}
+          key={user.url}
+          rel="noopener noreferrer"
+          target="_blank"
+          title={user.name}
+        >
+          <Image
+            _hover={{
+              filter: 'grayscale(0)',
+            }}
+            alt={user.name}
+            filter="grayscale(1)"
+            height="2.5rem"
+            maxWidth={{ base: 32, md: 40 }}
+            src={user.imagePath}
+            transition="ease-in-out 0.15s"
+          />
+        </Link>
+      ))}
     </Flex>
-  );
-};
+  </Flex>
+);

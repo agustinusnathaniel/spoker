@@ -13,7 +13,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import isEqual from 'react-fast-compare';
 import { useForm } from 'react-hook-form';
 import { GoPlus } from 'react-icons/go';
@@ -83,7 +90,7 @@ export const TaskList = () => {
   const [isOpenAddStory, setIsOpenAddStory] = useState<boolean>(false);
   const [isOpenEditStory, setIsOpenEditStory] = useState<boolean>(false);
   const [isOpenRemoveStory, setIsOpenRemoveStory] = useState<boolean>(false);
-  const buttonContent = useBreakpointValue({
+  const buttonContent = useBreakpointValue<ReactNode>({
     base: <GoPlus />,
     md: 'Add Story',
   });
@@ -94,9 +101,10 @@ export const TaskList = () => {
   const [selectedEditStoryIndex, setSelectedEditStoryIndex] =
     useState<number>();
 
-  const sortableQueue: Array<SortableTaskItemType> = useMemo(() => {
-    return (queue ?? []) as Array<SortableTaskItemType>;
-  }, [queue]);
+  const sortableQueue: Array<SortableTaskItemType> = useMemo(
+    () => (queue ?? []) as Array<SortableTaskItemType>,
+    [queue]
+  );
 
   const all = useMemo(
     () => [task, ...(queue ?? []), ...(completed ?? [])],

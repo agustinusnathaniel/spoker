@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.4](https://github.com/agustinusnathaniel/spoker/compare/v1.17.3...v1.17.4) (2026-04-24)
+
+## [1.17.3](https://github.com/agustinusnathaniel/spoker/compare/v1.17.2...v1.17.3) (2026-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#424](https://github.com/agustinusnathaniel/spoker/issues/424)) ([cab98d4](https://github.com/agustinusnathaniel/spoker/commit/cab98d4784425f4be93262e8735e02f9ba43a61b))
+* **deps:** update all dependencies ([#426](https://github.com/agustinusnathaniel/spoker/issues/426)) ([1c00405](https://github.com/agustinusnathaniel/spoker/commit/1c00405fea3563c8a3e6c2d366f856921b9c315e))
+* **deps:** update all dependencies ([#428](https://github.com/agustinusnathaniel/spoker/issues/428)) ([f5f9590](https://github.com/agustinusnathaniel/spoker/commit/f5f9590f85ef4553d0375255510af3b605ed55ac))
+* **deps:** update dependency lodash-es to ^4.18.1 [security] ([#423](https://github.com/agustinusnathaniel/spoker/issues/423)) ([c7ceca0](https://github.com/agustinusnathaniel/spoker/commit/c7ceca01ae9f924bd4f93d639632bdb8809f5468))
+
 ## [1.17.2](https://github.com/agustinusnathaniel/spoker/compare/v1.17.1...v1.17.2) (2026-03-23)
 
 

@@ -120,9 +120,10 @@ export const useRoomListener = () => {
 
   // Handle route change - remove user from room when leaving
   // biome-ignore lint/correctness/useExhaustiveDependencies: cleanup function
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       removeUserFromRoom();
-    };
-  }, []);
+    },
+    []
+  );
 };
