@@ -15,21 +15,19 @@ export const EditableFields = ({
   name,
   description,
   handleUpdateTask,
-}: EditableFieldsProps) => {
-  return (
-    <>
-      <AutoResizeTextarea
-        label="Name"
-        onChange={handleUpdateTask('name')}
-        placeholder="Going to Mars"
-        value={name}
-      />
-      <AutoResizeTextarea
-        label="Description"
-        onChange={handleUpdateTask('description')}
-        placeholder="Land to Moon first"
-        value={description}
-      />
-    </>
-  );
-};
+}: EditableFieldsProps) => (
+  <>
+    <AutoResizeTextarea
+      label="Name"
+      onChange={handleUpdateTask('name')}
+      placeholder="Going to Mars"
+      value={name}
+    />
+    <AutoResizeTextarea
+      label="Description"
+      onChange={handleUpdateTask('description')}
+      placeholder="Land to Moon first"
+      value={description}
+    />
+  </>
+);

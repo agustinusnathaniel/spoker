@@ -8,10 +8,8 @@ interface FullScreenLoadingProps {
   height?: string;
 }
 
-export const FullScreenLoading = ({ height }: FullScreenLoadingProps) => {
-  return (
-    <Grid height={height ?? '75vh'}>
-      <SpokerLoading />
-    </Grid>
-  );
-};
+export const FullScreenLoading = ({ height }: FullScreenLoadingProps) => (
+  <Grid height={height ?? '75vh'}>
+    <SpokerLoading />
+  </Grid>
+);

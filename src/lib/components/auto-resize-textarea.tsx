@@ -29,22 +29,20 @@ export const AutoResizeTextarea = ({
   ref,
   minRows,
   ...props
-}: AutoResizeTextareaProps) => {
-  return (
-    <Field.Root invalid={invalid}>
-      {label && <Field.Label>{label}</Field.Label>}
-      <Textarea
-        as={ResizeTextarea}
-        minH="unset"
-        overflow="hidden"
-        ref={ref}
-        resize="none"
-        w="100%"
-        {...contraStyle}
-        {...props}
-      />
-      {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
-      {helperText && <Field.HelperText>{helperText}</Field.HelperText>}
-    </Field.Root>
-  );
-};
+}: AutoResizeTextareaProps) => (
+  <Field.Root invalid={invalid}>
+    {label && <Field.Label>{label}</Field.Label>}
+    <Textarea
+      as={ResizeTextarea}
+      minH="unset"
+      overflow="hidden"
+      ref={ref}
+      resize="none"
+      w="100%"
+      {...contraStyle}
+      {...props}
+    />
+    {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
+    {helperText && <Field.HelperText>{helperText}</Field.HelperText>}
+  </Field.Root>
+);

@@ -69,10 +69,8 @@ const AuthContent = () => {
   return <FullScreenLoading />;
 };
 
-export const Auth = () => {
-  return (
-    <Suspense fallback={<FullScreenLoading />}>
-      <AuthContent />
-    </Suspense>
-  );
-};
+export const Auth = () => (
+  <Suspense fallback={<FullScreenLoading />}>
+    <AuthContent />
+  </Suspense>
+);

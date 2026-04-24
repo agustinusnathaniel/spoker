@@ -35,7 +35,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.34.0",
+    "@chakra-ui/react": "^3.35.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -47,11 +47,11 @@
     "firebase": "^12.12.0",
     "lodash-es": "^4.18.1",
     "nanoid": "^5.1.9",
-    "next": "16.2.3",
+    "next": "16.2.4",
     "next-seo": "^7.2.0",
     "next-themes": "^0.4.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-fast-compare": "^3.2.2",
     "react-hook-form": "^7.72.1",
     "react-icons": "^5.6.0",
@@ -62,7 +62,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.13",
     "@commitlint/config-conventional": "^20.5.0",
     "@commitlint/cz-commitlint": "^20.5.1",
     "@commitlint/types": "^20.5.0",
@@ -81,8 +81,8 @@
     "next-sitemap": "^4.2.3",
     "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "ultracite": "7.4.2"
+    "typescript": "^6.0.3",
+    "ultracite": "7.6.1"
   },
   "repository": {
     "url": "https://github.com/agustinusnathaniel/spoker"
