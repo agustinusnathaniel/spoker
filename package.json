@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.3",
     "@commitlint/cz-commitlint": "^20.5.2",
     "@commitlint/types": "^20.5.0",
     "@eslint/eslintrc": "^3.3.5",
