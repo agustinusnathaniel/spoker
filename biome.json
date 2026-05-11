@@ -22,7 +22,8 @@
       "!src/**/*/utils.ts",
       "!src/**/*.css",
       "!*.d.ts",
-      "!.agents"
+      "!.agents",
+      "!.claude"
     ]
   },
   "formatter": {
