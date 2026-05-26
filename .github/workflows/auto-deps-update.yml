@@ -1,0 +1,8 @@
+name: Auto Dependency Update
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-deps:
+    uses: agustinusnathaniel/workflows/.github/workflows/auto-deps-update.yml@main
