@@ -12,8 +12,8 @@ import { removeFirebasePrefix } from '~/lib/utils/remove-firebase-prefix';
 const AuthContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const mode = searchParams.get('mode');
-  const oobCode = searchParams.get('oobCode');
+  const mode = searchParams?.get('mode');
+  const oobCode = searchParams?.get('oobCode');
 
   const { currentUser } = useAuthStoreState();
   const [isProcessed, setIsProcessed] = useState<boolean>(false);

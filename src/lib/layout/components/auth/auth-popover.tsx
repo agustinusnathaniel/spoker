@@ -80,7 +80,7 @@ export const AuthPopover = () => {
   };
 
   const clearUserSessionData = async () => {
-    if (id && PRIVATE_ROUTES.includes(pathname) && currentUser) {
+    if (id && PRIVATE_ROUTES.includes(pathname ?? '') && currentUser) {
       await disconnectUser(id, currentUser.uid);
       router.push('/');
     }

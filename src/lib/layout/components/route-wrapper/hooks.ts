@@ -14,11 +14,11 @@ export const useAuthObserver = () => {
   const pathname = usePathname();
   const [busy, setBusy] = useState<boolean>(true);
   const isPublicRoute = useMemo(
-    () => PUBLIC_ROUTES.includes(pathname),
+    () => PUBLIC_ROUTES.includes(pathname ?? ''),
     [pathname]
   );
   const isRestrictedRoute = useMemo(
-    () => RESTRICTED_ROUTES.includes(pathname),
+    () => RESTRICTED_ROUTES.includes(pathname ?? ''),
     [pathname]
   );
   const isLoadingAuth = busy && (!isPublicRoute || isRestrictedRoute);

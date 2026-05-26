@@ -25,11 +25,11 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const [busy, setBusy] = useState<boolean>(false);
 
   const isPublicRoute = useMemo(
-    () => PUBLIC_ROUTES.includes(pathname),
+    () => PUBLIC_ROUTES.includes(pathname ?? ''),
     [pathname]
   );
   const isRestrictedRoute = useMemo(
-    () => RESTRICTED_ROUTES.includes(pathname),
+    () => RESTRICTED_ROUTES.includes(pathname ?? ''),
     [pathname]
   );
 
