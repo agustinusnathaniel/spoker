@@ -32,7 +32,7 @@
     "generate-rules": "ts-node tools/generate-rules.ts",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "prepare": "husky install"
+    "prepare": "husky init"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.35.0",
