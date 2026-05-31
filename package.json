@@ -43,8 +43,8 @@
     "@fontsource/gabarito": "^5.2.8",
     "@fontsource/gantari": "^5.2.8",
     "@hookform/resolvers": "^5.4.0",
-    "@sentry/nextjs": "^10.53.1",
-    "firebase": "^12.13.0",
+    "@sentry/nextjs": "^10.55.0",
+    "firebase": "^12.14.0",
     "lodash-es": "^4.18.1",
     "nanoid": "^5.1.11",
     "next": "16.2.6",
@@ -59,7 +59,7 @@
     "react-textarea-autosize": "^8.5.9",
     "twemoji": "14.0.2",
     "zod": "^4.4.3",
-    "zustand": "^5.0.13"
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
