@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.7](https://github.com/agustinusnathaniel/spoker/compare/v1.17.6...v1.17.7) (2026-06-03)
+
+
+### Bug Fixes
+
+* change COOP to same-origin-allow-popups for OAuth popups ([daa36cc](https://github.com/agustinusnathaniel/spoker/commit/daa36cc8d9cd69062ae1d7f8711958fa963431dd))
+
 ## [1.17.6](https://github.com/agustinusnathaniel/spoker/compare/v1.17.5...v1.17.6) (2026-06-03)
 
 
