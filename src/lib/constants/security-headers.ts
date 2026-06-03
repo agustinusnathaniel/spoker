@@ -1,4 +1,4 @@
-export const CSP_VALUE = [
+const CSP_DIRECTIVES = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' umami.sznm.dev www.gstatic.com www.google.com apis.google.com",
   "style-src 'self' 'unsafe-inline'",
@@ -9,7 +9,9 @@ export const CSP_VALUE = [
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
-].join('; ');
+] as const;
+
+export const CSP_VALUE = CSP_DIRECTIVES.join('; ');
 
 export const securityHeaders = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -17,7 +19,7 @@ export const securityHeaders = {
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
   'Cross-Origin-Resource-Policy': 'same-origin',
   'Content-Security-Policy': CSP_VALUE,
 } as const;
