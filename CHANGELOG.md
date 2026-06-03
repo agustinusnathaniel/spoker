@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.7](https://github.com/agustinusnathaniel/spoker/compare/v1.17.6...v1.17.7) (2026-06-03)
+
+
+### Bug Fixes
+
+* change COOP to same-origin-allow-popups for OAuth popups ([daa36cc](https://github.com/agustinusnathaniel/spoker/commit/daa36cc8d9cd69062ae1d7f8711958fa963431dd))
+
+## [1.17.6](https://github.com/agustinusnathaniel/spoker/compare/v1.17.5...v1.17.6) (2026-06-03)
+
+
+### Bug Fixes
+
+* add security headers and CSP to next.config.ts ([efac957](https://github.com/agustinusnathaniel/spoker/commit/efac957c20446320c5294029c607eea3cf94153c))
+* add www.google.com and apis.google.com to CSP ([76cc750](https://github.com/agustinusnathaniel/spoker/commit/76cc750fecedc8bd9e5017d0da57d18e94842a36))
+* **deps:** update all dependencies ([#442](https://github.com/agustinusnathaniel/spoker/issues/442)) ([5cbfae1](https://github.com/agustinusnathaniel/spoker/commit/5cbfae155ca7661daebc4057c18ef2ef1297e9d0))
+
 ## [1.17.5](https://github.com/agustinusnathaniel/spoker/compare/v1.17.4...v1.17.5) (2026-05-26)
 
 
