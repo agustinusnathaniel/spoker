@@ -1,6 +1,8 @@
 import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
+import { securityHeaders } from '~/lib/constants/security-headers';
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   redirects: async () => [
@@ -8,6 +10,15 @@ const nextConfig: NextConfig = {
       source: '/intro',
       destination: '/home',
       permanent: true,
+    },
+  ],
+  headers: async () => [
+    {
+      source: '/(.*)',
+      headers: Object.entries(securityHeaders).map(([key, value]) => ({
+        key,
+        value,
+      })),
     },
   ],
   experimental: {
