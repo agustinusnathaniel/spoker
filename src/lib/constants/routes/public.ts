@@ -1,1 +1,1 @@
-export const PUBLIC_ROUTES = ['/auth', '/home', '/privacypolicy'];
+export const PUBLIC_ROUTES = ['/auth', '/home', '/privacypolicy', '/changelog'];

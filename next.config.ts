@@ -1,9 +1,13 @@
+import createMDX from '@next/mdx';
 import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
 import { securityHeaders } from '~/lib/constants/security-headers';
 
+const withMDX = createMDX();
+
 const nextConfig: NextConfig = {
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   redirects: async () => [
     {
@@ -32,7 +36,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withMDX(nextConfig), {
   silent: true,
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.

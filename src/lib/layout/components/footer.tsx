@@ -57,11 +57,9 @@ export const Footer = () => {
         marginLeft={{ md: 'auto' }}
       >
         <Link
-          href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
-          onClick={handleClick('open repo changelog')}
-          rel="noopener noreferrer"
+          href="/changelog"
+          onClick={handleClick('open changelog')}
           style={{ fontSize: 'sm', fontWeight: 'bold' }}
-          target="_blank"
         >
           v{packageInfo.version}
         </Link>
