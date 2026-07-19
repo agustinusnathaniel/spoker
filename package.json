@@ -8,9 +8,11 @@
   },
   "packageManager": "pnpm@10.24.0",
   "pnpm": {
-    "neverBuiltDependencies": [],
     "overrides": {
-      "@types/react": "19.2.14"
+      "websocket-driver": "0.7.5",
+      "js-yaml": "4.2.0",
+      "protobufjs": "7.6.3",
+      "@opentelemetry/core": "2.8.0"
     }
   },
   "scripts": {
