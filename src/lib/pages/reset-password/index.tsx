@@ -40,9 +40,9 @@ export const ResetPassword = () => {
     await requestPasswordReset(email, () => {
       router.push('/');
       toaster.create({
-        title: 'Password Reset Requested',
         description: `Check your email (${email}) for the password reset link. If there's none, please check your spam folder.`,
         duration: 15_000,
+        title: 'Password Reset Requested',
         type: 'success',
       });
     });

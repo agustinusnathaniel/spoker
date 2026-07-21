@@ -14,11 +14,11 @@ export const VoteRadioCard = ({ children, value }: VoteRadioCardProps) => (
     <RadioGroup.ItemControl
       _checked={{
         bg: 'teal.500',
-        color: 'white',
         borderColor: 'teal.600',
         borderWidth: 2,
-        fontWeight: 'bold',
         boxShadow: 'none',
+        color: 'white',
+        fontWeight: 'bold',
       }}
       _focus={{
         boxShadow: 'outline',

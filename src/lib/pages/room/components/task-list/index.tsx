@@ -55,8 +55,8 @@ const SortableQueue = dynamic(
 );
 
 const initialFormValue: UpsertStoryForm = {
-  name: '',
   description: '',
+  name: '',
 };
 
 export const TaskList = () => {
@@ -122,9 +122,9 @@ export const TaskList = () => {
 
     return {
       activeStoriesTabText: `Active${activeStoriesLengthText}`,
-      queueTabText: `Queue${queueLengthText}`,
-      completedTabText: `Completed${completedLengthText}`,
       allTabText: `All (${all.length})`,
+      completedTabText: `Completed${completedLengthText}`,
+      queueTabText: `Queue${queueLengthText}`,
     };
   }, [queue?.length, completed?.length, all.length]);
 
@@ -136,8 +136,8 @@ export const TaskList = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: initialFormValue,
-    resolver: zodResolver(submitStoryFormValidationSchema),
     mode: 'onChange',
+    resolver: zodResolver(submitStoryFormValidationSchema),
   });
 
   const {
@@ -151,8 +151,8 @@ export const TaskList = () => {
       isDirty: isEditStoryDirty,
     },
   } = useForm({
-    resolver: zodResolver(submitStoryFormValidationSchema),
     mode: 'onChange',
+    resolver: zodResolver(submitStoryFormValidationSchema),
   });
 
   const onOpenAddStory = useCallback(() => setIsOpenAddStory(true), []);
@@ -183,8 +183,8 @@ export const TaskList = () => {
       setSelectedEditStoryIndex(selectedIndex);
       const selectedQueueItem = queueRef.current?.[selectedIndex];
       resetEditStoryForm({
-        name: selectedQueueItem?.name,
         description: selectedQueueItem?.description,
+        name: selectedQueueItem?.name,
       });
       onOpenEditStory();
     },
@@ -202,10 +202,10 @@ export const TaskList = () => {
       const values = getEditStoryValues();
       setIsBusy(true);
       await editQueueItem({
-        roomId: id,
-        updatedItem: values as Task,
-        selectedQueueIndex: selectedEditStoryIndex,
         queue: queueRef.current,
+        roomId: id,
+        selectedQueueIndex: selectedEditStoryIndex,
+        updatedItem: values as Task,
       });
       closeEditStory();
       setIsBusy(false);
@@ -236,9 +236,9 @@ export const TaskList = () => {
     if (isOwner && selectedEditStoryIndex !== undefined) {
       setIsBusy(true);
       await removeQueueItem({
+        queue: queueRef.current,
         roomId: id,
         selectedQueueIndex: selectedEditStoryIndex,
-        queue: queueRef.current,
       });
       closeRemoveStory();
       setIsBusy(false);
@@ -271,10 +271,10 @@ export const TaskList = () => {
           return;
         }
         await swapSelectedQueueWithCurrent({
-          roomId: id,
-          task: taskRef.current,
-          selectedQueueIndex,
           queue: queueRef.current,
+          roomId: id,
+          selectedQueueIndex,
+          task: taskRef.current,
         });
       }
     },

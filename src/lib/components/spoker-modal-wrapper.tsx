@@ -147,10 +147,10 @@ function ModalCloseTrigger() {
  * ```
  */
 export const Modal = {
-  Provider: ModalProvider,
-  Content: ModalContent,
-  Header: ModalHeader,
   Body: ModalBody,
-  Footer: ModalFooter,
   CloseTrigger: ModalCloseTrigger,
+  Content: ModalContent,
+  Footer: ModalFooter,
+  Header: ModalHeader,
+  Provider: ModalProvider,
 };

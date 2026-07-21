@@ -11,38 +11,38 @@ interface UserMeta {
 
 const users: Array<UserMeta> = [
   {
-    name: 'SIRCLO',
     imagePath: '/users/sirclo.png',
+    name: 'SIRCLO',
     url: 'https://www.sirclo.com',
   },
   {
-    name: 'Pinhome',
     imagePath: '/users/pinhome.svg',
+    name: 'Pinhome',
     url: 'https://pinhome.id',
   },
   {
-    name: 'Tokopedia',
     imagePath: '/users/tokopedia.svg',
+    name: 'Tokopedia',
     url: 'https://tokopedia.com',
   },
   {
-    name: 'Rumah Siap Kerja',
     imagePath: '/users/rumahsiapkerja.svg',
+    name: 'Rumah Siap Kerja',
     url: 'https://rumahsiapkerja.com',
   },
   {
-    name: 'IHC',
     imagePath: '/users/ihc.png',
+    name: 'IHC',
     url: 'https://pertamedika.co.id/',
   },
   {
-    name: 'Universitas Indonesia',
     imagePath: '/users/universitas-indonesia.svg',
+    name: 'Universitas Indonesia',
     url: 'https://ui.ac.id',
   },
   {
-    name: 'Dimension',
     imagePath: '/users/dimension.png',
+    name: 'Dimension',
     url: 'https://dimension.dev',
   },
 ];

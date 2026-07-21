@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const NotFoundPage = () => (
   <>
-    <Box margin="0 auto" width={{ base: '100%', sm: '70%', md: '50%' }}>
+    <Box margin="0 auto" width={{ base: '100%', md: '50%', sm: '70%' }}>
       <Image alt="error-404" src="/404 Error-pana.svg" />
     </Box>
     <Text fontSize="xs" textAlign="center">

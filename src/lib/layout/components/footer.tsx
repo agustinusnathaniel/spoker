@@ -12,8 +12,8 @@ import { trackEvent } from '~/lib/utils/track-event';
 export const Footer = () => {
   const handleClick = (eventName: string) => () => {
     trackEvent({
-      eventName,
       eventData: { type: EVENT_TYPE_LINK },
+      eventName,
     });
   };
 

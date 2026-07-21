@@ -22,12 +22,12 @@ export const useVote = () => {
         (user) => ({ name: user.name, point: user.point ?? 0 }) as PointEntry
       );
       await submitVote({
-        roomId: id,
-        task: roomData.task,
+        completed: roomData.completed,
         entries: pointEntries,
         estimate,
         queue: roomData.queue,
-        completed: roomData.completed,
+        roomId: id,
+        task: roomData.task,
       });
     }
   };

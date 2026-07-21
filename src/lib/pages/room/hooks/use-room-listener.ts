@@ -86,11 +86,11 @@ export const useRoomListener = () => {
 
       router.push(`/join/${id}`);
       toaster.create({
-        type: 'warning',
-        title: "You haven't pick any role yet",
         description:
           "Either you haven't join the room before or rejoin or disconnected / refreshed the page",
         duration: 15_000,
+        title: "You haven't pick any role yet",
+        type: 'warning',
       });
     }
   }, [

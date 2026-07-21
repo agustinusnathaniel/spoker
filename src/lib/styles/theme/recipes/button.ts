@@ -1,12 +1,15 @@
 import { defineRecipe } from '@chakra-ui/react';
 
 export const buttonRecipe = defineRecipe({
-  className: 'chakra-button',
   base: {
-    borderRadius: '12px',
     border: '2px solid black',
+    borderRadius: '12px',
     boxShadow: '0px 6px 0px black',
     marginY: 1,
+  },
+  className: 'chakra-button',
+  defaultVariants: {
+    size: 'lg',
   },
   variants: {
     size: {
@@ -14,8 +17,5 @@ export const buttonRecipe = defineRecipe({
         // Keep default lg styles but override if needed
       },
     },
-  },
-  defaultVariants: {
-    size: 'lg',
   },
 });

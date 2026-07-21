@@ -44,8 +44,8 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const handleCloseAuthModal = () => {
     router.push('/home');
     trackEvent({
-      eventName: 'close_auth-back_to_home',
       eventData: { type: EVENT_TYPE_AUTH },
+      eventName: 'close_auth-back_to_home',
     });
   };
 

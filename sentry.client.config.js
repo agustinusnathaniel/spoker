@@ -16,11 +16,7 @@ const isLocal = process.env.NODE_ENV === 'development';
 if (!isLocal) {
   init({
     dsn: SENTRY_DSN,
-    // Adjust this value in production, or use tracesSampler for greater control
-    tracesSampleRate: 1.0,
     environment: APP_ENV,
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
     // ...
     // Note: if you want to override the automatic release value, do not set a
     // `release` value here - use the environment variable `SENTRY_RELEASE`, so
@@ -29,5 +25,9 @@ if (!isLocal) {
       replayIntegration(),
       captureConsoleIntegration({ levels: ['error', 'fatal'] }),
     ],
+    replaysOnErrorSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    // Adjust this value in production, or use tracesSampler for greater control
+    tracesSampleRate: 1.0,
   });
 }

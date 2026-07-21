@@ -14,8 +14,8 @@ export const Home = () => {
 
   const handleClickStart = () => {
     trackEvent({
-      eventName: 'Open app from Home page',
       eventData: { type: EVENT_TYPE_NAVIGATE },
+      eventName: 'Open app from Home page',
     });
     router.push('/');
   };

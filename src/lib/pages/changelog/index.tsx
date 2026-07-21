@@ -24,9 +24,9 @@ const TAG_COLOR: Record<ChangelogEntry['tag'], string> = {
 
 const formatDate = (dateString: string) =>
   new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
     day: 'numeric',
+    month: 'long',
+    year: 'numeric',
   });
 
 export const ChangelogPage = () => {
@@ -65,23 +65,23 @@ export const ChangelogPage = () => {
                 color="gray.600"
                 css={{
                   '& h3': {
-                    fontWeight: 600,
                     fontSize: 'md',
-                    marginTop: 4,
+                    fontWeight: 600,
                     marginBottom: 2,
-                  },
-                  '& ul': {
-                    listStyleType: 'disc',
-                    paddingLeft: 5,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 1,
+                    marginTop: 4,
                   },
                   '& li': {
                     fontSize: 'sm',
                   },
                   '& strong': {
                     color: 'foreground',
+                  },
+                  '& ul': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1,
+                    listStyleType: 'disc',
+                    paddingLeft: 5,
                   },
                 }}
               >

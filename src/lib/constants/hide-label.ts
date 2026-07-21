@@ -1,10 +1,10 @@
 const HideLabelOptions = {
-  monkey: 'monkey',
   chicken: 'chicken',
+  cloud: 'cloud',
   cow: 'cow',
   fish: 'fish',
   money: 'money',
-  cloud: 'cloud',
+  monkey: 'monkey',
   shrimp: 'shrimp',
   think: 'think',
 } as const;
@@ -23,13 +23,13 @@ type HideLabelType = Record<
 >;
 
 export const hideLabel: HideLabelType = {
-  monkey: {
-    empty: '🙊',
-    selected: '🙉',
-  },
   chicken: {
     empty: '🥚',
     selected: '🐣',
+  },
+  cloud: {
+    empty: '☁️',
+    selected: '⛅',
   },
   cow: {
     empty: '🐄',
@@ -43,9 +43,9 @@ export const hideLabel: HideLabelType = {
     empty: '💸',
     selected: '💰',
   },
-  cloud: {
-    empty: '☁️',
-    selected: '⛅',
+  monkey: {
+    empty: '🙊',
+    selected: '🙉',
   },
   shrimp: {
     empty: '🦐',

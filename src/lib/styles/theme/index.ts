@@ -7,21 +7,15 @@ import { popoverRecipe } from './recipes/popover';
 
 export const system = createSystem(defaultConfig, {
   theme: {
+    recipes: {
+      button: buttonRecipe,
+    },
+    slotRecipes: {
+      popover: popoverRecipe,
+      tabs: tabsRecipe,
+    },
     tokens: {
       colors: {
-        gray: {
-          50: { value: '#e9e9ea' },
-          100: { value: '#d3d3d4' },
-          200: { value: '#a6a8a9' },
-          300: { value: '#7a7c7f' },
-          400: { value: '#4d5154' },
-          500: { value: '#212529' },
-          600: { value: '#1a1e21' },
-          700: { value: '#141619' },
-          800: { value: '#0d0f10' },
-          900: { value: '#070708' },
-          950: { value: '#030303' },
-        },
         blue: {
           50: { value: '#f4f8fa' },
           100: { value: '#e5eef4' },
@@ -48,18 +42,18 @@ export const system = createSystem(defaultConfig, {
           900: { value: '#294850' },
           950: { value: '#1a2f36' },
         },
-        teal: {
-          50: { value: '#f2fbf8' },
-          100: { value: '#d3f4e9' },
-          200: { value: '#a7e8d4' },
-          300: { value: '#73d5ba' },
-          400: { value: '#40b094' },
-          500: { value: '#2ca085' },
-          600: { value: '#21806c' },
-          700: { value: '#1e6758' },
-          800: { value: '#1c5348' },
-          900: { value: '#1c453e' },
-          950: { value: '#122e2a' },
+        gray: {
+          50: { value: '#e9e9ea' },
+          100: { value: '#d3d3d4' },
+          200: { value: '#a6a8a9' },
+          300: { value: '#7a7c7f' },
+          400: { value: '#4d5154' },
+          500: { value: '#212529' },
+          600: { value: '#1a1e21' },
+          700: { value: '#141619' },
+          800: { value: '#0d0f10' },
+          900: { value: '#070708' },
+          950: { value: '#030303' },
         },
         green: {
           50: { value: '#eefbf2' },
@@ -74,18 +68,24 @@ export const system = createSystem(defaultConfig, {
           900: { value: '#104429' },
           950: { value: '#0b2e1c' },
         },
+        teal: {
+          50: { value: '#f2fbf8' },
+          100: { value: '#d3f4e9' },
+          200: { value: '#a7e8d4' },
+          300: { value: '#73d5ba' },
+          400: { value: '#40b094' },
+          500: { value: '#2ca085' },
+          600: { value: '#21806c' },
+          700: { value: '#1e6758' },
+          800: { value: '#1c5348' },
+          900: { value: '#1c453e' },
+          950: { value: '#122e2a' },
+        },
       },
       fonts: {
-        heading: { value: 'Gabarito, sans-serif' },
         body: { value: 'Gantari, sans-serif' },
+        heading: { value: 'Gabarito, sans-serif' },
       },
-    },
-    recipes: {
-      button: buttonRecipe,
-    },
-    slotRecipes: {
-      popover: popoverRecipe,
-      tabs: tabsRecipe,
     },
   },
 });

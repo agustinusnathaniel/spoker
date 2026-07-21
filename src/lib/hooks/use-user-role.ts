@@ -13,9 +13,9 @@ export const useUserRole = () => {
   const isOwner = userRole === RoleType.owner;
 
   return {
-    userRole,
-    isParticipant,
     isObservant,
     isOwner,
+    isParticipant,
+    userRole,
   };
 };

@@ -11,17 +11,17 @@ export function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     init({
       dsn: SENTRY_DSN,
-      tracesSampleRate: 1.0,
       environment: APP_ENV,
       integrations: [captureConsoleIntegration()],
+      tracesSampleRate: 1.0,
     });
   }
 
   if (process.env.NEXT_RUNTIME === 'edge') {
     init({
       dsn: SENTRY_DSN,
-      tracesSampleRate: 1.0,
       environment: APP_ENV,
+      tracesSampleRate: 1.0,
     });
   }
 }
