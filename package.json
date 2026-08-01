@@ -76,7 +76,7 @@
     "@types/node": "^26.1.1",
     "@types/react": "19.2.17",
     "all-contributors-cli": "^6.26.1",
-    "commit-and-tag-version": "^13.1.0",
+    "commit-and-tag-version": "^13.1.2",
     "commitizen": "^4.3.2",
     "commitlint": "^21.2.1",
     "cross-env": "^10.1.0",
