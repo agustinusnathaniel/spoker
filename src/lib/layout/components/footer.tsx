@@ -2,6 +2,7 @@
 
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { RiGithubFill } from 'react-icons/ri';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
@@ -10,6 +11,12 @@ import { EVENT_TYPE_LINK } from '~/lib/constants/tracking';
 import { trackEvent } from '~/lib/utils/track-event';
 
 export const Footer = () => {
+  const [currentYear, setCurrentYear] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(String(new Date().getFullYear()));
+  }, []);
+
   const handleClick = (eventName: string) => () => {
     trackEvent({
       eventData: { type: EVENT_TYPE_LINK },
@@ -37,7 +44,7 @@ export const Footer = () => {
           <SpokerLogo />
         </Box>
         <Text color="gray" fontSize="sm">
-          2021 - {new Date().getFullYear()}
+          2021{currentYear ? ` - ${currentYear}` : ''}
           {' | '}
           <Link
             href="https://agustinusnathaniel.com"

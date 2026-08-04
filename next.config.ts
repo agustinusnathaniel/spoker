@@ -7,6 +7,7 @@ import { securityHeaders } from '~/lib/constants/security-headers';
 const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
   experimental: {
     optimizePackageImports: [
       '@chakra-ui/react',
@@ -15,6 +16,7 @@ const nextConfig: NextConfig = {
       '@dnd-kit/utilities',
       'react-icons',
     ],
+    useTypeScriptCli: true,
   },
   headers: async () => [
     {
@@ -26,6 +28,7 @@ const nextConfig: NextConfig = {
     },
   ],
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  partialPrefetching: true,
   reactStrictMode: true,
   redirects: async () => [
     {
