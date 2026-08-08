@@ -3,3 +3,6 @@ allowBuilds:
   '@sentry/cli': true
   protobufjs: false
   sharp: true
+minimumReleaseAgeExclude:
+  - next
+  - '@next/*'
