@@ -24,8 +24,8 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
 
   const router = useRouter();
   const pathname = usePathname();
-  const isPublicRoute = PUBLIC_ROUTES.indexOf(pathname ?? '') >= 0;
-  const isRestrictedRoute = RESTRICTED_ROUTES.includes(pathname ?? '');
+  const isPublicRoute = PUBLIC_ROUTES.indexOf(pathname) >= 0;
+  const isRestrictedRoute = RESTRICTED_ROUTES.includes(pathname);
 
   // currentUser is undefined while loading, null when not authenticated, or User when authenticated
   const isLoading = currentUser === undefined;
@@ -44,8 +44,8 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const handleCloseAuthModal = () => {
     router.push('/home');
     trackEvent({
-      eventName: 'close_auth-back_to_home',
       eventData: { type: EVENT_TYPE_AUTH },
+      eventName: 'close_auth-back_to_home',
     });
   };
 

@@ -4,23 +4,6 @@ import type { NextConfig } from 'next';
 import { securityHeaders } from '~/lib/constants/security-headers';
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  redirects: async () => [
-    {
-      source: '/intro',
-      destination: '/home',
-      permanent: true,
-    },
-  ],
-  headers: async () => [
-    {
-      source: '/(.*)',
-      headers: Object.entries(securityHeaders).map(([key, value]) => ({
-        key,
-        value,
-      })),
-    },
-  ],
   experimental: {
     optimizePackageImports: [
       '@chakra-ui/react',
@@ -30,6 +13,23 @@ const nextConfig: NextConfig = {
       'react-icons',
     ],
   },
+  headers: async () => [
+    {
+      headers: Object.entries(securityHeaders).map(([key, value]) => ({
+        key,
+        value,
+      })),
+      source: '/(.*)',
+    },
+  ],
+  reactStrictMode: true,
+  redirects: async () => [
+    {
+      destination: '/home',
+      permanent: true,
+      source: '/intro',
+    },
+  ],
 };
 
 export default withSentryConfig(nextConfig, {

@@ -25,9 +25,9 @@ export const SupportContent = () => (
           >
             {sponsorLink.icon}
             <Text>{sponsorLink.label}</Text>
-            {sponsorLink.description && (
+            {sponsorLink.description ? (
               <Text fontSize="xs">{sponsorLink.description}</Text>
-            )}
+            ) : null}
           </Link>
         </Button>
       ))}

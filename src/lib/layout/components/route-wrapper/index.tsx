@@ -25,11 +25,11 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
   const [busy, setBusy] = useState<boolean>(false);
 
   const isPublicRoute = useMemo(
-    () => PUBLIC_ROUTES.includes(pathname ?? ''),
+    () => PUBLIC_ROUTES.includes(pathname),
     [pathname]
   );
   const isRestrictedRoute = useMemo(
-    () => RESTRICTED_ROUTES.includes(pathname ?? ''),
+    () => RESTRICTED_ROUTES.includes(pathname),
     [pathname]
   );
 
@@ -56,8 +56,8 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
         if (!currentUser.emailVerified) {
           router.push('/');
           toaster.create({
-            title: 'Your email is not verified yet.',
             description: `Check your email (${currentUser.email}) for verification link.`,
+            title: 'Your email is not verified yet.',
             type: 'warning',
           });
         }

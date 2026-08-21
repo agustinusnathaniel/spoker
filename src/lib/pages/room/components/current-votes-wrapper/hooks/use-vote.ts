@@ -10,7 +10,7 @@ import type { PointEntry } from '~/lib/types/raw-db';
 
 export const useVote = () => {
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
   const { currentUser } = useAuthStoreState();
   const { isOwner } = useUserRole();
 
@@ -22,12 +22,12 @@ export const useVote = () => {
         (user) => ({ name: user.name, point: user.point ?? 0 }) as PointEntry
       );
       await submitVote({
-        roomId: id,
-        task: roomData.task,
+        completed: roomData.completed,
         entries: pointEntries,
         estimate,
         queue: roomData.queue,
-        completed: roomData.completed,
+        roomId: id,
+        task: roomData.task,
       });
     }
   };

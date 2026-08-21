@@ -31,7 +31,7 @@ export const AutoResizeTextarea = ({
   ...props
 }: AutoResizeTextareaProps) => (
   <Field.Root invalid={invalid}>
-    {label && <Field.Label>{label}</Field.Label>}
+    {label ? <Field.Label>{label}</Field.Label> : null}
     <Textarea
       as={ResizeTextarea}
       minH="unset"
@@ -42,7 +42,7 @@ export const AutoResizeTextarea = ({
       {...contraStyle}
       {...props}
     />
-    {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
-    {helperText && <Field.HelperText>{helperText}</Field.HelperText>}
+    {errorText ? <Field.ErrorText>{errorText}</Field.ErrorText> : null}
+    {helperText ? <Field.HelperText>{helperText}</Field.HelperText> : null}
   </Field.Root>
 );

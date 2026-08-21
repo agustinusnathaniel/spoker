@@ -17,14 +17,14 @@ export const VoteWrapper = () => {
   const { roomData, showVote } = useRoomStoreState();
   const { isOwner, isParticipant } = useUserRole();
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
   const [selectedPoint, setSelectedPoint] = useState<string>(
     currentUser ? String(roomData?.users?.[currentUser.uid]?.point ?? '') : ''
   );
 
   const handleUpdatePoint = async (point: number) => {
     if (currentUser && !(roomData?.config.isFreezeAfterVote && showVote)) {
-      await updatePoint({ uid: currentUser.uid, point, roomId: id });
+      await updatePoint({ point, roomId: id, uid: currentUser.uid });
       setSelectedPoint(String(point));
     }
   };

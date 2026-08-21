@@ -24,8 +24,8 @@ const initAppCheck = () => {
 
   if (document.body && document.readyState !== 'loading') {
     initializeAppCheck(fbase, {
-      provider: new ReCaptchaV3Provider(recaptchaSiteKey),
       isTokenAutoRefreshEnabled: true,
+      provider: new ReCaptchaV3Provider(recaptchaSiteKey),
     });
     appCheckInitialized = true;
     return;
@@ -40,8 +40,8 @@ const initAppCheck = () => {
 
       try {
         initializeAppCheck(fbase, {
-          provider: new ReCaptchaV3Provider(recaptchaSiteKey),
           isTokenAutoRefreshEnabled: true,
+          provider: new ReCaptchaV3Provider(recaptchaSiteKey),
         });
         appCheckInitialized = true;
       } catch (error) {

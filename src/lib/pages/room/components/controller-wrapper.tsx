@@ -16,20 +16,18 @@ interface UserListItemProps {
   user: RoomUser;
 }
 
-const UserListItem = memo(function UserListItem({ user }: UserListItemProps) {
-  return (
-    <List.Item>
-      {user.name} - {user.role}
-    </List.Item>
-  );
-});
+const UserListItem = memo(({ user }: UserListItemProps) => (
+  <List.Item>
+    {user.name} - {user.role}
+  </List.Item>
+));
 
 export const ControllerWrapper = () => {
   const { users } = useRoomStoreState();
   const { isOwner } = useUserRole();
   const router = useRouter();
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
 
   const handleClearPoints = async () => {
     await clearPoints(id);
@@ -50,11 +48,11 @@ export const ControllerWrapper = () => {
       <Heading size="xl">Controller</Heading>
 
       <Flex gap={2} wrap="wrap">
-        {isOwner && (
+        {isOwner ? (
           <Button colorPalette="red" onClick={handleClearPoints} size="sm">
             Reset
           </Button>
-        )}
+        ) : null}
         <Button
           colorPalette="orange"
           onClick={() => router.push(`/join/${id}`)}

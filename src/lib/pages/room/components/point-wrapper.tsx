@@ -52,15 +52,13 @@ interface PointWrapperProps {
   reveal: boolean;
 }
 
-export const PointWrapper = memo(function PointWrapper({
-  reveal,
-  hideLabelType,
-  point,
-}: PointWrapperProps) {
-  if (reveal) {
-    return <PointValue point={point ?? 0} />;
-  }
+export const PointWrapper = memo(
+  ({ reveal, hideLabelType, point }: PointWrapperProps) => {
+    if (reveal) {
+      return <PointValue point={point ?? 0} />;
+    }
 
-  const hasPoint = point !== undefined && point >= 0;
-  return <HiddenPoint hasPoint={hasPoint} hideLabelType={hideLabelType} />;
-});
+    const hasPoint = point !== undefined && point >= 0;
+    return <HiddenPoint hasPoint={hasPoint} hideLabelType={hideLabelType} />;
+  }
+);

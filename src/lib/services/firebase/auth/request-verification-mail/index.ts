@@ -10,8 +10,8 @@ export const requestVerificationMail = async () => {
   if (user && !user.emailVerified) {
     await sendEmailVerification(user);
     toaster.create({
-      title: 'Verification Requested',
       description: `Please check your email (${user.email}).`,
+      title: 'Verification Requested',
       type: 'info',
     });
     return;

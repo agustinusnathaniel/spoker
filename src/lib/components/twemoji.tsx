@@ -11,9 +11,9 @@ export const Twemoji = memo(({ emoji }: TwemojiProps) => {
       // biome-ignore lint/security/noDangerouslySetInnerHtml: twemoji.parse only processes emoji strings
       dangerouslySetInnerHTML={{
         __html: twemoji.parse(emoji, {
-          folder: 'svg',
-          ext: '.svg',
           base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/',
+          ext: '.svg',
+          folder: 'svg',
         }),
       }}
     />

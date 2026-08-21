@@ -23,25 +23,25 @@ interface RoomSetStateAction {
 type RoomStore = RoomState & RoomSetStateAction;
 
 export const useRoomStore = create<RoomStore>()((set) => ({
+  inRoom: true,
   isBusy: true,
+  setInRoom: (inRoom) => set({ inRoom }),
+  setIsBusy: (isBusy) => set({ isBusy }),
+  setRoomData: (roomData) => set({ roomData }),
+  setShowVote: (showVote) => set({ showVote }),
+  setUsers: (users) => set({ users }),
   showVote: false,
   users: [],
-  inRoom: true,
-  setIsBusy: (isBusy) => set({ isBusy }),
-  setShowVote: (showVote) => set({ showVote }),
-  setRoomData: (roomData) => set({ roomData }),
-  setUsers: (users) => set({ users }),
-  setInRoom: (inRoom) => set({ inRoom }),
 }));
 
 export const useRoomStoreState = (): RoomState =>
   useRoomStore(
     useShallow(({ roomData, isBusy, showVote, users, inRoom }) => ({
-      roomData,
+      inRoom,
       isBusy,
+      roomData,
       showVote,
       users,
-      inRoom,
     }))
   );
 
@@ -49,11 +49,11 @@ export const useRoomStoreAction = (): RoomSetStateAction =>
   useRoomStore(
     useShallow(
       ({ setIsBusy, setShowVote, setRoomData, setUsers, setInRoom }) => ({
-        setIsBusy,
-        setShowVote,
-        setRoomData,
-        setUsers,
         setInRoom,
+        setIsBusy,
+        setRoomData,
+        setShowVote,
+        setUsers,
       })
     )
   );

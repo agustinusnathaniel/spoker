@@ -15,9 +15,9 @@ export const rejoinRoom = async (roomId: string, role?: RoleType | null) => {
         });
       } else {
         await set(child(roomsData, `${roomId}/users/${currentUser?.uid}`), {
+          isConnected: true,
           name: currentUser?.displayName,
           role,
-          isConnected: true,
         });
       }
     }

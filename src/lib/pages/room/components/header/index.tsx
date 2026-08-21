@@ -14,8 +14,8 @@ export const RoomHeader = () => {
   const { roomData } = useRoomStoreState();
   const { isOwner } = useUserRole();
   const { name, description, handleUpdateTask } = useRoomHeader({
-    roomData,
     isOwner,
+    roomData,
   });
 
   const content = useMemo(() => {
@@ -38,9 +38,9 @@ export const RoomHeader = () => {
         <Heading fontSize="3xl" wordBreak="break-word">
           {task.name}
         </Heading>
-        {task.description && (
+        {task.description ? (
           <Text wordBreak="break-word">{task.description}</Text>
-        )}
+        ) : null}
       </>
     );
   }, [description, handleUpdateTask, isOwner, name, roomData?.task]);

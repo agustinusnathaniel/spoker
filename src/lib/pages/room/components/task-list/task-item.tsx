@@ -28,7 +28,7 @@ function TaskDisplay({ task }: TaskDisplayProps) {
       <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
         {task.name}
       </Heading>
-      {task.description && <Text>{task.description}</Text>}
+      {task.description ? <Text>{task.description}</Text> : null}
     </Box>
   );
 }
@@ -49,26 +49,22 @@ export interface CompletedTaskItemProps {
   task: Task;
 }
 
-export const CompletedTaskItem = memo(function CompletedTaskItem({
-  task,
-}: CompletedTaskItemProps) {
-  return (
-    <Flex
-      alignItems="center"
-      borderColor="gray.400"
-      borderRadius={12}
-      borderWidth={2}
-      gap={4}
-      marginBottom={2}
-      padding={4}
-    >
-      <TaskDisplay task={task} />
-      {task.estimation !== undefined && task.estimation >= 0 && (
-        <TaskEstimation estimation={task.estimation} />
-      )}
-    </Flex>
-  );
-});
+export const CompletedTaskItem = memo(({ task }: CompletedTaskItemProps) => (
+  <Flex
+    alignItems="center"
+    borderColor="gray.400"
+    borderRadius={12}
+    borderWidth={2}
+    gap={4}
+    marginBottom={2}
+    padding={4}
+  >
+    <TaskDisplay task={task} />
+    {task.estimation !== undefined && task.estimation >= 0 && (
+      <TaskEstimation estimation={task.estimation} />
+    )}
+  </Flex>
+));
 
 // ============================================================================
 // Queue Task Item - With drag handle and actions
@@ -123,14 +119,14 @@ export interface QueueTaskItemProps {
   task: Task;
 }
 
-export const QueueTaskItem = memo(function QueueTaskItem({
-  task,
-  dragHandleProps,
-  onClickSwap,
-  onClickEdit,
-  onClickRemove,
-}: QueueTaskItemProps) {
-  return (
+export const QueueTaskItem = memo(
+  ({
+    task,
+    dragHandleProps,
+    onClickSwap,
+    onClickEdit,
+    onClickRemove,
+  }: QueueTaskItemProps) => (
     <Flex
       alignItems="center"
       borderColor="gray.400"
@@ -152,7 +148,7 @@ export const QueueTaskItem = memo(function QueueTaskItem({
         <Heading fontSize="xl" textWrap="balance" wordBreak="break-word">
           {task.name}
         </Heading>
-        {task.description && <Text>{task.description}</Text>}
+        {task.description ? <Text>{task.description}</Text> : null}
         <QueueTaskActions
           onClickEdit={onClickEdit}
           onClickRemove={onClickRemove}
@@ -160,5 +156,5 @@ export const QueueTaskItem = memo(function QueueTaskItem({
         />
       </Box>
     </Flex>
-  );
-});
+  )
+);

@@ -22,6 +22,7 @@
       "!src/**/*/utils.ts",
       "!src/**/*.css",
       "!*.d.ts",
+      "!**/*.svg",
       "!.agents",
       "!.claude"
     ]
@@ -36,9 +37,10 @@
       "next": "recommended"
     },
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "performance": {
-        "noBarrelFile": "off"
+        "noBarrelFile": "off",
+        "noJsxPropsBind": "off"
       },
       "style": {
         "noDefaultExport": "off",

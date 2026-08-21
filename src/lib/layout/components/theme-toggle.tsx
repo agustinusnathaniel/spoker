@@ -12,8 +12,8 @@ export const ThemeToggle = () => {
 
   const handleClickToggle = () => {
     trackEvent({
-      eventName: `toggle theme to ${colorMode === 'light' ? 'dark' : 'light'}`,
       eventData: { type: EVENT_TYPE_CTA },
+      eventName: `toggle theme to ${colorMode === 'light' ? 'dark' : 'light'}`,
     });
     toggleColorMode();
   };

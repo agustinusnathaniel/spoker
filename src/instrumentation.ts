@@ -1,7 +1,7 @@
 import { captureConsoleIntegration, init } from '@sentry/nextjs';
 
 const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
-const APP_ENV = process.env.APP_ENV;
+const { APP_ENV } = process.env;
 
 export function register() {
   if (process.env.NODE_ENV === 'development') {
@@ -11,17 +11,17 @@ export function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     init({
       dsn: SENTRY_DSN,
-      tracesSampleRate: 1.0,
       environment: APP_ENV,
       integrations: [captureConsoleIntegration()],
+      tracesSampleRate: 1.0,
     });
   }
 
   if (process.env.NEXT_RUNTIME === 'edge') {
     init({
       dsn: SENTRY_DSN,
-      tracesSampleRate: 1.0,
       environment: APP_ENV,
+      tracesSampleRate: 1.0,
     });
   }
 }

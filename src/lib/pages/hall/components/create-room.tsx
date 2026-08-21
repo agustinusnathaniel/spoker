@@ -39,8 +39,8 @@ export const CreateRoom = () => {
       })
       .catch((err: Error) => {
         toaster.create({
-          title: 'Create Room Fail',
           description: removeFirebasePrefix(err.message),
+          title: 'Create Room Fail',
           type: 'error',
         });
       })

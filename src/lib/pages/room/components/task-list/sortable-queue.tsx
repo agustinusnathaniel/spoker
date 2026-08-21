@@ -86,7 +86,7 @@ export const SortableQueue = memo(
             items={queueItemIds}
             strategy={verticalListSortingStrategy}
           >
-            {sortableQueue?.map((queueItem, index) => (
+            {sortableQueue.map((queueItem, index) => (
               <SortableTaskItem
                 key={queueItem.id}
                 queueCallbacks={{

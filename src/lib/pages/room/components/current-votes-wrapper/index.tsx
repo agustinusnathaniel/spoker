@@ -48,13 +48,13 @@ interface ParticipantItemProps {
   showVote: boolean;
 }
 
-const ParticipantItem = memo(function ParticipantItem({
-  participant,
-  currentUserUid,
-  showVote,
-  hideLabel,
-}: ParticipantItemProps) {
-  return (
+const ParticipantItem = memo(
+  ({
+    participant,
+    currentUserUid,
+    showVote,
+    hideLabel,
+  }: ParticipantItemProps) => (
     <Grid
       _last={{ borderBottomWidth: 0 }}
       alignItems="center"
@@ -77,12 +77,12 @@ const ParticipantItem = memo(function ParticipantItem({
         />
       </Text>
     </Grid>
-  );
-});
+  )
+);
 
 export const CurrentVotesWrapper = () => {
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
   const { currentUser } = useAuthStoreState();
   const config = useRoomStore(useShallow((state) => state.roomData?.config));
   const showVote = useRoomStore(useShallow((state) => state.showVote));
@@ -165,7 +165,7 @@ export const CurrentVotesWrapper = () => {
         <Checkbox.Label>freeze after vote</Checkbox.Label>
       </Checkbox.Root>
 
-      {(isOwner || isObservant) && (
+      {isOwner || isObservant ? (
         <Field.Root>
           <Select.Root
             collection={createListCollection({ items: hideLabelOptions })}
@@ -199,7 +199,7 @@ export const CurrentVotesWrapper = () => {
             </Portal>
           </Select.Root>
         </Field.Root>
-      )}
+      ) : null}
 
       <Grid gap={2}>
         {showAveragePoint && <Text>average: {averagePoint}</Text>}
@@ -214,7 +214,7 @@ export const CurrentVotesWrapper = () => {
         ))}
       </Grid>
 
-      {isOwner && showVote && (
+      {isOwner && showVote ? (
         <Grid
           borderColor="orange"
           borderRadius={16}
@@ -260,7 +260,7 @@ export const CurrentVotesWrapper = () => {
             </Button>
           </Grid>
         </Grid>
-      )}
+      ) : null}
       {/* Confetti reward - dynamically loaded to reduce initial bundle */}
       <ConfettiReward trigger={showVote} />
     </SpokerWrapperGrid>

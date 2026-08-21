@@ -15,7 +15,7 @@ import { RoleType, roleOptions } from '~/lib/types/user';
 export const JoinRoom = () => {
   const router = useRouter();
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
   const [role, setRole] = useState<RoleType>(RoleType.participant);
   const [busy, setBusy] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -71,8 +71,8 @@ export const JoinRoom = () => {
               gap={2}
               templateColumns={{
                 base: '1fr',
-                sm: 'repeat(2, 1fr)',
                 md: 'repeat(3, 1fr)',
+                sm: 'repeat(2, 1fr)',
               }}
             >
               {roleOptions.map((roleOption) => (

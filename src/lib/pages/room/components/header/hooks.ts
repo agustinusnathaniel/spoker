@@ -21,7 +21,7 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
     roomData?.task.description
   );
   const params = useParams();
-  const id = params?.id as string;
+  const id = params.id as string;
 
   useEffect(() => {
     if (!isNil(roomData?.task.name)) {
@@ -63,8 +63,8 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
   );
 
   return {
-    name,
     description,
     handleUpdateTask,
+    name,
   };
 };

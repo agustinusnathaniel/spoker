@@ -28,11 +28,11 @@ export const SpokerInput = ({
   ...inputProps
 }: SpokerInputProps) => (
   <Field.Root invalid={invalid}>
-    {label && <Field.Label>{label}</Field.Label>}
+    {label ? <Field.Label>{label}</Field.Label> : null}
     <Input ref={ref} {...contraInputStyle} {...inputProps} />
-    {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}
-    {helperText && (
+    {errorText ? <Field.ErrorText>{errorText}</Field.ErrorText> : null}
+    {helperText ? (
       <Field.HelperText color="red.400">{helperText}</Field.HelperText>
-    )}
+    ) : null}
   </Field.Root>
 );

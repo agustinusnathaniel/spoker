@@ -27,8 +27,8 @@ export const useRoomListener = () => {
     useRoomStoreAction();
 
   const params = useParams();
-  const id = params?.id as string;
-  const firstRenderRef = useRef(true);
+  const id = params.id as string;
+  const firstRenderRef = useRef<boolean>(true);
 
   const handleOnDisconnect = useCallback(() => {
     if (currentUser?.uid) {
@@ -67,10 +67,11 @@ export const useRoomListener = () => {
   }, [id, setInRoom, userRole]);
 
   useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      getRoomData();
+    if (firstRenderRef.current === false) {
+      return;
     }
+    firstRenderRef.current = false;
+    getRoomData();
   }, [getRoomData]);
 
   useEffect(() => {
@@ -86,11 +87,11 @@ export const useRoomListener = () => {
 
       router.push(`/join/${id}`);
       toaster.create({
-        type: 'warning',
-        title: "You haven't pick any role yet",
         description:
           "Either you haven't join the room before or rejoin or disconnected / refreshed the page",
         duration: 15_000,
+        title: "You haven't pick any role yet",
+        type: 'warning',
       });
     }
   }, [

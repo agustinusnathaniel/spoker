@@ -8,8 +8,8 @@ import { trackEvent } from '~/lib/utils/track-event';
 export const ForgotPasswordButton = () => {
   const handleClickForgotPassword = () => {
     trackEvent({
-      eventName: 'open reset password',
       eventData: { type: EVENT_TYPE_AUTH },
+      eventName: 'open reset password',
     });
   };
 

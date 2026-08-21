@@ -37,7 +37,7 @@ export const AuthPopover = () => {
   const pathname = usePathname();
   const params = useParams();
 
-  const id = params?.id as string;
+  const id = params.id as string;
 
   const handleEditClick = () => {
     if (isEditingDisplayName) {
@@ -80,7 +80,7 @@ export const AuthPopover = () => {
   };
 
   const clearUserSessionData = async () => {
-    if (id && PRIVATE_ROUTES.includes(pathname ?? '') && currentUser) {
+    if (id && PRIVATE_ROUTES.includes(pathname) && currentUser) {
       await disconnectUser(id, currentUser.uid);
       router.push('/');
     }
@@ -91,8 +91,8 @@ export const AuthPopover = () => {
   const handleLogout = async () => {
     await clearUserSessionData();
     trackEvent({
-      eventName: 'sign out',
       eventData: { type: EVENT_TYPE_AUTH },
+      eventName: 'sign out',
     });
   };
 
