@@ -49,7 +49,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-fast-compare": "^3.2.2",
-    "react-hook-form": "^7.86.0",
+    "react-hook-form": "^7.85.0",
     "react-icons": "^5.7.0",
     "react-rewards": "^2.1.0",
     "react-textarea-autosize": "^8.5.9",
@@ -58,7 +58,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.10",
+    "@biomejs/biome": "2.5.9",
     "@commitlint/config-conventional": "^21.2.2",
     "@commitlint/cz-commitlint": "^21.2.2",
     "@commitlint/types": "^21.2.0",
