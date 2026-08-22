@@ -3,8 +3,6 @@ allowBuilds:
   '@sentry/cli': true
   protobufjs: false
   sharp: true
-overrides:
-  baseline-browser-mapping: 2.11.16
 minimumReleaseAgeExclude:
   - next
   - '@next/*'
