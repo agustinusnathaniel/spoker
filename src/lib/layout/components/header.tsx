@@ -1,6 +1,7 @@
 'use client';
 
 import { ClientOnly, Flex } from '@chakra-ui/react';
+import { Suspense } from 'react';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
 import { AuthPopover } from '~/lib/layout/components/auth/auth-popover';
@@ -12,7 +13,9 @@ export const Header = () => (
     <SpokerLogo />
 
     <Flex alignItems="center" gap={{ base: 2, md: 4 }} marginLeft="auto">
-      <AuthPopover />
+      <Suspense fallback={null}>
+        <AuthPopover />
+      </Suspense>
       <ClientOnly>
         <ThemeToggle />
       </ClientOnly>

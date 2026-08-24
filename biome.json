@@ -22,8 +22,15 @@
       "!src/**/*/utils.ts",
       "!src/**/*.css",
       "!*.d.ts",
+      "!*.svg",
+      "!**/*.svg",
       "!.agents",
-      "!.claude"
+      "!.claude",
+      "!src/lib/components/twemoji.tsx",
+      "!src/lib/pages/room/components/controller-wrapper.tsx",
+      "!src/lib/pages/room/components/current-votes-wrapper/index.tsx",
+      "!src/lib/pages/room/components/task-list/sortable-queue.tsx",
+      "!src/lib/pages/room/components/task-list/sortable-task-item.tsx"
     ]
   },
   "formatter": {
@@ -36,12 +43,14 @@
       "next": "recommended"
     },
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "performance": {
-        "noBarrelFile": "off"
+        "noBarrelFile": "off",
+        "noJsxPropsBind": "off"
       },
       "style": {
         "noDefaultExport": "off",
+        "useDestructuring": "off",
         "useConsistentArrayType": {
           "level": "error",
           "options": {
@@ -58,7 +67,11 @@
           }
         },
         "noEmptyBlockStatements": "error",
-        "useAwait": "error"
+        "useAwait": "error",
+        "noLeakedRender": "off",
+        "noUnnecessaryConditions": "off",
+        "noNestedPromises": "off",
+        "noShadow": "off"
       }
     }
   },

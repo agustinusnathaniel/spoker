@@ -24,7 +24,7 @@ export const VoteWrapper = () => {
 
   const handleUpdatePoint = async (point: number) => {
     if (currentUser && !(roomData?.config.isFreezeAfterVote && showVote)) {
-      await updatePoint({ uid: currentUser.uid, point, roomId: id });
+      await updatePoint({ point, roomId: id, uid: currentUser.uid });
       setSelectedPoint(String(point));
     }
   };

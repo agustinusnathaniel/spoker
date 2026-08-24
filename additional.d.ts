@@ -9,3 +9,9 @@ declare namespace umami {
     track(eventName: string, eventData?: Record<string, string | number>): void;
   }
 }
+
+declare module '*.mdx' {
+  import type { ComponentType } from 'react';
+  const Component: ComponentType;
+  export default Component;
+}

@@ -71,8 +71,8 @@ export const JoinRoom = () => {
               gap={2}
               templateColumns={{
                 base: '1fr',
-                sm: 'repeat(2, 1fr)',
                 md: 'repeat(3, 1fr)',
+                sm: 'repeat(2, 1fr)',
               }}
             >
               {roleOptions.map((roleOption) => (

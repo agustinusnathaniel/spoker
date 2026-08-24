@@ -63,8 +63,8 @@ export const useRoomHeader = ({ roomData, isOwner }: UseRoomHeaderArgs) => {
   );
 
   return {
-    name,
     description,
     handleUpdateTask,
+    name,
   };
 };

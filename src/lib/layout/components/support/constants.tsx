@@ -10,24 +10,24 @@ interface SponsorLink {
 
 export const sponsorLinks: Array<SponsorLink> = [
   {
+    icon: <FaGithub />,
     label: 'Github Sponsor',
     url: 'https://github.com/sponsors/agustinusnathaniel',
-    icon: <FaGithub />,
   },
   {
-    label: '🇮🇩 NBJ (Nih buat jajan)',
-    description: '(QRIS, GoPay, etc)',
-    url: 'https://www.nihbuatjajan.com/sozonome',
     colorScheme: 'orange',
+    description: '(QRIS, GoPay, etc)',
+    label: '🇮🇩 NBJ (Nih buat jajan)',
+    url: 'https://www.nihbuatjajan.com/sozonome',
   },
   {
+    colorScheme: 'blue',
     label: 'Ko-fi',
     url: 'https://ko-fi.com/sozonome',
-    colorScheme: 'blue',
   },
   {
+    colorScheme: 'yellow',
     label: 'Buy Me a Coffee',
     url: 'https://www.buymeacoffee.com/sozonome',
-    colorScheme: 'yellow',
   },
 ];

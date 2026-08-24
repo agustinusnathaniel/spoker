@@ -469,6 +469,76 @@ When suggesting code changes, consider:
 
 When in doubt, refer to SPEC.md for system invariants and expected behaviors.
 
+## Changelog Conventions
+
+When adding a user-facing changelog entry to `content/changelog/`, follow this workflow:
+
+### Step-by-step
+
+1. Create `content/changelog/v<version>.mdx` using the template below
+2. Add an import and entry to `content/changelog/entries.ts` (newest first)
+3. Validate: check git history to confirm features actually shipped in that version
+4. Validate: re-read from user perspective — no framework names, no library names, no technical terms
+5. Run `pnpm type:check` and `pnpm ultracite:check`
+
+### MDX file template
+
+```mdx
+export const version = "X.Y.Z";
+export const date = "YYYY-MM-DD";
+export const tag = "new"; // "new" | "improved" | "fixed"
+export const title = "Short Punchy Title";
+
+One-sentence subtitle that summarizes the value.
+
+### New Features
+
+- **Feature name** — description from user's perspective
+```
+
+### File: `entries.ts` pattern
+
+```ts
+import vX.Y.Z from './vX.Y.Z.mdx';
+
+// Add to the entries array (newest first):
+{
+  version: 'X.Y.Z',
+  date: 'YYYY-MM-DD',
+  tag: 'new',
+  title: 'Short Punchy Title',
+  slug: 'vX.Y.Z',
+  content: vX.Y.Z,
+},
+```
+
+### Writing rules
+
+- **Title**: 2-4 words, punchy. Examples: "Modern Makeover", "Dark Mode", "Task Queue".
+- **Subtitle**: One sentence that summarizes the value, not the implementation.
+- **Sections**: "New Features", "Improvements", "Bug Fixes" as needed. Not all required.
+- Second-person, direct, conversational — use "you" and "your"
+- Bold feature name + em dash + description: `**Feature name** — description`
+- Bug fixes are plain one-liners (no bold)
+- Always describe from the user's perspective, never mention implementation details
+- No emojis, no jargon, no framework/library names
+- **No framework names** — never mention Next.js, React, Chakra UI, Firebase, Zustand, etc.
+- **No library names** — never mention @dnd-kit, Sentry, Twemoji, Valibot, etc.
+- **No technical terms** — say "faster page loads" not "code splitting", say "smoother interactions" not "drag-and-drop library migration"
+- `tag`: "new" for features, "improved" for fixes/refinements
+
+### Bad examples (too technical)
+
+- "Migrated to Next.js App Router with streaming SSR"
+- "Replaced Zustand store selectors with useShallow"
+- "Updated Firebase SDK to v10"
+
+### Good examples (user-facing)
+
+- "Pages now load instantly with automatic code splitting"
+- "Switching to dark mode now applies immediately, no more white blink"
+- "Sign-in dialog now includes a quick link back to the home page"
+
 
 
 # Ultracite Code Standards

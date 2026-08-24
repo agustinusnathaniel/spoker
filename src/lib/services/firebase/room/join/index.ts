@@ -19,16 +19,16 @@ export const joinRoom = async (roomId: string, role: RoleType) => {
           );
 
         await update(snap.ref, {
+          isConnected: true,
           name: currentUser?.displayName,
           point: mustRemovePoint ? null : user.point || null,
           role,
-          isConnected: true,
         });
       } else {
         await set(child(roomsData, `${roomId}/users/${currentUser?.uid}`), {
+          isConnected: true,
           name: currentUser?.displayName,
           role,
-          isConnected: true,
         });
       }
     }

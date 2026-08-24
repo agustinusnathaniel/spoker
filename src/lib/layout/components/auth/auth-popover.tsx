@@ -91,8 +91,8 @@ export const AuthPopover = () => {
   const handleLogout = async () => {
     await clearUserSessionData();
     trackEvent({
-      eventName: 'sign out',
       eventData: { type: EVENT_TYPE_AUTH },
+      eventName: 'sign out',
     });
   };
 

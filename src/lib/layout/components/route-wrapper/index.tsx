@@ -56,8 +56,8 @@ export const RouteWrapper = ({ children }: RouteWrapperProps) => {
         if (!currentUser.emailVerified) {
           router.push('/');
           toaster.create({
-            title: 'Your email is not verified yet.',
             description: `Check your email (${currentUser.email}) for verification link.`,
+            title: 'Your email is not verified yet.',
             type: 'warning',
           });
         }

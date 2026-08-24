@@ -17,8 +17,8 @@ export const SignInProviders = () => {
       <Button
         _hover={{
           bgGradient: 'to-br',
-          gradientFrom: { _light: 'gray.subtle', _dark: 'white' },
-          gradientTo: { _light: 'blue.solid', _dark: 'blue.subtle' },
+          gradientFrom: { _dark: 'white', _light: 'gray.subtle' },
+          gradientTo: { _dark: 'blue.subtle', _light: 'blue.solid' },
         }}
         onClick={handleLoginWithGoogle}
       >

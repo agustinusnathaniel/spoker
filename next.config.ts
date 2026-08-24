@@ -1,26 +1,13 @@
+import createMDX from '@next/mdx';
 import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
 import { securityHeaders } from '~/lib/constants/security-headers';
 
+const withMDX = createMDX();
+
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  redirects: async () => [
-    {
-      source: '/intro',
-      destination: '/home',
-      permanent: true,
-    },
-  ],
-  headers: async () => [
-    {
-      source: '/(.*)',
-      headers: Object.entries(securityHeaders).map(([key, value]) => ({
-        key,
-        value,
-      })),
-    },
-  ],
+  cacheComponents: true,
   experimental: {
     optimizePackageImports: [
       '@chakra-ui/react',
@@ -29,10 +16,30 @@ const nextConfig: NextConfig = {
       '@dnd-kit/utilities',
       'react-icons',
     ],
+    useTypeScriptCli: true,
   },
+  headers: async () => [
+    {
+      headers: Object.entries(securityHeaders).map(([key, value]) => ({
+        key,
+        value,
+      })),
+      source: '/(.*)',
+    },
+  ],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  partialPrefetching: true,
+  reactStrictMode: true,
+  redirects: async () => [
+    {
+      destination: '/home',
+      permanent: true,
+      source: '/intro',
+    },
+  ],
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withMDX(nextConfig), {
   silent: true,
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.

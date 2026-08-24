@@ -25,9 +25,9 @@ export const submitVote = async ({
   const randomId = nanoid(21);
 
   const nextTask = queue?.[0] ?? {
+    description: 'Edit Me',
     id: randomId,
     name: 'Placeholder Story (end of Stories)',
-    description: 'Edit Me',
   };
   const updatedQueue = queue?.slice(1) ?? [];
   const updatedCompleted = [votedTask, ...(completed ?? [])];

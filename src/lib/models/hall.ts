@@ -11,19 +11,19 @@ const nanoid = customAlphabet(allowedChars);
 const randomId = nanoid();
 
 export const initialValues: CreateRoomFormType = {
-  name: '',
   id: randomId,
   isPrivate: false,
+  name: '',
   password: '',
 };
 
 export const createRoomFormSchema = z.object({
-  name: requiredString('Name must be filled'),
   id: requiredString('room id is required').regex(
     ALLOWED_CHAR_CHECK,
     'room id contain unallowed character'
   ),
   isPrivate: z.boolean(),
+  name: requiredString('Name must be filled'),
   password: z.string().optional(),
 });
 

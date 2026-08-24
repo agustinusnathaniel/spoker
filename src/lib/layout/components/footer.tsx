@@ -2,6 +2,7 @@
 
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { RiGithubFill } from 'react-icons/ri';
 
 import { SpokerLogo } from '~/lib/components/spoker-logo';
@@ -10,10 +11,16 @@ import { EVENT_TYPE_LINK } from '~/lib/constants/tracking';
 import { trackEvent } from '~/lib/utils/track-event';
 
 export const Footer = () => {
+  const [currentYear, setCurrentYear] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(String(new Date().getFullYear()));
+  }, []);
+
   const handleClick = (eventName: string) => () => {
     trackEvent({
-      eventName,
       eventData: { type: EVENT_TYPE_LINK },
+      eventName,
     });
   };
 
@@ -37,7 +44,7 @@ export const Footer = () => {
           <SpokerLogo />
         </Box>
         <Text color="gray" fontSize="sm">
-          2021 - {new Date().getFullYear()}
+          2021{currentYear ? ` - ${currentYear}` : ''}
           {' | '}
           <Link
             href="https://agustinusnathaniel.com"
@@ -57,11 +64,9 @@ export const Footer = () => {
         marginLeft={{ md: 'auto' }}
       >
         <Link
-          href={`${packageInfo.repository.url}/blob/main/CHANGELOG.md`}
-          onClick={handleClick('open repo changelog')}
-          rel="noopener noreferrer"
+          href="/changelog"
+          onClick={handleClick('open changelog')}
           style={{ fontSize: 'sm', fontWeight: 'bold' }}
-          target="_blank"
         >
           v{packageInfo.version}
         </Link>

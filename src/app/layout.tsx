@@ -10,52 +10,52 @@ import '@fontsource/gantari/latin.css';
 import '~/lib/styles/globals.css';
 
 export const metadata: Metadata = {
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'spoker',
+  },
+  description: 'Real-time multiplayer scrum poker with teams',
+  icons: {
+    apple: '/chip.svg',
+    icon: '/chip.svg',
+  },
+  manifest: '/manifest.json',
+  metadataBase: new URL('https://spoker.sznm.dev'),
+  openGraph: {
+    description: 'Real-time multiplayer scrum poker with teams',
+    images: [
+      {
+        alt: 'spoker og-image',
+        url: 'https://og.sznm.dev/api/generate?heading=Spoker&text=Scrum%20Poker%20with%20teams',
+      },
+    ],
+    locale: 'en_US',
+    siteName: 'spoker',
+    title: 'spoker',
+    type: 'website',
+    url: 'https://spoker.sznm.dev',
+  },
+  other: {
+    'format-detection': 'telephone=no',
+    'mobile-web-app-capable': 'yes',
+  },
   title: {
     default: 'spoker',
     template: '%s | spoker - real-time multiplayer scrum poker with teams',
   },
-  description: 'Real-time multiplayer scrum poker with teams',
-  metadataBase: new URL('https://spoker.sznm.dev'),
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://spoker.sznm.dev',
-    title: 'spoker',
-    description: 'Real-time multiplayer scrum poker with teams',
-    images: [
-      {
-        url: 'https://og.sznm.dev/api/generate?heading=Spoker&text=Scrum%20Poker%20with%20teams',
-        alt: 'spoker og-image',
-      },
-    ],
-    siteName: 'spoker',
-  },
   twitter: {
     card: 'summary_large_image',
-    site: '@agstnsnathaniel',
     creator: '@agstnsnathaniel',
-  },
-  icons: {
-    icon: '/chip.svg',
-    apple: '/chip.svg',
-  },
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    title: 'spoker',
-    statusBarStyle: 'default',
-  },
-  other: {
-    'mobile-web-app-capable': 'yes',
-    'format-detection': 'telephone=no',
+    site: '@agstnsnathaniel',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
-  width: 'device-width',
   initialScale: 1,
+  themeColor: '#FFFFFF',
   viewportFit: 'cover',
+  width: 'device-width',
 };
 
 export default function RootLayout({

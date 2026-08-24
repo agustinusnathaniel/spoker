@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: 'https:/spoker.sznm.dev',
   generateRobotsTxt: true,
+  siteUrl: 'https:/spoker.sznm.dev',
 };
 
 module.exports = NextSitemapConfig;

@@ -14,8 +14,8 @@ export const RoomHeader = () => {
   const { roomData } = useRoomStoreState();
   const { isOwner } = useUserRole();
   const { name, description, handleUpdateTask } = useRoomHeader({
-    roomData,
     isOwner,
+    roomData,
   });
 
   const content = useMemo(() => {

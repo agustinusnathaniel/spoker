@@ -1,7 +1,7 @@
 export const RoleType = {
+  observant: 'observant',
   owner: 'owner',
   participant: 'participant',
-  observant: 'observant',
 } as const;
 
 export type RoleType = (typeof RoleType)[keyof typeof RoleType];
