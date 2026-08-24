@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.0](https://github.com/agustinusnathaniel/spoker/compare/v1.17.7...v1.18.0) (2026-08-24)
+
+### Features
+
+* add user-facing changelog page ([68393cf](https://github.com/agustinusnathaniel/spoker/commit/68393cfcac760cf4765b08faec48f72a1aeda226))
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#449](https://github.com/agustinusnathaniel/spoker/issues/449)) ([8d3135f](https://github.com/agustinusnathaniel/spoker/commit/8d3135f9d2c292e996ef6a6b2455a0bf9fc68504))
+* **deps:** update all dependencies ([#450](https://github.com/agustinusnathaniel/spoker/issues/450)) ([fcd4ef0](https://github.com/agustinusnathaniel/spoker/commit/fcd4ef09c1a477976e4ba83c3a89beb8c775a9e1))
+* **deps:** update all dependencies ([#451](https://github.com/agustinusnathaniel/spoker/issues/451)) ([d61a14e](https://github.com/agustinusnathaniel/spoker/commit/d61a14e8fe8aebf6d789a0bfc78742526ecdb0cd))
+* **deps:** update all dependencies ([#459](https://github.com/agustinusnathaniel/spoker/issues/459)) ([f069aa9](https://github.com/agustinusnathaniel/spoker/commit/f069aa90bf06828808adba62e7e3f6322bf245a8))
+* **deps:** update all dependencies ([#468](https://github.com/agustinusnathaniel/spoker/issues/468)) ([f844c7b](https://github.com/agustinusnathaniel/spoker/commit/f844c7b18f05bfdf3f68f9e2300781c9afa27b45))
+* **deps:** update dependency react-hook-form to ^7.86.0 ([#471](https://github.com/agustinusnathaniel/spoker/issues/471)) ([4b6cea8](https://github.com/agustinusnathaniel/spoker/commit/4b6cea821f5f4eb47e1ca622de10a56f08b79c06))
 ## [1.17.7](https://github.com/agustinusnathaniel/spoker/compare/v1.17.6...v1.17.7) (2026-06-03)
 
 
