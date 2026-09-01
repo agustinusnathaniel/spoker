@@ -65,7 +65,7 @@
     "@eslint/eslintrc": "^3.3.6",
     "@jahed/firebase-rules": "^2.1.1",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.4.0",
     "@types/react": "19.2.18",
     "all-contributors-cli": "^6.26.1",
     "commit-and-tag-version": "^13.1.2",
