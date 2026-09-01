@@ -54,7 +54,7 @@
     "react-rewards": "^2.1.0",
     "react-textarea-autosize": "^8.5.9",
     "twemoji": "14.0.2",
-    "zod": "^4.4.3",
+    "zod": "^4.5.2",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
