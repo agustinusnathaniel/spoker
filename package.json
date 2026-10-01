@@ -78,7 +78,7 @@
     "next-sitemap": "^4.2.3",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2",
-    "ultracite": "7.10.7"
+    "ultracite": "7.12.1"
   },
   "packageManager": "pnpm@12.4.1",
   "engines": {
