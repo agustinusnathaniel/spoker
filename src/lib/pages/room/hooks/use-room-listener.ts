@@ -1,8 +1,8 @@
 'use client';
 
-import { child, onDisconnect, onValue } from 'firebase/database';
+import { child, off, onDisconnect, onValue } from 'firebase/database';
 import { useParams, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { toaster } from '~/lib/components/ui/toaster';
 import { useUserRole } from '~/lib/hooks/use-user-role';
@@ -28,7 +28,6 @@ export const useRoomListener = () => {
 
   const params = useParams();
   const id = params?.id as string;
-  const firstRenderRef = useRef(true);
 
   const handleOnDisconnect = useCallback(() => {
     if (currentUser?.uid) {
@@ -38,9 +37,11 @@ export const useRoomListener = () => {
     }
   }, [currentUser?.uid, id]);
 
-  const getRoomData = useCallback(() => {
+  // Subscribe to room data -- cleaned up on unmount
+  useEffect(() => {
     setInRoom(true);
-    onValue(child(roomsData, id), (snap) => {
+
+    const unsubscribe = onValue(child(roomsData, id), (snap) => {
       if (snap.exists()) {
         setRoomData(snap.val());
         handleOnDisconnect();
@@ -52,6 +53,11 @@ export const useRoomListener = () => {
         });
       }
     });
+
+    return () => {
+      off(child(roomsData, id));
+      unsubscribe();
+    };
   }, [handleOnDisconnect, id, router, setInRoom, setRoomData]);
 
   const removeUserFromRoom = async () => {
@@ -65,13 +71,6 @@ export const useRoomListener = () => {
     await rejoinRoom(id, userRole);
     setInRoom(true);
   }, [id, setInRoom, userRole]);
-
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      getRoomData();
-    }
-  }, [getRoomData]);
 
   useEffect(() => {
     if (roomData && currentUser && inRoom) {
@@ -109,14 +108,13 @@ export const useRoomListener = () => {
       roomData &&
       currentUser &&
       inRoom &&
-      currentUser &&
-      roomData.users?.[currentUser?.uid] &&
-      !roomData.users?.[currentUser.uid]?.isConnected;
+      roomData.users?.[currentUser.uid] &&
+      !roomData.users[currentUser.uid]?.isConnected;
 
     if (inRoomDisconnected) {
       handleRejoin();
     }
-  }, [currentUser, handleRejoin, inRoom, roomData, roomData?.users]);
+  }, [currentUser, handleRejoin, inRoom, roomData]);
 
   // Handle route change - remove user from room when leaving
   // biome-ignore lint/correctness/useExhaustiveDependencies: cleanup function
