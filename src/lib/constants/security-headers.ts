@@ -1,6 +1,6 @@
 const CSP_DIRECTIVES = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' umami.sznm.dev www.gstatic.com www.google.com apis.google.com",
+  "script-src 'self' 'unsafe-inline' umami.sznm.dev www.gstatic.com www.google.com apis.google.com *.firebaseio.com *.firebasedatabase.app",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: cdn.jsdelivr.net og.sznm.dev *.googleapis.com *.gstatic.com",
   "font-src 'self'",
