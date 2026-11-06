@@ -57,6 +57,7 @@ export const rules = {
                     validate(
                       newData.isString((newVal) =>
                         // biome-ignore lint/performance/useTopLevelRegex: -
+                        // biome-ignore lint/style/useUnicodeRegex: flags leak into generated RTDB rules via regex.toString(); RE2 does not accept JS flags
                         newVal.matches(/monkey|chicken|cow|fish|money/)
                       )
                     )

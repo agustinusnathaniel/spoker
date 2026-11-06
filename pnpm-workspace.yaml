@@ -1,8 +1,8 @@
 allowBuilds:
-  '@firebase/util': true
-  '@sentry/cli': true
+  "@firebase/util": true
+  "@sentry/cli": true
   protobufjs: false
   sharp: true
 minimumReleaseAgeExclude:
   - next
-  - '@next/*'
+  - "@next/*"
