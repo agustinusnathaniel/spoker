@@ -5,7 +5,7 @@ const CSP_DIRECTIVES = [
   "img-src 'self' data: blob: cdn.jsdelivr.net og.sznm.dev *.googleapis.com *.gstatic.com",
   "font-src 'self'",
   "connect-src 'self' https: wss://*.firebaseio.com wss://*.firebasedatabase.app",
-  'frame-src accounts.google.com www.google.com apis.google.com https://auth-spoker.sznm.dev',
+  'frame-src accounts.google.com www.google.com apis.google.com https://auth-spoker.sznm.dev *.firebaseio.com *.firebasedatabase.app',
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
