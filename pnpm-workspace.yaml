@@ -1,8 +1,22 @@
 allowBuilds:
-  '@firebase/util': true
-  '@sentry/cli': true
+  "@firebase/util": true
+  "@sentry/cli": true
   protobufjs: false
   sharp: true
 minimumReleaseAgeExclude:
   - next
-  - '@next/*'
+  - "@next/*"
+  # Day-0 transitive deps below are exempted by exact version only (each
+  # entry allows a single vetted publish; all other versions stay gated).
+  # Added 2026-11-06 when these were the newest available and broke the
+  # supply-chain policy check on a fresh resolve. Revisit: drop an entry
+  # once the lockfile no longer contains that version.
+  - caniuse-lite@1.0.30001823
+  - electron-to-chromium@1.5.478
+  - es-toolkit@1.53.2
+  - glob@14.0.4
+  - minimatch@11.0.5
+  - "@isaacs/nonrecursive-glob-match@1.1.0"
+  - mdast-util-to-markdown@2.2.3
+  - schema-utils@4.8.3
+  - vfile-message@4.0.4
