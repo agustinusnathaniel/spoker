@@ -40,9 +40,18 @@ export const JoinRoom = () => {
 
   const handleJoin = async () => {
     setIsLoading(true);
-    await joinRoom(id, role).then(() => {
+    try {
+      await joinRoom(id, role);
       router.push(`/room/${id}`);
-    });
+    } catch {
+      toaster.create({
+        description: 'Please check your connection and try again.',
+        title: 'Failed to join room',
+        type: 'error',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
