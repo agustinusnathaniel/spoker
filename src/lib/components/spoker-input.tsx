@@ -28,6 +28,7 @@ export const SpokerInput = ({
   ...inputProps
 }: SpokerInputProps) => (
   <Field.Root invalid={invalid}>
+    {/* biome-ignore lint/a11y/noLabelWithoutControl: Chakra Field.Label auto-associates with the control via Field.Root context (ark-ui htmlFor) */}
     {label && <Field.Label>{label}</Field.Label>}
     <Input ref={ref} {...contraInputStyle} {...inputProps} />
     {errorText && <Field.ErrorText>{errorText}</Field.ErrorText>}

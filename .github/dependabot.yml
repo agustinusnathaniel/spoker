@@ -9,4 +9,4 @@ updates:
       - "dependencies"
     ignore:
       - dependency-name: "@chakra-ui/react"
-        versions: [">=3.0.0"]
+        versions: [ ">=3.0.0" ]

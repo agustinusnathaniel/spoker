@@ -1,5 +1,5 @@
 import createMDX from '@next/mdx';
-import { withSentryConfig } from '@sentry/nextjs';
+import { withSentryConfig } from '@sentry/nextjs/config';
 import type { NextConfig } from 'next';
 
 import { securityHeaders } from '~/lib/constants/security-headers';

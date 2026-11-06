@@ -31,6 +31,7 @@ export const AutoResizeTextarea = ({
   ...props
 }: AutoResizeTextareaProps) => (
   <Field.Root invalid={invalid}>
+    {/* biome-ignore lint/a11y/noLabelWithoutControl: Chakra Field.Label auto-associates with the control via Field.Root context (ark-ui htmlFor) */}
     {label && <Field.Label>{label}</Field.Label>}
     <Textarea
       as={ResizeTextarea}
